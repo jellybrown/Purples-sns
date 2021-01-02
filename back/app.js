@@ -6,6 +6,9 @@ import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 
+import userRoutes from "./routes/api/user";
+import authRoutes from "./routes/api/auth";
+
 const app = express();
 const { MONGO_URI } = config;
 
@@ -27,5 +30,7 @@ mongoose
   .catch((e) => console.log(e));
 
 app.get("/");
+app.use("/api/user", userRoutes);
+app.use("/api/auth", authRoutes);
 
 export default app;
