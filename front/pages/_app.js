@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import Head from "next/head";
+import GlobalStyles from "../components/globalStyles";
 const App = ({ Component }) => {
   return (
     <>
@@ -26,6 +27,7 @@ const App = ({ Component }) => {
           rel="stylesheet"
         ></link>
       </Head>
+      <GlobalStyles />
       <Component />
     </>
   );
