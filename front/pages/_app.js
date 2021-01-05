@@ -26,6 +26,6 @@ const App = ({ Component }) => {
   );
 };
 App.propTypes = {
-  Component: PropTypes.element.isRequired,
+  Component: PropTypes.elementType.isRequired,
 };
 export default App;
