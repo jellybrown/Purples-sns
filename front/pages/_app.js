@@ -23,7 +23,7 @@ const App = ({ Component }) => {
         <title>Purples</title>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&family=Yellowtail&display=swap"
           rel="stylesheet"
         ></link>
       </Head>
