@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-const Logo = () => {
-  const StyledLogo = styled.div`
-    font-family: "Yellowtail";
-    font-size: 3rem;
-  `;
+const StyledLogo = styled.div`
+  font-family: "Yellowtail";
+  font-size: 3rem;
+`;
 
+const Logo = () => {
   return <StyledLogo>Purples</StyledLogo>;
 };
 
