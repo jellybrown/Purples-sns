@@ -3,6 +3,7 @@ import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
+import Input from "../styles/input";
 
 const SignupForm = () => {
   const { register, handleSubmit, watch, errors } = useForm();
@@ -15,7 +16,7 @@ const SignupForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <FiMail />
-        <input
+        <Input
           name="email"
           type="email"
           placeholder="Email..."
@@ -31,7 +32,7 @@ const SignupForm = () => {
       {errors.email?.type === "maxLength" && <p>이메일을 확인해주세요.</p>}
       <div>
         <BsFillPersonFill />
-        <input
+        <Input
           name="nickname"
           placeholder="Nickname..."
           ref={register({
@@ -46,7 +47,7 @@ const SignupForm = () => {
       )}
       <div>
         <HiLockClosed />
-        <input
+        <Input
           name="password"
           type="password"
           placeholder="Password..."
@@ -59,7 +60,7 @@ const SignupForm = () => {
       )}
       <div>
         <HiLockClosed />
-        <input
+        <Input
           name="confirm_password"
           type="password"
           placeholder="Confirm password..."
@@ -80,7 +81,7 @@ const SignupForm = () => {
         <p>비밀번호가 일치하지 않습니다.</p>
       )}
 
-      <input value="가입하기" type="submit" />
+      <Input isBtn value="가입하기" type="submit" />
     </form>
   );
 };
