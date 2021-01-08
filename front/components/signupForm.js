@@ -1,4 +1,6 @@
 import { FiMail } from "react-icons/fi";
+import { BsFillPersonFill } from "react-icons/Bs";
+import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 
@@ -28,7 +30,7 @@ const SignupForm = () => {
       {errors.email?.type === "pattern" && <p>이메일 형식이 맞지 않습니다.</p>}
       {errors.email?.type === "maxLength" && <p>이메일을 확인해주세요.</p>}
       <div>
-        <FiMail />
+        <BsFillPersonFill />
         <input
           name="nickname"
           placeholder="Nickname..."
@@ -43,7 +45,7 @@ const SignupForm = () => {
         <p>닉네임은 2자이상 입력해주세요.</p>
       )}
       <div>
-        <FiMail />
+        <HiLockClosed />
         <input
           name="password"
           type="password"
@@ -56,7 +58,7 @@ const SignupForm = () => {
         <p>비밀번호는 6자이상 입력해주세요.</p>
       )}
       <div>
-        <FiMail />
+        <HiLockClosed />
         <input
           name="confirm_password"
           type="password"
@@ -68,7 +70,6 @@ const SignupForm = () => {
           })}
         />
       </div>
-      {/* errors will return when field validation fails  */}
       {errors.confirm_password?.type === "required" && (
         <p>비밀번호 확인이 필요합니다.</p>
       )}
