@@ -5,6 +5,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Noto Sans KR', sans-serif;
     width:100%;
     background: #333;
+    position:relative;
+    height:100vh;
   }
   * {
     box-sizing:border-box;
