@@ -7,15 +7,19 @@ import Input from "../styles/input";
 import styled from "styled-components";
 
 const SignupForm = () => {
+  const password = useRef();
   const { register, handleSubmit, watch, errors } = useForm();
 
-  const password = useRef();
   password.current = watch("password");
 
   const onSubmit = (data) => console.log(data);
 
   const InputWrapper = styled.div`
     position: relative;
+  `;
+
+  const ErrorMessage = styled.p`
+    color: red;
   `;
 
   return (
@@ -51,9 +55,15 @@ const SignupForm = () => {
           })}
         />
       </InputWrapper>
-      {errors.email?.type === "required" && <p>이메일을 입력해주세요.</p>}
-      {errors.email?.type === "pattern" && <p>이메일 형식이 맞지 않습니다.</p>}
-      {errors.email?.type === "maxLength" && <p>이메일을 확인해주세요.</p>}
+      {errors.email?.type === "required" && (
+        <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
+      )}
+      {errors.email?.type === "pattern" && (
+        <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
+      )}
+      {errors.email?.type === "maxLength" && (
+        <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
+      )}
       <InputWrapper>
         <BsFillPersonFill
           style={{
@@ -74,9 +84,11 @@ const SignupForm = () => {
           })}
         />
       </InputWrapper>
-      {errors.nickname?.type === "required" && <p>닉네임을 입력해주세요.</p>}
+      {errors.nickname?.type === "required" && (
+        <ErrorMessage>닉네임을 입력해주세요.</ErrorMessage>
+      )}
       {errors.nickname?.type === "minLength" && (
-        <p>닉네임은 2자이상 입력해주세요.</p>
+        <ErrorMessage>닉네임은 2자이상 입력해주세요.</ErrorMessage>
       )}
       <InputWrapper>
         <HiLockClosed
@@ -96,9 +108,11 @@ const SignupForm = () => {
           ref={register({ required: true, minLength: 6 })}
         />
       </InputWrapper>
-      {errors.password?.type === "required" && <p>비밀번호를 입력해주세요.</p>}
+      {errors.password?.type === "required" && (
+        <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
+      )}
       {errors.password?.type === "minLength" && (
-        <p>비밀번호는 6자이상 입력해주세요.</p>
+        <ErrorMessage>비밀번호는 6자이상 입력해주세요.</ErrorMessage>
       )}
       <InputWrapper>
         <HiLockClosed
@@ -123,13 +137,13 @@ const SignupForm = () => {
         />
       </InputWrapper>
       {errors.confirm_password?.type === "required" && (
-        <p>비밀번호 확인이 필요합니다.</p>
+        <ErrorMessage>비밀번호 확인이 필요합니다.</ErrorMessage>
       )}
       {errors.confirm_password?.type === "minLength" && (
-        <p>비밀번호는 6자이상 입력해주세요.</p>
+        <ErrorMessage>비밀번호는 6자이상 입력해주세요.</ErrorMessage>
       )}
       {errors.confirm_password?.type === "validate" && (
-        <p>비밀번호가 일치하지 않습니다.</p>
+        <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
       )}
 
       <Input
