@@ -8,9 +8,12 @@ const StyledInput = styled.input`
   border-radius: 25px;
   font-size: 1rem;
   outline: none;
-  color: ${({ isBtn }) => (isBtn ? `#fff` : `rgba(255, 255, 255, 0.4)`)};
+  color: ${({ isBtn }) => (isBtn ? `#fff` : `rgba(255, 255, 255, 0.5)`)};
   background: ${({ isBtn }) => (isBtn ? `rgba(255, 255, 255, 0.1)` : `none`)};
   cursor: ${({ isBtn }) => (isBtn ? `pointer` : `text`)};
+  &::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
 `;
 
 const Input = ({ ...props }) => {
