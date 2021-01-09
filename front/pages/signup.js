@@ -4,7 +4,9 @@ import SignupForm from "../components/signupForm";
 const Signup = () => {
   return (
     <>
-      <Logo />
+      <div style={{ textAlign: "center", marginTop: "2em" }}>
+        <Logo isForm />
+      </div>
       <SignupForm />
     </>
   );
