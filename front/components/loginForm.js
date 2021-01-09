@@ -107,7 +107,7 @@ const LoginForm = () => {
             paddingRight: "1.5em",
           }}
         >
-          이미 회원입니다.
+          아직 회원이 아니신가요?
         </a>
       </form>
     </>
