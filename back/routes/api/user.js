@@ -26,9 +26,9 @@ router.get("/", async (req, res) => {
 // @desc      Register user
 // @access    public
 router.post("/", async (req, res) => {
-  const { email, name, nickname, profileImageUrl, password } = req.body;
+  const { email, nickname, profileImageUrl, password } = req.body;
 
-  if (!email || !name || !nickname || !password) {
+  if (!email || !nickname || !password) {
     return res.status(400).json({ msg: "모든 필드를 채워주세요." });
   }
 
@@ -38,7 +38,6 @@ router.post("/", async (req, res) => {
 
     const newUser = new User({
       email,
-      name,
       nickname,
       profileImageUrl,
       password,
@@ -60,7 +59,6 @@ router.post("/", async (req, res) => {
                 user: {
                   id: user.id,
                   email: user.email,
-                  name: user.name,
                   nickname: user.nickname,
                   profileImageUrl: user.profileImageUrl,
                 },
@@ -71,6 +69,43 @@ router.post("/", async (req, res) => {
       });
     });
   });
+});
+
+// @route   POST api/user/:username/profile
+// @desc    POST Edit Password
+// @access  Private
+router.post("/:userName/profile", async (req, res) => {
+  try {
+    const { previousPassword, password, rePassword, userId } = req.body;
+
+    const result = await User.findById(userId, "password");
+    bcrypt.compare(previousPassword, result.password).then((isMatch) => {
+      if (!isMatch) {
+        return res.status(400).json({
+          match_msg: "기존 비밀번호와 일치하지 않습니다.",
+        });
+      } else {
+        if (password === rePassword) {
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err;
+
+            result.password = hash;
+            result.save();
+          });
+
+          res
+            .status(200)
+            .json({ success_msg: "비밀번호 업데이트에 성공했습니다." });
+        } else {
+          res
+            .status(400)
+            .json({ fail_msg: "새로운 비밀번호가 일치하지 않습니다." });
+        }
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 export default router;
