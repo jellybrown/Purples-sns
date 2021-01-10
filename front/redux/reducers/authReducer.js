@@ -17,10 +17,10 @@ const authReducer = (state = initialState, action) => {
     case REGISTER_REQUEST:
       return {
         ...state,
+        successMsg: "",
         errorMsg: "",
         isLoading: true,
       };
-
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
       return {
@@ -30,6 +30,7 @@ const authReducer = (state = initialState, action) => {
         isLoading: false,
         userId: action.payload.user.id,
         userRole: action.payload.user.role,
+        successMsg: "회원가입에 성공하였습니다.",
         errorMsg: "",
       };
     case REGISTER_FAILURE:
@@ -42,6 +43,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         isLoading: false,
         userRole: null,
+        successMsg: "",
         errorMsg: action.payload.data.msg,
       };
     default:
