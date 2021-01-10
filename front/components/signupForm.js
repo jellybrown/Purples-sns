@@ -57,7 +57,7 @@ const SignupForm = () => {
         minWidth: "300px",
         maxWidth: "400px",
       }}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <InputWrapper>
         <FiMail
