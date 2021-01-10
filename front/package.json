@@ -10,12 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "immer": "^8.0.0",
     "next": "^9.5.5",
-    "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^6.0.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
