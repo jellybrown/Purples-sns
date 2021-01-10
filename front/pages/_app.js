@@ -1,7 +1,20 @@
+import React from "react";
+
+import { createStore, applyMiddleware, Store, compose } from "redux";
+import { createWrapper, Context, MakeStore } from "next-redux-wrapper";
+import createSagaMiddleware from "redux-saga"; // redux-saga를 생성하기 위한 라이브러리
+import rootReducer from "../redux/reducers";
+import rootSaga from "../redux/sagas"; // sagas의 index.js를 가지고온다.
+
+import { Provider } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import withReduxSaga from "next-redux-saga"; // next와 redux-saga를 연결하기 위한 라이브러리
+
 import PropTypes from "prop-types";
 import Head from "next/head";
 import GlobalStyles from "../components/globalStyles";
-const App = ({ Component }) => {
+
+const App = ({ Component, store }) => {
   return (
     <>
       <Head>
@@ -32,7 +45,30 @@ const App = ({ Component }) => {
     </>
   );
 };
+
+const makeStore = (initialState = {}, options) => {
+  // Create the middleware
+  const sagaMiddleware = createSagaMiddleware();
+
+  const middlewares = [sagaMiddleware];
+  const enhancer =
+    process.env.NODE_ENV === "production"
+      ? compose(applyMiddleware(...middlewares))
+      : composeWithDevTools(applyMiddleware(...middlewares));
+
+  // Add an extra parameter for applying middleware
+  // const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  const store = createStore(rootReducer, initialState, enhancer);
+
+  // Run your sagas on server
+  store.sagaTask = sagaMiddleware.run(rootSaga);
+
+  // Return the store
+  return store;
+};
+
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
-export default App;
+
+export default createWrapper(makeStore, { debug: true }).withRedux(App);
