@@ -2,7 +2,7 @@ import { FiMail } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Input from "../styles/input";
 import styled from "styled-components";
 
@@ -150,16 +150,20 @@ const SignupForm = () => {
         isBtn
         value="가입하기"
         type="submit"
-        style={{
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-          bottom: "5em",
-          width: "40%",
-          minWidth: "300px",
-          maxWidth: "400px",
-        }}
+        style={{ marginTop: "2.5em" }}
       />
+      <a
+        style={{
+          display: "block",
+          width: "100%",
+          fontSize: "0.8em",
+          color: "rgba(255,255,255,0.4)",
+          textAlign: "right",
+          paddingRight: "1.5em",
+        }}
+      >
+        이미 회원입니다.
+      </a>
     </form>
   );
 };
