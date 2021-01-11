@@ -8,6 +8,8 @@ import Input from "../styles/input";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { REGISTER_REQUEST } from "../redux/types";
+import Link from "next/link";
+import { StyledAtag } from "../styles/aTag";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -172,18 +174,9 @@ const SignupForm = () => {
         type="submit"
         style={{ marginTop: "2.5em" }}
       />
-      <a
-        style={{
-          display: "block",
-          width: "100%",
-          fontSize: "0.8em",
-          color: "rgba(255,255,255,0.4)",
-          textAlign: "right",
-          paddingRight: "1.5em",
-        }}
-      >
-        이미 회원입니다.
-      </a>
+      <Link href="/">
+        <StyledAtag>이미 회원입니다.</StyledAtag>
+      </Link>
     </form>
   );
 };

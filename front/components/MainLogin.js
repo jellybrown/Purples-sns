@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { StyledAtag } from "../styles/aTag";
 import { GradientBg } from "../styles/bg";
 import Button from "../styles/button";
 import Logo from "./logo";
@@ -17,20 +19,14 @@ const MainLogin = () => {
           <Logo isForm />
         </div>
         <div style={{ paddingTop: "4em" }}>
-          <Button transparent>로그인</Button>
-          <a
-            style={{
-              display: "block",
-              width: "100%",
-              fontSize: "0.8em",
-              color: "rgba(255,255,255,0.4)",
-              textAlign: "right",
-              paddingRight: "1.5em",
-              marginBottom: "2em",
-            }}
-          >
-            아직 회원이 아니신가요?
-          </a>
+          <Link href="/login">
+            <a>
+              <Button transparent>로그인</Button>
+            </a>
+          </Link>
+          <Link href="/signup">
+            <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
+          </Link>
           <Button>kakao로 로그인</Button>
           <Button>google로 로그인</Button>
         </div>
