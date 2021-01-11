@@ -2,18 +2,20 @@ import { FiMail } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Input from "../styles/input";
 import styled from "styled-components";
 
 const LoginForm = () => {
-  const password = useRef();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
+  const [loading, setLoading] = useState(false);
 
-  password.current = watch("password");
-
-  const onSubmit = (data) => console.log(data);
-
+  const onSubmit = (data) => {
+    setLoading(true);
+    const loginUser = { email: data.email, password: data.password };
+    console.log(loginUser);
+    setLoading(false);
+  };
   const InputWrapper = styled.div`
     position: relative;
   `;
@@ -98,6 +100,7 @@ const LoginForm = () => {
           value="로그인"
           type="submit"
           style={{ marginTop: "3em" }}
+          disabled={loading}
         />
         <a
           style={{
