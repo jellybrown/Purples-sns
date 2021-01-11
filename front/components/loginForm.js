@@ -26,7 +26,7 @@ const LoginForm = () => {
     <>
       <form
         style={{
-          paddingTop: "5em",
+          paddingTop: "4em",
           margin: "0 auto",
           width: "40%",
           minWidth: "300px",
