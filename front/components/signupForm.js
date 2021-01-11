@@ -1,11 +1,12 @@
+import React, { useEffect } from "react";
 import { FiMail } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Input from "../styles/input";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { REGISTER_REQUEST } from "../redux/types";
 
 const InputWrapper = styled.div`
@@ -20,35 +21,26 @@ const ErrorMessage = styled.p`
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const [form, setValue] = useState({
-    email: "",
-    nickname: "",
-    password: "",
-    confirm_password: "",
-  });
+  const { successMsg, errorMsg } = useSelector((state) => state.auth);
 
   const password = useRef();
   const { register, handleSubmit, watch, errors } = useForm();
 
   password.current = watch("password");
 
-  const onChange = (e) => {
-    setValue({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const { email, nickname, password } = form;
+  const onSubmit = (data) => {
+    const { email, nickname, password } = data;
     const newUser = { nickname, email, password };
-    console.log("newUser: ", newUser);
     dispatch({
       type: REGISTER_REQUEST,
       payload: newUser,
     });
   };
+
+  useEffect(() => {
+    !errorMsg != "" || alert(errorMsg);
+    !successMsg != "" || alert(successMsg);
+  }, [successMsg, errorMsg]);
 
   return (
     <form
@@ -75,9 +67,7 @@ const SignupForm = () => {
         <Input
           name="email"
           type="email"
-          value={form.email}
           placeholder="Email..."
-          onChange={onChange}
           ref={register({
             required: true,
             pattern: /^\S+@\S+$/i,
@@ -107,7 +97,6 @@ const SignupForm = () => {
         />
         <Input
           name="nickname"
-          onChange={onChange}
           placeholder="Nickname..."
           ref={register({
             required: true,
@@ -134,7 +123,6 @@ const SignupForm = () => {
         />
         <Input
           name="password"
-          onChange={onChange}
           type="password"
           placeholder="Password..."
           ref={register({ required: true, minLength: 6 })}
@@ -159,7 +147,6 @@ const SignupForm = () => {
         />
         <Input
           name="confirm_password"
-          onChange={onChange}
           type="password"
           placeholder="Confirm password..."
           ref={register({
