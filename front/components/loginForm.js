@@ -6,25 +6,23 @@ import { useRef, useState } from "react";
 import Input from "../styles/input";
 import styled from "styled-components";
 
+const InputWrapper = styled.div`
+  position: relative;
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 0.8rem;
+  padding-left: 2em;
+  color: rgba(255, 255, 255, 0.8);
+`;
+
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data) => {
-    setLoading(true);
     const loginUser = { email: data.email, password: data.password };
     console.log(loginUser);
-    setLoading(false);
   };
-  const InputWrapper = styled.div`
-    position: relative;
-  `;
-
-  const ErrorMessage = styled.p`
-    font-size: 0.8rem;
-    padding-left: 2em;
-    color: rgba(255, 255, 255, 0.8);
-  `;
 
   return (
     <>
@@ -100,7 +98,6 @@ const LoginForm = () => {
           value="로그인"
           type="submit"
           style={{ marginTop: "3em" }}
-          disabled={loading}
         />
         <a
           style={{
