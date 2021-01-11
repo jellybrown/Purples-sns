@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import Input from "../styles/input";
 import styled from "styled-components";
+import Link from "next/link";
+import { StyledAtag } from "../styles/aTag";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -99,18 +101,9 @@ const LoginForm = () => {
           type="submit"
           style={{ marginTop: "3em" }}
         />
-        <a
-          style={{
-            display: "block",
-            width: "100%",
-            fontSize: "0.8em",
-            color: "rgba(255,255,255,0.4)",
-            textAlign: "right",
-            paddingRight: "1.5em",
-          }}
-        >
-          아직 회원이 아니신가요?
-        </a>
+        <Link href="/signup">
+          <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
+        </Link>
       </form>
     </>
   );
