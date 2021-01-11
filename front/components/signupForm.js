@@ -13,7 +13,9 @@ const InputWrapper = styled.div`
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
+  font-size: 0.8rem;
+  padding-left: 2em;
+  color: rgba(255, 255, 255, 0.8);
 `;
 
 const SignupForm = () => {
