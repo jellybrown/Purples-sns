@@ -1,6 +1,20 @@
 import axios from "axios";
-import { call, put, takeEvery, all, fork } from "redux-saga/effects";
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from "../types";
+import {
+  call,
+  put,
+  takeEvery,
+  all,
+  fork,
+  takeLatest,
+} from "redux-saga/effects";
+import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  LOG_IN_REQUEST,
+  LOG_IN_FAILURE,
+  LOG_IN_SUCCESS,
+} from "../types";
 
 // Register
 const registerUserAPI = (req) => {
@@ -16,10 +30,30 @@ function* registerUser(action) {
       type: REGISTER_SUCCESS,
       payload: result.data,
     });
-  } catch (e) {
+  } catch (err) {
     yield put({
       type: REGISTER_FAILURE,
-      payload: e.response,
+      payload: err.response,
+    });
+  }
+}
+
+//login
+const loginUserAPI = (req) => {
+  axios.post("api/login", req);
+};
+
+function* loginUser(action) {
+  try {
+    const result = yield call(loginUserAPI, action.payload);
+    yield put({
+      type: LOG_IN_SUCCESS,
+      payload: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOG_IN_FAILURE,
+      payload: err.response,
     });
   }
 }
@@ -28,6 +62,10 @@ function* watchRegisterUser() {
   yield takeEvery(REGISTER_REQUEST, registerUser);
 }
 
+function* watchLoginUser() {
+  yield takeLatest(LOG_IN_REQUEST, loginUser);
+}
+
 export default function* authSaga() {
-  yield all([fork(watchRegisterUser)]);
+  yield all([fork(watchRegisterUser), fork(watchLoginUser)]);
 }

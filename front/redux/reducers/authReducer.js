@@ -1,4 +1,11 @@
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from "../types";
+import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+  LOG_IN_REQUEST,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAILURE,
+} from "../types";
 
 const initialState = {
   isAuthenticated: null,
@@ -45,6 +52,19 @@ const authReducer = (state = initialState, action) => {
         userRole: null,
         successMsg: "",
         errorMsg: action.payload.data.msg,
+      };
+    case LOG_IN_REQUEST:
+      return {
+        ...state,
+      };
+    case LOG_IN_SUCCESS:
+      return {
+        ...state,
+        data: action.data, //email, password
+      };
+    case LOG_IN_FAILURE:
+      return {
+        ...state,
       };
     default:
       return state;

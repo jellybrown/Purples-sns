@@ -7,6 +7,8 @@ import Input from "../styles/input";
 import styled from "styled-components";
 import Link from "next/link";
 import { StyledAtag } from "../styles/aTag";
+import { useDispatch } from "react-redux";
+import { LOG_IN_REQUEST } from "../redux/types";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -20,10 +22,14 @@ const ErrorMessage = styled.p`
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     const loginUser = { email: data.email, password: data.password };
-    console.log(loginUser);
+    dispatch({
+      type: LOG_IN_REQUEST,
+      payload: loginUser,
+    });
   };
 
   return (
