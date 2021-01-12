@@ -8,8 +8,11 @@ import {
 } from "../types";
 
 const initialState = {
+  registerLoading: false,
   isAuthenticated: null,
-  isLoading: false,
+  loginLoading: false,
+  loginDone: false,
+  loginError: null,
   user: "",
   userId: "",
   userName: "",
@@ -26,7 +29,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         successMsg: "",
         errorMsg: "",
-        isLoading: true,
+        registerLoading: true,
       };
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
@@ -34,7 +37,8 @@ const authReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        isLoading: false,
+        registerLoading: false,
+        registerDone: true,
         userId: action.payload.user.id,
         userRole: action.payload.user.role,
         successMsg: "회원가입에 성공하였습니다.",
@@ -48,7 +52,7 @@ const authReducer = (state = initialState, action) => {
         user: null,
         userId: null,
         isAuthenticated: false,
-        isLoading: false,
+        registerLoading: false,
         userRole: null,
         successMsg: "",
         errorMsg: action.payload.data.msg,
@@ -56,15 +60,23 @@ const authReducer = (state = initialState, action) => {
     case LOG_IN_REQUEST:
       return {
         ...state,
+        loginLoading: true,
+        loginDone: false,
+        loginError: null,
       };
     case LOG_IN_SUCCESS:
       return {
         ...state,
+        loginLoading: false,
+        loginDone: true,
+        loginError: null,
         data: action.data, //email, password
       };
     case LOG_IN_FAILURE:
       return {
         ...state,
+        loginLoading: false,
+        loginError: action.error,
       };
     default:
       return state;
