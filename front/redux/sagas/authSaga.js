@@ -40,7 +40,7 @@ function* registerUser(action) {
 
 //login
 const loginUserAPI = (req) => {
-  axios.post("api/login", req);
+  return axios.post("api/login", req);
 };
 
 function* loginUser(action) {
