@@ -8,11 +8,14 @@ const MainHeader = () => {
   return (
     <div
       style={{
+        zIndex: "2",
         alignItems: "center",
         borderBottom: "1px solid #E1E1E1",
         padding: "0.8em 3em",
-        position: "relative",
+        position: "fixed",
         textAlign: "center",
+        width: "100%",
+        background: "#fff",
       }}
     >
       <AiOutlineHome
