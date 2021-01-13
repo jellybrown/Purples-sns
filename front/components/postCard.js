@@ -1,8 +1,6 @@
 import { Card, Avatar } from "antd";
+import CardContent from "./cardContent";
 
-import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
-import { FaHeart } from "react-icons/fa";
-import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 const { Meta } = Card;
 
 const PostCard = () => {
@@ -17,16 +15,7 @@ const PostCard = () => {
           />
         }
       >
-        <Meta
-          avatar={
-            <Avatar
-              bodyStyle={{ width: "30px" }}
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
-          }
-          title="Card title"
-          description="This is the description"
-        />
+        <CardContent />
       </Card>
     </>
   );
