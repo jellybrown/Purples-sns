@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import MainHome from "../components/mainHome";
 import MainLogin from "../components/mainLogin";
 
 const Main = () => {
@@ -6,7 +7,7 @@ const Main = () => {
   {
     /* 임시 로그인  */
   }
-  return <div>{fakeLoggedin ? <div>mainPage</div> : <MainLogin />}</div>;
+  return <div>{fakeLoggedin ? <MainHome /> : <MainLogin />}</div>;
 };
 
 export default Main;
