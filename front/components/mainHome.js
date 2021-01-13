@@ -1,9 +1,10 @@
 import Layout from "./layout";
+import PostCard from "./postCard";
 
 const MainHome = () => {
   return (
     <Layout>
-      <div>mainHome의 content</div>
+      <PostCard />
     </Layout>
   );
 };

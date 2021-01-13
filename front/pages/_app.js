@@ -6,7 +6,7 @@ import createSagaMiddleware from "redux-saga"; // redux-saga를 생성하기 위
 import rootReducer from "../redux/reducers";
 import rootSaga from "../redux/sagas"; // sagas의 index.js를 가지고온다.
 import { composeWithDevTools } from "redux-devtools-extension"; // redux devtools
-
+import "antd/dist/antd.css";
 import PropTypes from "prop-types";
 import Head from "next/head";
 import GlobalStyles from "../components/globalStyles";
