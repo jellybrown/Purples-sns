@@ -7,6 +7,6 @@ export const GradientBg = styled.section`
 
 export const LightColorBg = styled.section`
   min-height: 100vh;
-  background: linear-gradient(#824adc, #2f69ad);
-  opacity: 0.11;
+  background: linear-gradient(#f1ebfb, #e9eef6);
+  padding: 4em 0;
 `;
