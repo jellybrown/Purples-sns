@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     font-family: 'Noto Sans KR', sans-serif;
     width:100%;
-    
+    font-size:16px;
     position:relative;
     height:100vh;
   }
