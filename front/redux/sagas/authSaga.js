@@ -14,12 +14,16 @@ import {
   LOG_IN_REQUEST,
   LOG_IN_FAILURE,
   LOG_IN_SUCCESS,
+  USER_LOADING_SUCCESS,
+  USER_LOADING_FAILURE,
+  USER_LOADING_REQUEST,
 } from "../types";
+import Router from "next/router";
 
 // Register
-const registerUserAPI = (req) => {
-  console.log(req, "req");
-  return axios.post("api/user", req);
+const registerUserAPI = (payload) => {
+  console.log(payload, "register request");
+  return axios.post("api/user", payload);
 };
 
 function* registerUser(action) {
@@ -30,6 +34,7 @@ function* registerUser(action) {
       type: REGISTER_SUCCESS,
       payload: result.data,
     });
+    yield Router.push("/login");
   } catch (err) {
     yield put({
       type: REGISTER_FAILURE,
@@ -39,8 +44,13 @@ function* registerUser(action) {
 }
 
 //login
-const loginUserAPI = (req) => {
-  return axios.post("api/login", req);
+const loginUserAPI = (payload) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return axios.post("api/auth", payload, config);
 };
 
 function* loginUser(action) {
@@ -50,10 +60,40 @@ function* loginUser(action) {
       type: LOG_IN_SUCCESS,
       payload: result.data,
     });
+    yield Router.push("/");
   } catch (err) {
     yield put({
       type: LOG_IN_FAILURE,
       payload: err.response,
+    });
+  }
+}
+
+// User Loading
+const userLoadingAPI = (token) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (token) {
+    config.headers["x-auth-token"] = token;
+  }
+  return axios.get("api/auth/user", config);
+};
+
+function* userLoading(action) {
+  try {
+    console.log(action, "saga userLoading");
+    const result = yield call(userLoadingAPI, action.payload);
+    yield put({
+      type: USER_LOADING_SUCCESS,
+      payload: result.data,
+    });
+  } catch (e) {
+    yield put({
+      type: USER_LOADING_FAILURE,
+      payload: e.response,
     });
   }
 }
@@ -66,6 +106,14 @@ function* watchLoginUser() {
   yield takeLatest(LOG_IN_REQUEST, loginUser);
 }
 
+function* watchUserLoading() {
+  yield takeEvery(USER_LOADING_REQUEST, userLoading);
+}
+
 export default function* authSaga() {
-  yield all([fork(watchRegisterUser), fork(watchLoginUser)]);
+  yield all([
+    fork(watchRegisterUser),
+    fork(watchLoginUser),
+    fork(watchUserLoading),
+  ]);
 }

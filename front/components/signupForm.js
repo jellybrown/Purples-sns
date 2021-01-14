@@ -40,8 +40,12 @@ const SignupForm = () => {
   };
 
   useEffect(() => {
-    !errorMsg != "" || alert(errorMsg);
-    !successMsg != "" || alert(successMsg);
+    if (successMsg !== "") {
+      alert(successMsg);
+    }
+    if (errorMsg !== "") {
+      alert(errorMsg);
+    }
   }, [successMsg, errorMsg]);
 
   return (
@@ -174,7 +178,7 @@ const SignupForm = () => {
         type="submit"
         style={{ marginTop: "2.5em" }}
       />
-      <Link href="/">
+      <Link href="/login">
         <StyledAtag>이미 회원입니다.</StyledAtag>
       </Link>
     </form>

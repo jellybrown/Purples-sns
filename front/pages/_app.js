@@ -1,17 +1,13 @@
 import React from "react";
 
-import { createStore, applyMiddleware, Store, compose } from "redux";
-import { createWrapper, Context, MakeStore } from "next-redux-wrapper";
-import createSagaMiddleware from "redux-saga"; // redux-saga를 생성하기 위한 라이브러리
-import rootReducer from "../redux/reducers";
-import rootSaga from "../redux/sagas"; // sagas의 index.js를 가지고온다.
-import { composeWithDevTools } from "redux-devtools-extension"; // redux devtools
-
 import PropTypes from "prop-types";
 import Head from "next/head";
 import GlobalStyles from "../components/globalStyles";
+import { wrapper } from "../redux";
+import { USER_LOADING_REQUEST } from "../redux/types";
+import { getCookie } from "../redux/reducers/authReducer";
 
-const App = ({ Component, store }) => {
+const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
@@ -38,34 +34,38 @@ const App = ({ Component, store }) => {
         ></link>
       </Head>
       <GlobalStyles />
-      <Component />
+      <Component {...pageProps} />
     </>
   );
 };
 
-const makeStore = (initialState = {}, options) => {
-  // Create the middleware
-  const sagaMiddleware = createSagaMiddleware();
+const fetchAndWait = (store, param) =>
+  new Promise((resolve) => {
+    store.dispatch({
+      type: USER_LOADING_REQUEST,
+      payload: param,
+    });
+    const unsubscribe = store.subscribe(() => {
+      const state = store.getState();
+      unsubscribe();
+      return resolve(state);
+    });
+  });
 
-  const middlewares = [sagaMiddleware];
-  const enhancer =
-    process.env.NODE_ENV === "production"
-      ? compose(applyMiddleware(...middlewares))
-      : composeWithDevTools(applyMiddleware(...middlewares));
+App.getInitialProps = async ({ Component, ctx }) => {
+  const token = getCookie("token", ctx.req);
+  let updatedStore;
 
-  // Add an extra parameter for applying middleware
-  // const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-  const store = createStore(rootReducer, initialState, enhancer);
-
-  // Run your sagas on server
-  store.sagaTask = sagaMiddleware.run(rootSaga);
-
-  // Return the store
-  return store;
+  if (token !== undefined && token !== null) {
+    updatedStore = await fetchAndWait(ctx.store, token);
+    console.log(updatedStore);
+  }
+  const pageProps = updatedStore ? updatedStore.auth : {};
+  return { pageProps };
 };
 
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default createWrapper(makeStore, { debug: true }).withRedux(App);
+export default wrapper.withRedux(App);
