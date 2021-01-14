@@ -17,7 +17,7 @@ const makeStore = (initialState = {}, options) => {
 
   // Add an extra parameter for applying middleware
   // const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-  const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+  const store = createStore(rootReducer, initialState, enhancer);
 
   // Run your sagas on server
   store.sagaTask = sagaMiddleware.run(rootSaga);

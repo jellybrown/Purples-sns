@@ -3,8 +3,28 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { BiSearch } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 import Logo from "./logo";
+import { Button, Dropdown, Menu, message } from "antd";
+import { useDispatch } from "react-redux";
+import { LOGOUT_REQUEST } from "../redux/types";
 
 const MainHeader = () => {
+  const dispatch = useDispatch();
+
+  function handleLogoutClick(e) {
+    dispatch({
+      type: LOGOUT_REQUEST,
+    });
+    message.info("로그아웃에 성공하였습니다.", 1);
+  }
+
+  const userMenu = (
+    <Menu>
+      <Menu.Item key="1" onClick={handleLogoutClick}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div
       style={{
@@ -30,6 +50,7 @@ const MainHeader = () => {
       <Logo style={{ fontSize: "1.5rem" }} />
       <div
         style={{
+          display: "flex",
           fontSize: "1.5rem",
           position: "absolute",
           right: "3em",
@@ -37,9 +58,44 @@ const MainHeader = () => {
           transform: "translateY(-50%)",
         }}
       >
-        <BsFillPersonPlusFill style={{ marginLeft: "0.7em" }} />
-        <BiSearch style={{ marginLeft: "0.7em" }} />
-        <FaUserCircle style={{ marginLeft: "0.7em" }} />
+        <Button
+          color="black"
+          shape="circle"
+          size="large"
+          icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
+          style={{
+            marginLeft: "0.7em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        />
+        <Button
+          color="black"
+          shape="circle"
+          size="large"
+          icon={<BiSearch style={{ fontSize: "23px" }} />}
+          style={{
+            marginLeft: "0.7em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        />
+        <Dropdown overlay={userMenu} trigger="click" placement="bottomCenter">
+          <Button
+            color="black"
+            shape="circle"
+            size="large"
+            icon={<FaUserCircle style={{ fontSize: "23px" }} />}
+            style={{
+              marginLeft: "0.7em",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          />
+        </Dropdown>
       </div>
     </div>
   );
