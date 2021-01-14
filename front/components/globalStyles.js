@@ -26,6 +26,9 @@ const GlobalStyles = createGlobalStyle`
   p,span {
     font-family: 'Noto Sans KR', sans-serif;
   }
+  .ant-card-body {
+    padding: 1em 1.6em !important;
+  }
 `;
 
 export default GlobalStyles;

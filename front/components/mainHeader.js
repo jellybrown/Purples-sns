@@ -8,7 +8,7 @@ const MainHeader = () => {
   return (
     <div
       style={{
-        zIndex: "2",
+        zIndex: "100",
         alignItems: "center",
         borderBottom: "1px solid #E1E1E1",
         padding: "0.8em 3em",
