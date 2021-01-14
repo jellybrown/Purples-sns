@@ -23,6 +23,9 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     border: none;
   }
+  p,span {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
 `;
 
 export default GlobalStyles;
