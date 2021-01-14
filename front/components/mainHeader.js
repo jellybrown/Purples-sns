@@ -6,6 +6,7 @@ import Logo from "./logo";
 import { Button, Dropdown, Menu, message } from "antd";
 import { useDispatch } from "react-redux";
 import { LOGOUT_REQUEST } from "../redux/types";
+import Router from "next/router";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,16 @@ const MainHeader = () => {
     message.info("로그아웃에 성공하였습니다.", 1);
   }
 
+  const handleProfileClick = (e) => {
+    Router.push("/profile");
+  };
+
   const userMenu = (
     <Menu>
-      <Menu.Item key="1" onClick={handleLogoutClick}>
+      <Menu.Item key="1" onClick={handleProfileClick}>
+        Profile
+      </Menu.Item>
+      <Menu.Item key="2" onClick={handleLogoutClick}>
         Logout
       </Menu.Item>
     </Menu>
