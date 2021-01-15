@@ -22,24 +22,25 @@ const MainHeader = () => {
         style={{
           fontSize: "1.5rem",
           position: "absolute",
-          left: "3em",
+          left: "6%",
           top: "50%",
           transform: "translateY(-50%)",
         }}
       />
-      <Logo style={{ fontSize: "1.5rem" }} />
+      <Logo style={{ fontSize: "1.8em" }} />
       <div
         style={{
-          fontSize: "1.5rem",
+          fontSize: "1.4rem",
           position: "absolute",
-          right: "3em",
+          right: "6%",
           top: "50%",
+          display: "flex",
           transform: "translateY(-50%)",
         }}
       >
-        <BsFillPersonPlusFill style={{ marginLeft: "0.7em" }} />
-        <BiSearch style={{ marginLeft: "0.7em" }} />
-        <FaUserCircle style={{ marginLeft: "0.7em" }} />
+        <BsFillPersonPlusFill />
+        <BiSearch style={{ marginLeft: "0.4em" }} />
+        <FaUserCircle style={{ marginLeft: "0.4em" }} />
       </div>
     </div>
   );
