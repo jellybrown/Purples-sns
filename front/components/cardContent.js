@@ -2,8 +2,20 @@ import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
+import { useCallback, useState } from "react";
 
 const CardContent = () => {
+  const [liked, setLiked] = useState(false);
+  const [commented, setCommented] = useState(false);
+
+  const onToggleComment = useCallback(() => {
+    setCommented((prev) => !prev);
+  });
+
+  const onToggleLike = useCallback(() => {
+    setLiked((prev) => !prev);
+  });
+
   return (
     <div
       style={{
@@ -23,27 +35,46 @@ const CardContent = () => {
         }}
       >
         <FiMoreHorizontal style={{ marginLeft: "0.5em", cursor: "pointer" }} />
-        <RiChat2Line style={{ marginLeft: "0.5em", cursor: "pointer" }} />
-        <FiHeart style={{ marginLeft: "0.5em", cursor: "pointer" }} />
-      </div>
-      <div>
-        <span style={{ fontSize: "0.9rem", fontWeight: "500" }}>유진2</span>
-        <span
-          style={{ fontSize: "0.7rem", marginLeft: "1em", color: "#A3A3A3" }}
-        >
-          7 hours ago..
+        <span style={{ marginLeft: "0.5em", cursor: "pointer" }}>
+          {commented ? (
+            <RiChat2Fill onClick={onToggleComment} />
+          ) : (
+            <RiChat2Line onClick={onToggleComment} />
+          )}
         </span>
-        <div
-          style={{
-            fontSize: "0.8rem",
-            paddingTop: "1.3em",
-            paddingLeft: "1em",
-          }}
-        >
-          케이크 먹을래?
-        </div>
+        <span style={{ marginLeft: "0.5em", cursor: "pointer" }}>
+          {liked ? (
+            <FaHeart onClick={onToggleLike} />
+          ) : (
+            <FiHeart onClick={onToggleLike} />
+          )}
+        </span>
       </div>
-      <CardComment /> {/* comment는 탭형식으로 오픈 */}
+      {commented ? (
+        <CardComment />
+      ) : (
+        <div>
+          <span
+            style={{ fontSize: "0.9rem", marginLeft: "5px", fontWeight: "500" }}
+          >
+            유진2
+          </span>
+          <span
+            style={{ fontSize: "0.7rem", marginLeft: "1em", color: "#A3A3A3" }}
+          >
+            7 hours ago..
+          </span>
+          <div
+            style={{
+              fontSize: "0.8rem",
+              paddingTop: "1.3em",
+              paddingLeft: "1em",
+            }}
+          >
+            케이크 먹을래?
+          </div>
+        </div>
+      )}
     </div>
   );
 };
