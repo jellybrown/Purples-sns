@@ -19,7 +19,6 @@ const CardContent = () => {
   return (
     <div
       style={{
-        padding: "0.8em 1.3em !important",
         position: "relative",
         minHeight: "168px",
         height: "20%",

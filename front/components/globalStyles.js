@@ -7,6 +7,8 @@ const GlobalStyles = createGlobalStyle`
     font-size:16px;
     position:relative;
     height:100vh;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
   }
   * {
     box-sizing:border-box;
@@ -26,9 +28,16 @@ const GlobalStyles = createGlobalStyle`
   p,span {
     font-family: 'Noto Sans KR', sans-serif;
   }
-  .ant-card-body {
-    padding: 1em 1.6em !important;
+  
+  .slick-dots {
+    margin-bottom: 40px !important;
   }
+  .ant-card-body {
+    padding: 10px 20px !important;
+  }
+  
+   
+  
 `;
 
 export default GlobalStyles;
