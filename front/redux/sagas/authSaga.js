@@ -17,6 +17,9 @@ import {
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE,
   USER_LOADING_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+  LOGOUT_REQUEST,
 } from "../types";
 import Router from "next/router";
 
@@ -98,6 +101,21 @@ function* userLoading(action) {
   }
 }
 
+// logout
+function* logout(action) {
+  try {
+    yield put({
+      type: LOGOUT_SUCCESS,
+    });
+    yield Router.push("/");
+  } catch (e) {
+    yield put({
+      type: LOGOUT_FAILURE,
+    });
+    console.log(e);
+  }
+}
+
 function* watchRegisterUser() {
   yield takeEvery(REGISTER_REQUEST, registerUser);
 }
@@ -110,10 +128,15 @@ function* watchUserLoading() {
   yield takeEvery(USER_LOADING_REQUEST, userLoading);
 }
 
+function* watchLogout() {
+  yield takeEvery(LOGOUT_REQUEST, logout);
+}
+
 export default function* authSaga() {
   yield all([
     fork(watchRegisterUser),
     fork(watchLoginUser),
     fork(watchUserLoading),
+    fork(watchLogout),
   ]);
 }

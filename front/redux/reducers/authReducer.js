@@ -9,6 +9,9 @@ import {
   USER_LOADING_REQUEST,
   USER_LOADING_SUCCESS,
   USER_LOADING_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
 } from "../types";
 import { Router } from "next/router";
 import { HYDRATE } from "next-redux-wrapper";
@@ -18,6 +21,7 @@ const initialState = {
   isAuthenticated: false,
   loginLoading: false,
   userLoading: false,
+  logoutLoading: false,
   loginDone: false,
   loginError: null,
   user: "",
@@ -116,6 +120,37 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: false,
         userLoading: false,
         userRole: "",
+      };
+    case LOGOUT_REQUEST:
+      return {
+        ...state,
+        successMsg: "",
+        errorMsg: "",
+        logoutLoading: false,
+      };
+    case LOGOUT_SUCCESS:
+      removeCookie("token");
+      return {
+        token: null,
+        user: null,
+        userId: null,
+        isAuthenticated: false,
+        logoutLoading: false,
+        userRole: null,
+        errorMsg: "",
+      };
+    case LOGOUT_FAILURE:
+      removeCookie("token");
+      return {
+        ...state,
+        ...action.payload,
+        token: null,
+        user: null,
+        userId: null,
+        isAuthenticated: false,
+        logoutLoading: false,
+        userRole: null,
+        errorMsg: action.payload.data.msg,
       };
     default:
       return state;

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { REGISTER_REQUEST } from "../redux/types";
 import Link from "next/link";
 import { StyledAtag } from "../styles/aTag";
+import { message } from "antd";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -41,10 +42,10 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (successMsg !== "") {
-      alert(successMsg);
+      message.info(successMsg, 1);
     }
     if (errorMsg !== "") {
-      alert(errorMsg);
+      message.info(errorMsg, 1);
     }
   }, [successMsg, errorMsg]);
 
