@@ -30,6 +30,7 @@
     "redux-action": "^1.2.2",
     "redux-actions": "^2.6.5",
     "redux-saga": "^1.1.3",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
