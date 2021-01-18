@@ -35,9 +35,6 @@ const GlobalStyles = createGlobalStyle`
   .ant-card-body {
     padding: 10px 20px !important;
   }
-  
-   
-  
 `;
 
 export default GlobalStyles;
