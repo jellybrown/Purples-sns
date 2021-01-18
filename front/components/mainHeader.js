@@ -41,6 +41,7 @@ const MainHeader = () => {
         borderBottom: "1px solid #E1E1E1",
         padding: "0.8em 3em",
         position: "fixed",
+        top: 0,
         textAlign: "center",
         width: "100%",
         background: "#fff",
