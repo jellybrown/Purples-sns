@@ -37,7 +37,7 @@ const SearchBar = ({ ...props }) => {
       <IconWrapper>
         <BiSearch
           style={{
-            fontSize: "1.5rem",
+            fontSize: "1.3rem",
             color: "#333",
           }}
         />
