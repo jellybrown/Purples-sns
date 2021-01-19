@@ -73,19 +73,23 @@ const MainHeader = () => {
           transform: "translateY(-50%)",
         }}
       >
-        <Button
-          color="black"
-          shape="circle"
-          size="large"
-          icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
-          style={{
-            marginLeft: "0.7em",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "none",
-          }}
-        />
+        <Link href="/find">
+          <a>
+            <Button
+              color="black"
+              shape="circle"
+              size="large"
+              icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
+              style={{
+                marginLeft: "0.7em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "none",
+              }}
+            />
+          </a>
+        </Link>
         <Link href="/search">
           <a>
             <Button

@@ -7,7 +7,7 @@ const Search = () => {
     <LightColorBg>
       <MainHeader />
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ marginTop: "20px", width: "90%" }}>
+        <div style={{ width: "95%" }}>
           <SearchBar placeholder="게시글 검색..." />
         </div>
         {/* 검색한 게시글 렌더링 */}
