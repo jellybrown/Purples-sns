@@ -9,6 +9,7 @@ import cors from "cors";
 import userRoutes from "./routes/api/user";
 import authRoutes from "./routes/api/auth";
 import followRoutes from "./routes/api/follow";
+import postRoutes from "./routes/api/post";
 
 const app = express();
 const { MONGO_URI } = config;
@@ -34,5 +35,6 @@ app.get("/");
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/follow", followRoutes);
+app.use("/api/post", postRoutes);
 
 export default app;
