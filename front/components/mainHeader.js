@@ -7,6 +7,7 @@ import { Button, Dropdown, Menu, message } from "antd";
 import { useDispatch } from "react-redux";
 import { LOGOUT_REQUEST } from "../redux/types";
 import Router from "next/router";
+import Link from "next/link";
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -47,15 +48,19 @@ const MainHeader = () => {
         background: "#fff",
       }}
     >
-      <AiOutlineHome
-        style={{
-          fontSize: "1.5rem",
-          position: "absolute",
-          left: "6%",
-          top: "50%",
-          transform: "translateY(-50%)",
-        }}
-      />
+      <Link href="/">
+        <a>
+          <AiOutlineHome
+            style={{
+              fontSize: "1.5rem",
+              position: "absolute",
+              left: "6%",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          />
+        </a>
+      </Link>
       <Logo style={{ fontSize: "1.8em" }} />
       <div
         style={{
@@ -68,30 +73,40 @@ const MainHeader = () => {
           transform: "translateY(-50%)",
         }}
       >
-        <Button
-          color="black"
-          shape="circle"
-          size="large"
-          icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
-          style={{
-            marginLeft: "0.7em",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        />
-        <Button
-          color="black"
-          shape="circle"
-          size="large"
-          icon={<BiSearch style={{ fontSize: "23px" }} />}
-          style={{
-            marginLeft: "0.7em",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        />
+        <Link href="/find">
+          <a>
+            <Button
+              color="black"
+              shape="circle"
+              size="large"
+              icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
+              style={{
+                marginLeft: "0.7em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "none",
+              }}
+            />
+          </a>
+        </Link>
+        <Link href="/search">
+          <a>
+            <Button
+              color="black"
+              shape="circle"
+              size="large"
+              icon={<BiSearch style={{ fontSize: "23px" }} />}
+              style={{
+                marginLeft: "0.7em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                border: "none",
+              }}
+            />
+          </a>
+        </Link>
         <Dropdown overlay={userMenu} trigger="click" placement="bottomCenter">
           <Button
             color="black"
@@ -103,6 +118,7 @@ const MainHeader = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              border: "none",
             }}
           />
         </Dropdown>

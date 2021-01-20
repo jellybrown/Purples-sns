@@ -32,7 +32,7 @@ const IconWrapper = styled.div`
 
 const SearchBar = ({ ...props }) => {
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", width: "100%", marginTop: "20px" }}>
       <SearchInput {...props} />
       <IconWrapper>
         <BiSearch
