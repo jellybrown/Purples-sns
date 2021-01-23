@@ -8,5 +8,9 @@ import commentSaga from "./commentSaga";
 axios.defaults.baseURL = getConfig().publicRuntimeConfig.apiServerUrl;
 
 export default function* rootSaga() {
-  yield all([fork(authSaga), fork(postSaga), fork(commentSaga)]);
+  yield all([
+    fork(authSaga),
+    // fork(postSaga),
+    // fork(commentSaga)
+  ]);
 }
