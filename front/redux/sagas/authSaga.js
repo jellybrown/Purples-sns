@@ -93,10 +93,10 @@ function* userLoading(action) {
       type: USER_LOADING_SUCCESS,
       payload: result.data,
     });
-  } catch (e) {
+  } catch (err) {
     yield put({
       type: USER_LOADING_FAILURE,
-      payload: e.response,
+      payload: err.response,
     });
   }
 }
@@ -108,11 +108,11 @@ function* logout(action) {
       type: LOGOUT_SUCCESS,
     });
     yield Router.push("/");
-  } catch (e) {
+  } catch (err) {
     yield put({
       type: LOGOUT_FAILURE,
     });
-    console.log(e);
+    console.log(err);
   }
 }
 
