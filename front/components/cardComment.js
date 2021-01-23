@@ -1,4 +1,24 @@
+import { Button } from "antd";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { ADD_COMMENT_REQUEST } from "../redux/types";
+
 const CardComment = () => {
+  const [comment, setComment] = useState("");
+
+  const onChange = (e) => {
+    setComment(e.target.value);
+    console.log(comment);
+  };
+
+  const dispatch = useDispatch();
+  const onAddComment = () => {
+    dispatch({
+      type: ADD_COMMENT_REQUEST,
+      payload: comment,
+    });
+  };
+
   return (
     <div
       style={{
@@ -45,18 +65,32 @@ const CardComment = () => {
           <span style={{ fontWeight: "300", fontSize: "0.8rem" }}>오~</span>
         </li>
       </ul>
-      <input
-        placeholder="댓글 입력..."
+      <div
         style={{
-          position: "absolute",
-          bottom: "10px",
-          paddingTop: "10px",
-          marginLeft: "15px",
-          border: "none",
-          outline: "none",
-          width: "90%",
+          display: "flex",
+          alignItems: "center",
         }}
-      />
+      >
+        <input
+          onChange={onChange}
+          value={comment}
+          placeholder="댓글 입력..."
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            paddingTop: "10px",
+            marginLeft: "5px",
+            border: "none",
+            outline: "none",
+            width: "90%",
+          }}
+        />
+        <div style={{ position: "absolute", bottom: "10px", right: "10px" }}>
+          <Button type="submit" onClick={onAddComment}>
+            입력
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
