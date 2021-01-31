@@ -7,31 +7,9 @@ import { useDispatch } from "react-redux";
 import { LOGOUT_REQUEST } from "../redux/types";
 import Link from "next/link";
 import Router from "next/router";
+import UserMenu from "./userMenu";
 
 const RightMenu = () => {
-  const dispatch = useDispatch();
-
-  function handleLogoutClick(e) {
-    dispatch({
-      type: LOGOUT_REQUEST,
-    });
-    message.info("로그아웃에 성공하였습니다.", 1);
-  }
-
-  const handleProfileClick = (e) => {
-    Router.push("/profile");
-  };
-
-  const userMenu = (
-    <Menu>
-      <Menu.Item key="1" onClick={handleProfileClick}>
-        Profile
-      </Menu.Item>
-      <Menu.Item key="2" onClick={handleLogoutClick}>
-        Logout
-      </Menu.Item>
-    </Menu>
-  );
   return (
     <div
       style={{
@@ -76,7 +54,7 @@ const RightMenu = () => {
           />
         </a>
       </Link>
-      <Dropdown overlay={userMenu} trigger="click" placement="bottomCenter">
+      <Dropdown overlay={<UserMenu />} trigger="click" placement="bottomCenter">
         <Button
           color="black"
           shape="circle"
