@@ -15,6 +15,46 @@ const PostCard = () => {
           borderRadius: "30px",
           overflow: "hidden",
           boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
+          marginBottom: "70px",
+        }}
+        cover={<PostCardImg />}
+      >
+        <CardContent />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "500px",
+          width: "93%",
+          borderRadius: "30px",
+          overflow: "hidden",
+          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
+          marginBottom: "70px",
+        }}
+        cover={<PostCardImg />}
+      >
+        <CardContent />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "500px",
+          width: "93%",
+          borderRadius: "30px",
+          overflow: "hidden",
+          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
+          marginBottom: "70px",
+        }}
+        cover={<PostCardImg />}
+      >
+        <CardContent />
+      </Card>
+      <Card
+        style={{
+          maxWidth: "500px",
+          width: "93%",
+          borderRadius: "30px",
+          overflow: "hidden",
+          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
+          marginBottom: "70px",
         }}
         cover={<PostCardImg />}
       >

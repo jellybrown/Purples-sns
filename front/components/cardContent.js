@@ -20,7 +20,7 @@ const CardContent = () => {
     <div
       style={{
         position: "relative",
-        minHeight: "168px",
+        minHeight: "180px",
         height: "20%",
         maxHeight: "500px",
       }}
@@ -54,7 +54,7 @@ const CardContent = () => {
       ) : (
         <div>
           <span
-            style={{ fontSize: "0.9rem", marginLeft: "5px", fontWeight: "500" }}
+            style={{ fontSize: "0.9rem", marginLeft: "1em", fontWeight: "500" }}
           >
             유진2
           </span>
@@ -65,7 +65,7 @@ const CardContent = () => {
           </span>
           <div
             style={{
-              fontSize: "0.8rem",
+              fontSize: "0.9rem",
               paddingTop: "1.3em",
               paddingLeft: "1em",
             }}

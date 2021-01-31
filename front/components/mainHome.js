@@ -19,8 +19,10 @@ const MainHome = () => {
             <div
               style={{
                 display: "flex",
+                flexDirection: "column",
                 marginTop: "50px",
                 marginLeft: "calc(10% + 320px)",
+
                 paddingLeft: "10%",
               }}
             >
@@ -36,7 +38,8 @@ const MainHome = () => {
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
                 marginTop: "50px",
                 marginLeft: "0px",
                 paddingLeft: "0px",

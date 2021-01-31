@@ -13,11 +13,11 @@ const PostCardImg = () => {
   const images = [
     {
       src:
-        "https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider2-funders.jpg",
+        "https://image.freepik.com/free-photo/woman-checking-calendar_53876-13451.jpg",
     },
     {
       src:
-        "https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider2-funders.jpg",
+        "https://image.freepik.com/free-photo/woman-checking-calendar_53876-13451.jpg",
     },
     {
       src:
@@ -47,7 +47,7 @@ const PostCardImg = () => {
           <img
             src={img.src}
             style={{
-              height: "calc(50vh - 100px)",
+              height: "calc(54vh - 80px)",
               width: "auto",
               margin: "0 auto",
             }}

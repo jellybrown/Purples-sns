@@ -41,28 +41,24 @@ const CardComment = () => {
         3개의 댓글
       </p>
       <ul>
-        <li style={{ marginBottom: "5px" }}>
+        <li>
           <span
             style={{
               fontWeight: "500",
-              marginRight: "10px",
+              marginRight: "12px",
             }}
           >
             hehe
           </span>
-          <span style={{ fontWeight: "300", fontSize: "0.8rem" }}>
-            어디 케이크야???
-          </span>
+          <span style={{ fontSize: "0.85rem" }}>어디 케이크야???</span>
         </li>
-        <li style={{ marginBottom: "5px" }}>
-          <span style={{ fontWeight: "500", marginRight: "10px" }}>user</span>
-          <span style={{ fontWeight: "300", fontSize: "0.8rem" }}>
-            우리집 케이크^-^
-          </span>
+        <li>
+          <span style={{ fontWeight: "500", marginRight: "12px" }}>user</span>
+          <span style={{ fontSize: "0.85rem" }}>우리집 케이크^-^</span>
         </li>
-        <li style={{ marginBottom: "5px" }}>
-          <span style={{ fontWeight: "500", marginRight: "10px" }}>헤헷</span>
-          <span style={{ fontWeight: "300", fontSize: "0.8rem" }}>오~</span>
+        <li>
+          <span style={{ fontWeight: "500", marginRight: "12px" }}>헤헷</span>
+          <span style={{ fontSize: "0.85rem" }}>오~</span>
         </li>
       </ul>
       <div
@@ -77,7 +73,7 @@ const CardComment = () => {
           placeholder="댓글 입력..."
           style={{
             position: "absolute",
-            bottom: "10px",
+            bottom: "15px",
             paddingTop: "10px",
             marginLeft: "5px",
             border: "none",
@@ -85,8 +81,8 @@ const CardComment = () => {
             width: "90%",
           }}
         />
-        <div style={{ position: "absolute", bottom: "10px", right: "10px" }}>
-          <Button type="submit" onClick={onAddComment}>
+        <div style={{ position: "absolute", bottom: "10px", right: "6px" }}>
+          <Button type="link" onClick={onAddComment}>
             입력
           </Button>
         </div>
