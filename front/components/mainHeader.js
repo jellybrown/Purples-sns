@@ -49,6 +49,7 @@ const MainHeader = () => {
         width: "100%",
         height: "60px",
         zIndex: "100",
+        top: 0,
       }}
     >
       <div
