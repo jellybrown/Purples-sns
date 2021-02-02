@@ -17,8 +17,18 @@ const initialState = {
   removeCommentDone: false,
   removeCommentError: null,
   comment: "",
-  post: [] //postReducer랑 통합해야할수도
-
+  post: [
+    {
+      id: 1,
+      content: "dfsdf",
+      comments: [
+        {
+          id: 1,
+          ment: "헤헤헤",
+        },
+      ],
+    },
+  ], //postReducer랑 통합해야할수도
 };
 
 const commentReducer = (state = initialState, action) => {
@@ -30,33 +40,37 @@ const commentReducer = (state = initialState, action) => {
         ...state,
         addCommentLoading: true,
       };
-    case ADD_COMMENT_SUCCESS:
-        const post = action.payload.postId;
-        const newComment = action.payload;
+    case ADD_COMMENT_SUCCESS: {
+      const id = action.payload.postId;
+      const newComment = action.payload.comment;
       return {
         ...state,
         addCommentLoading: false,
-        post = post.comments.push(newComment)
+        post: post[id + 1].comments.push(newComment), // immer로 바꿔야하나?
       };
+    }
     case ADD_COMMENT_FAILURE:
       return {
         ...state,
         addCommentError: action.error,
         addCommentLoading: false,
       };
-      case REMOVE_COMMENT_REQUEST:
+    case REMOVE_COMMENT_REQUEST:
       return {
         ...state,
         removeCommentLoading: true,
       };
-    case REMOVE_COMMENT_SUCCESS:
-        const post = action.payload.postId;
-        const thisComment = action.payload.commentId;
+    case REMOVE_COMMENT_SUCCESS: {
+      const id = action.payload.postId;
+      const thisComment = action.payload.commentId;
       return {
         ...state,
         removeCommentLoading: false,
-        post = post.comments.filter(comment => comment.id !== thisComment)
+        post: post[id + 1].comments.filter(
+          (comment) => comment.id !== thisComment
+        ),
       };
+    }
     case REMOVE_COMMENT_FAILURE:
       return {
         ...state,
