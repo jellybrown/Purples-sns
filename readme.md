@@ -175,6 +175,8 @@ export default function* postSaga() {
 ### 4. 반응형 디자인 구현
 
 <br>
+- react-resposive를 이용해 PC와 모바일 버전의 여백과 컴포넌트 렌더링 여부를 조정했습니다.
+<br>
 
 ```js
 // MainHome 컴포넌트
@@ -214,7 +216,7 @@ const MainHome = () => {
 
 <br>
 
-- 1. 메인 페이지
+- 메인 페이지
 
 <br>
 
@@ -222,7 +224,7 @@ const MainHome = () => {
 
 <br>
 
-- 2. signup 페이지
+- signup 페이지
 
 <br>
 
@@ -230,7 +232,7 @@ const MainHome = () => {
 
 <br>
 
-- 3. mobile 버전
+- mobile 버전
 
 <br>
 
