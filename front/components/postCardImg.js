@@ -17,15 +17,15 @@ const PostCardImg = () => {
     },
     {
       src:
-        "https://image.freepik.com/free-photo/woman-checking-calendar_53876-13451.jpg",
+        "https://image.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg",
     },
     {
       src:
-        "https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider2-funders.jpg",
+        "https://image.freepik.com/free-photo/love-yourself-concept-photo-lovely-smiling-woman-embraces-herself-has-high-self-esteem-closes-eyes-from-enjoyment_273609-25478.jpg",
     },
     {
       src:
-        "https://previews.123rf.com/images/roxanabalint/roxanabalint1312/roxanabalint131200148/24476498-demo-grunge-rubber-stamp-on-white.jpg",
+        "https://image.freepik.com/free-photo/smiling-baby-lying-bed_1139-14.jpg?1",
     },
   ];
   const [currentSlide, setCurrentSlide] = useState(0);
