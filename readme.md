@@ -175,7 +175,9 @@ export default function* postSaga() {
 ### 4. 반응형 디자인 구현
 
 <br>
+
 - react-resposive를 이용해 PC와 모바일 버전의 여백과 컴포넌트 렌더링 여부를 조정했습니다.
+
 <br>
 
 ```js
