@@ -7,6 +7,9 @@ import {
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
+  SEARCH_POST_FAILURE,
+  SEARCH_POST_REQUEST,
+  SEARCH_POST_SUCCESS,
 } from "../types";
 
 const addPostAPI = (payload) => {
@@ -84,12 +87,33 @@ function* removeComment(action) {
     });
   }
 }
+const searchPostAPI = (payload) => {
+  return axios.get(`api/post/search/${payload}`);
+};
+
+function* searchPost(action) {
+  try {
+    const result = yield call(searchPostAPI, action.payload);
+    yield put({
+      type: SEARCH_POST_SUCCESS,
+      payload: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: SEARCH_POST_FAILURE,
+      payload: err.response,
+    });
+  }
+}
 
 function* watchAddPost() {
   yield takeEvery(ADD_POST_REQUEST, addPost);
 }
 function* watchRemovePost() {
   yield takeEvery(REMOVE_POST_REQUEST, removePost);
+}
+function* watchSearchPost() {
+  yield takeEvery(SEARCH_POST_REQUEST, searchPost);
 }
 function* watchAddComment() {
   yield takeEvery(ADD_COMMENT_REQUEST, addComment);
@@ -103,6 +127,7 @@ export default function* postSaga() {
     [fork(watchAddPost)],
     [fork(watchRemovePost)],
     [fork(watchAddComment)],
-    [fork(watchRemoveComment)]
+    [fork(watchRemoveComment)],
+    [fork(watchSearchPost)]
   );
 }

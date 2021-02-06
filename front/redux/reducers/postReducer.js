@@ -32,12 +32,34 @@ const initialState = {
   removePostLoading: false,
   removePostDone: false,
   removePostError: null,
+  searchPostLoading: false,
+  searchPostDone: false,
+  searchPostError: null,
 };
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };
+    case SEARCH_POST_REQUEST:
+      return {
+        ...state,
+        searchPostLoading: true,
+      };
+    case SEARCH_POST_SUCCESS:
+      return {
+        ...state,
+        searchPost: posts.map((post) => post.content.contains(action.payload)),
+        searchPostLoading: false,
+        searchPostDone: true,
+      };
+    case SEARCH_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        searchPostLoading: false,
+        searchPostError: true,
+      };
     case ADD_POST_REQUEST:
       return {
         ...state,
