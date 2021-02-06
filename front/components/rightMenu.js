@@ -9,15 +9,11 @@ import { LOGOUT_REQUEST } from "../redux/types";
 import Link from "next/link";
 import Router from "next/router";
 import UserMenu from "./userMenu";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../utils/useMediaQuery";
 
 const RightMenu = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
-  });
+  const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
+  const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
   return (
     <>
       {isDesktopOrLaptop && (
@@ -28,7 +24,6 @@ const RightMenu = () => {
             position: "absolute",
             right: "6%",
             top: "50%",
-            display: "flex",
             transform: "translateY(-50%)",
           }}
         >
@@ -92,7 +87,6 @@ const RightMenu = () => {
             position: "absolute",
             right: "4%",
             top: "50%",
-            display: "flex",
             transform: "translateY(-50%)",
           }}
         >
