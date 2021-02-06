@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Card } from "antd";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const ProfileImage = styled.div`
   width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
@@ -8,6 +10,7 @@ const ProfileImage = styled.div`
 `;
 
 const UserInfo = () => {
+  const authUser = useSelector((state) => state.auth.user);
   const user = {
     profileImage: false,
   };
@@ -20,9 +23,11 @@ const UserInfo = () => {
         <FaUserCircle style={{ fontSize: "4rem" }} />
       )}
       <div style={{ marginLeft: "20px" }}>
-        <span style={{ fontSize: "1rem" }}>username</span>
+        <span style={{ fontSize: "1rem" }}>
+          {authUser && authUser.nickname}
+        </span>
         <p style={{ fontSize: "0.8rem", fontWeight: "300" }}>
-          username님, 반가워요!
+          {authUser && authUser.nickname}님, 반가워요!
         </p>
       </div>
     </div>
@@ -30,6 +35,8 @@ const UserInfo = () => {
 };
 
 const MainProfile = () => {
+  const authUser = useSelector((state) => state.auth.user);
+
   return (
     <Card
       title={<UserInfo />}
@@ -49,7 +56,9 @@ const MainProfile = () => {
           >
             Followers
           </p>
-          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>20</span>
+          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>
+            {authUser && authUser.followerCount}
+          </span>
         </div>
         <div style={{ flexBasis: "50%" }}>
           <p
@@ -57,7 +66,9 @@ const MainProfile = () => {
           >
             Followings
           </p>
-          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>18</span>
+          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>
+            {authUser && authUser.followCount}
+          </span>
         </div>
       </div>
     </Card>
