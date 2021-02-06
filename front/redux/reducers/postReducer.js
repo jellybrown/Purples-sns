@@ -1,8 +1,13 @@
 import { HYDRATE } from "next-redux-wrapper";
 import {
+  ADD_COMMENT_FAILURE,
+  ADD_COMMENT_SUCCESS,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
+  REMOVE_COMMENT_FAILURE,
+  REMOVE_COMMENT_REQUEST,
+  REMOVE_COMMENT_SUCCESS,
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
@@ -70,6 +75,48 @@ const postReducer = (state = initialState, action) => {
         error: action.payload,
         removePostLoading: false,
         removePostError: true,
+      };
+    case ADD_COMMENT_REQUEST:
+      return {
+        ...state,
+        addCommentLoading: true,
+      };
+    case ADD_COMMENT_SUCCESS: {
+      const id = action.payload.postId;
+      const newComment = action.payload.comment;
+      return {
+        ...state,
+        addCommentLoading: false,
+        post: post[id + 1].comments.push(newComment), // immer로 바꿔야하나?
+      };
+    }
+    case ADD_COMMENT_FAILURE:
+      return {
+        ...state,
+        addCommentError: action.error,
+        addCommentLoading: false,
+      };
+    case REMOVE_COMMENT_REQUEST:
+      return {
+        ...state,
+        removeCommentLoading: true,
+      };
+    case REMOVE_COMMENT_SUCCESS: {
+      const id = action.payload.postId;
+      const thisComment = action.payload.commentId;
+      return {
+        ...state,
+        removeCommentLoading: false,
+        post: post[id + 1].comments.filter(
+          (comment) => comment.id !== thisComment
+        ),
+      };
+    }
+    case REMOVE_COMMENT_FAILURE:
+      return {
+        ...state,
+        addCommentError: action.error,
+        removeCommentLoading: false,
       };
     default:
       return state;
