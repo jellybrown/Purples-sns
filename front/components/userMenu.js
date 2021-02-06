@@ -3,7 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { Menu, message } from "antd";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../utils/useMediaQuery";
 
 const StyledMenu = styled(Menu)`
   box-shadow: none !important;
@@ -13,12 +13,8 @@ const StyledMenu = styled(Menu)`
 `;
 
 const UserMenu = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
-  });
+  const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
+  const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
 
   const dispatch = useDispatch();
 

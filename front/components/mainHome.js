@@ -1,15 +1,11 @@
 import Layout from "./layout";
 import MainProfile from "./mainProfile";
 import PostCard from "./postCard";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "../utils/useMediaQuery";
 
 const MainHome = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
-  });
+  const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
+  const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
 
   return (
     <Layout>
