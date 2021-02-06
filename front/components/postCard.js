@@ -2,6 +2,7 @@ import "antd/dist/antd.css";
 import { Card, Avatar } from "antd";
 import CardContent from "./cardContent";
 import PostCardImg from "./postCardImg";
+import { useEffect } from "react";
 
 const { Meta } = Card;
 

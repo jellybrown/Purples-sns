@@ -2,6 +2,7 @@ import Layout from "./layout";
 import MainProfile from "./mainProfile";
 import PostCard from "./postCard";
 import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery({

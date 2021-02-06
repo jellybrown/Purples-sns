@@ -3,9 +3,9 @@ import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import { Carousel } from "antd";
 
 const Wrapper = styled.div`
-  touch-action: none !important;
   overflow: hidden;
 `;
 const PostCardImg = () => {
@@ -47,8 +47,11 @@ const PostCardImg = () => {
           <img
             src={img.src}
             style={{
-              height: "calc(54vh - 80px)",
+              minHeight: "auto",
+              maxHeight: "calc(54vh - 80px)",
+              minWidth: "100%",
               width: "auto",
+              maxWidth: "150%",
               margin: "0 auto",
             }}
           />
