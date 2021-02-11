@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
   height: 60px;
 `;
@@ -28,6 +29,8 @@ const DeleteOrAdd = () => {
 };
 
 const FriendList = () => {
+  const user = useSelector((state) => state.user);
+
   const friends = [
     {
       id: 1,
@@ -48,9 +51,8 @@ const FriendList = () => {
 
   return (
     <ul>
-      {friends.map((friend) => console.log(friend))}
-      {friends && friends.length > 0 ? (
-        friends.map((friend) => (
+      {user && user.users.length > 0 ? (
+        user.users.map((friend) => (
           <li
             style={{
               display: "flex",
@@ -58,12 +60,14 @@ const FriendList = () => {
               padding: "1em 0",
             }}
           >
-            {friend.profileImage ? (
-              <ProfileImage />
+            {friend.profileImageUrl ? (
+              <ProfileImage src={friend.profileImageUrl} />
             ) : (
               <FaUserCircle style={{ fontSize: "3rem" }} />
             )}
-            <span style={{ flex: "1", paddingLeft: "1em" }}>{friend.name}</span>
+            <span style={{ flex: "1", paddingLeft: "1em" }}>
+              {friend.nickname}
+            </span>
             <DeleteOrAdd />
           </li>
         ))

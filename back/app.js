@@ -10,6 +10,7 @@ import userRoutes from "./routes/api/user";
 import authRoutes from "./routes/api/auth";
 import followRoutes from "./routes/api/follow";
 import postRoutes from "./routes/api/post";
+import searchRoutes from "./routes/api/search";
 
 const app = express();
 const { MONGO_URI } = config;
@@ -36,5 +37,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/follow", followRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/search", searchRoutes);
 
 export default app;

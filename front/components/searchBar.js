@@ -30,10 +30,15 @@ const IconWrapper = styled.div`
   }
 `;
 
-const SearchBar = ({ ...props }) => {
+const SearchBar = ({ setKeyword }) => {
+  const onChange = (e) => {
+    // console.log(e.target.value);
+    setKeyword(e.target.value);
+  };
+
   return (
     <div style={{ position: "relative", width: "100%", marginTop: "20px" }}>
-      <SearchInput {...props} />
+      <SearchInput onChange={onChange} />
       <IconWrapper>
         <BiSearch
           style={{
