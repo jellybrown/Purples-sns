@@ -12,6 +12,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  FOLLOW_REQUEST,
+  FOLLOW_SUCCESS,
+  FOLLOW_FAILURE,
 } from "../types";
 import { Router } from "next/router";
 import { HYDRATE } from "next-redux-wrapper";
@@ -24,13 +27,19 @@ const initialState = {
   logoutLoading: false,
   loginDone: false,
   loginError: null,
-  user: "",
+  user: null,
   userId: "",
   userName: "",
   userRole: "",
   errorMsg: "",
   successMsg: "",
   previousMatchMsg: "",
+  followLoading: false,
+  followDone: false,
+  followError: null,
+  unfollowLoading: false,
+  unfollowDone: false,
+  unfollowError: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -151,6 +160,25 @@ const authReducer = (state = initialState, action) => {
         logoutLoading: false,
         userRole: null,
         errorMsg: action.payload.data.msg,
+      };
+    case FOLLOW_REQUEST:
+      return {
+        ...state,
+        followLoading: true,
+      };
+    case FOLLOW_SUCCESS:
+      return {
+        ...state,
+        user: { ...user },
+        followLoading: false,
+        followDone: true,
+      };
+    case FOLLOW_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        followLoading: false,
+        followError: true,
       };
     default:
       return state;

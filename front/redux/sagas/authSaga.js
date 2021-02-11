@@ -20,8 +20,30 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   LOGOUT_REQUEST,
+  FOLLOW_REQUEST,
+  FOLLOW_SUCCESS,
+  FOLLOW_FAILURE,
 } from "../types";
 import Router from "next/router";
+
+// follow
+const followAPI = (payload) => {
+  return axios.post("/api/follow", payload);
+};
+function* follow(action) {
+  const result = yield call(followAPI, action.payload);
+  try {
+    yield put({
+      type: FOLLOW_SUCCESS,
+      payload: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: FOLLOW_FAILURE,
+      payload: err.response,
+    });
+  }
+}
 
 // Register
 const registerUserAPI = (payload) => {
@@ -132,11 +154,16 @@ function* watchLogout() {
   yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
+function* watchFollow() {
+  yield takeEvery(FOLLOW_REQUEST, follow);
+}
+
 export default function* authSaga() {
   yield all([
     fork(watchRegisterUser),
     fork(watchLoginUser),
     fork(watchUserLoading),
     fork(watchLogout),
+    fork(watchFollow),
   ]);
 }
