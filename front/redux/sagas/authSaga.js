@@ -129,7 +129,7 @@ function* logout(action) {
     yield put({
       type: LOGOUT_SUCCESS,
     });
-    yield Router.push("/");
+    yield Router.push("/login");
   } catch (err) {
     yield put({
       type: LOGOUT_FAILURE,

@@ -45,7 +45,10 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload.auth,
+      };
     case REGISTER_REQUEST:
       return {
         ...state,

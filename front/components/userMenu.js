@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import useMediaQuery from "../utils/useMediaQuery";
 import { LOGOUT_REQUEST } from "../redux/types";
+import Router from "next/router";
 
 const StyledMenu = styled(Menu)`
   box-shadow: none !important;

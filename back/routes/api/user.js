@@ -26,9 +26,9 @@ router.get("/", async (req, res) => {
 // @desc      Register user
 // @access    public
 router.post("/", async (req, res) => {
-  const { email, nickname, profileImageUrl, password } = req.body;
+  const { email, name, profileImageUrl, password } = req.body;
 
-  if (!email || !nickname || !password) {
+  if (!email || !name || !password) {
     return res.status(400).json({ msg: "모든 필드를 채워주세요." });
   }
 
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
 
     const newUser = new User({
       email,
-      nickname,
+      name,
       profileImageUrl,
       password,
     });
@@ -59,7 +59,7 @@ router.post("/", async (req, res) => {
                 user: {
                   id: user.id,
                   email: user.email,
-                  nickname: user.nickname,
+                  name: user.name,
                   profileImageUrl: user.profileImageUrl,
                 },
               });

@@ -2,6 +2,7 @@ import Layout from "./layout";
 import MainProfile from "./mainProfile";
 import PostCard from "./postCard";
 import useMediaQuery from "../utils/useMediaQuery";
+import PostForm from "./postForm";
 
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
@@ -22,6 +23,7 @@ const MainHome = () => {
                 paddingLeft: "10%",
               }}
             >
+              <PostForm />
               <PostCard /> {/* PostCards 컴포넌트 안에 돌리기 */}
             </div>
             <div style={{ position: "fixed", left: "10%", top: "7rem" }}>
@@ -41,6 +43,7 @@ const MainHome = () => {
                 paddingLeft: "0px",
               }}
             >
+              <PostForm />
               <PostCard />
             </div>
           </>

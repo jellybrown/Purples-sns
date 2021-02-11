@@ -17,12 +17,12 @@ const initialState = {
   posts: [
     {
       id: 1,
-      nickName: "abcd",
+      name: "abcd",
       content: "ddddㅎㅎㅎ",
     },
     {
       id: 2,
-      nickName: "zzzz",
+      name: "zzzz",
       content: "ㅎ하ㅏ하하핳",
     },
   ],

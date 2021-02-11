@@ -17,7 +17,7 @@ const InputWrapper = styled.div`
   align-items: center;
 `;
 
-const Nickname = styled.label`
+const Name = styled.label`
   display: inline-block;
   font-size: 1.3em;
   font-weight: bold;
@@ -36,11 +36,11 @@ const InputLabel = styled.label`
 `;
 
 const Profile = ({ isAuthenticated, user }) => {
-  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const { save, handleSubmit, watch, errors } = useForm();
 
   const onSubmit = (data) => {
-    const { email, nickname, password } = data;
+    const { email, name, password } = data;
     message.info("수정 입력", 1);
   };
 
@@ -64,7 +64,7 @@ const Profile = ({ isAuthenticated, user }) => {
               left: "50%",
               transform: "translateX(-50%)",
             }}
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            src={auth.user.profileImageUrl}
           />
           <Button
             color="black"
@@ -82,7 +82,7 @@ const Profile = ({ isAuthenticated, user }) => {
             margin: "0 0 80px",
           }}
         >
-          <Nickname style={{ margin: "0 auto" }}>{user.nickname}</Nickname>
+          <Name style={{ margin: "0 auto" }}>{user.name}</Name>
         </div>
         <InputWrapper>
           <InputLabel>아이디</InputLabel>
@@ -94,16 +94,7 @@ const Profile = ({ isAuthenticated, user }) => {
             size="large"
             style={{ width: "100%", height: "50px", fontSize: "1.3em" }}
             placeholder={"이름"}
-            value={user.nickname}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <InputLabel>닉네임</InputLabel>
-          <AntInput
-            size="large"
-            style={{ width: "100%", height: "50px", fontSize: "1.3em" }}
-            placeholder={"닉네임"}
-            value={user.nickname}
+            value={user.name}
           />
         </InputWrapper>
         <Input
