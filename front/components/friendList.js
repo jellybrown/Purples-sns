@@ -65,9 +65,7 @@ const FriendList = () => {
             ) : (
               <FaUserCircle style={{ fontSize: "3rem" }} />
             )}
-            <span style={{ flex: "1", paddingLeft: "1em" }}>
-              {friend.nickname}
-            </span>
+            <span style={{ flex: "1", paddingLeft: "1em" }}>{friend.name}</span>
             <DeleteOrAdd />
           </li>
         ))

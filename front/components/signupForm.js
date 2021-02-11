@@ -32,8 +32,8 @@ const SignupForm = () => {
   password.current = watch("password");
 
   const onSubmit = (data) => {
-    const { email, nickname, password } = data;
-    const newUser = { nickname, email, password };
+    const { email, name, password } = data;
+    const newUser = { name, email, password };
     dispatch({
       type: REGISTER_REQUEST,
       payload: newUser,
@@ -103,18 +103,18 @@ const SignupForm = () => {
           }}
         />
         <Input
-          name="nickname"
-          placeholder="Nickname..."
+          name="name"
+          placeholder="Name..."
           ref={register({
             required: true,
             minLength: 2,
           })}
         />
       </InputWrapper>
-      {errors.nickname?.type === "required" && (
+      {errors.name?.type === "required" && (
         <ErrorMessage>닉네임을 입력해주세요.</ErrorMessage>
       )}
-      {errors.nickname?.type === "minLength" && (
+      {errors.name?.type === "minLength" && (
         <ErrorMessage>닉네임은 2자이상 입력해주세요.</ErrorMessage>
       )}
       <InputWrapper>

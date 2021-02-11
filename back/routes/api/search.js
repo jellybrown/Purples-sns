@@ -7,7 +7,7 @@ router.get("/:searchTearm", async (req, res, next) => {
   console.log(req.params.searchTearm);
   try {
     const result = await User.find({
-      nickname: {
+      name: {
         $regex: req.params.searchTearm,
         $options: "i",
       },

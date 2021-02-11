@@ -23,11 +23,9 @@ const UserInfo = () => {
         <FaUserCircle style={{ fontSize: "4rem" }} />
       )}
       <div style={{ marginLeft: "20px" }}>
-        <span style={{ fontSize: "1rem" }}>
-          {authUser && authUser.nickname}
-        </span>
+        <span style={{ fontSize: "1rem" }}>{authUser && authUser.name}</span>
         <p style={{ fontSize: "0.8rem", fontWeight: "300" }}>
-          {authUser && authUser.nickname}님, 반가워요!
+          {authUser && authUser.name}님, 반가워요!
         </p>
       </div>
     </div>

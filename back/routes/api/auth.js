@@ -37,7 +37,6 @@ router.post("/", (req, res) => {
               id: user.id,
               email: user.email,
               name: user.name,
-              nickname: user.nickname,
               profileImageUrl: user.profileImageUrl,
               role: user.role,
             },
