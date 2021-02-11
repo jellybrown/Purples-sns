@@ -16,7 +16,18 @@ import Router from "next/router";
 
 // Search
 const searchAPI = (payload) => {
-  return axios.get(`/api/search/${encodeURIComponent(payload)}`);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  return axios.get(
+    `/api/search/${encodeURIComponent(payload.keyword)}`,
+    config
+  );
 };
 
 function* search(action) {

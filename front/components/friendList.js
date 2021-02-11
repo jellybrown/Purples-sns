@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { FOLLOW_REQUEST } from "../redux/types";
 
 const ProfileImage = styled.img`
   width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
@@ -19,35 +20,34 @@ const Wrapper = styled.span`
   }
 `;
 
-const DeleteOrAdd = () => {
+const DeleteOrAdd = ({ userInfo }) => {
   const isSearchPage = true;
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth.user);
+
+  const handleAddFollow = () => {
+    console.log(userInfo);
+    dispatch({
+      type: FOLLOW_REQUEST,
+      payload: {
+        followUserEmail: userInfo.email,
+        token,
+      },
+    });
+  };
   return (
     <Wrapper>
-      {isSearchPage ? <IoIosAddCircle /> : <RiDeleteBack2Line />}
+      {isSearchPage && !userInfo.isFollowing ? (
+        <IoIosAddCircle onClick={handleAddFollow} />
+      ) : (
+        <RiDeleteBack2Line />
+      )}
     </Wrapper>
   );
 };
 
 const FriendList = () => {
   const user = useSelector((state) => state.user);
-
-  const friends = [
-    {
-      id: 1,
-      name: "배고파",
-      profileImage: false,
-    },
-    {
-      id: 2,
-      name: "bbb",
-      profileImage: false,
-    },
-    {
-      id: 3,
-      name: "aaa",
-      profileImage: false,
-    },
-  ];
 
   return (
     <ul>
@@ -66,7 +66,7 @@ const FriendList = () => {
               <FaUserCircle style={{ fontSize: "3rem" }} />
             )}
             <span style={{ flex: "1", paddingLeft: "1em" }}>{friend.name}</span>
-            <DeleteOrAdd />
+            <DeleteOrAdd userInfo={friend} />
           </li>
         ))
       ) : (

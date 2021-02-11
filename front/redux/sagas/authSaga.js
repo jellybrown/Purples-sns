@@ -23,27 +23,11 @@ import {
   FOLLOW_REQUEST,
   FOLLOW_SUCCESS,
   FOLLOW_FAILURE,
+  USER_SEARCH_SUCCESS,
+  USER_SEARCH_FAILURE,
+  USER_SEARCH_REQUEST,
 } from "../types";
 import Router from "next/router";
-
-// follow
-const followAPI = (payload) => {
-  return axios.post("/api/follow", payload);
-};
-function* follow(action) {
-  const result = yield call(followAPI, action.payload);
-  try {
-    yield put({
-      type: FOLLOW_SUCCESS,
-      payload: result.data,
-    });
-  } catch (err) {
-    yield put({
-      type: FOLLOW_FAILURE,
-      payload: err.response,
-    });
-  }
-}
 
 // Register
 const registerUserAPI = (payload) => {
@@ -135,6 +119,35 @@ function* logout(action) {
       type: LOGOUT_FAILURE,
     });
     console.log(err);
+  }
+}
+
+// follow
+const followAPI = (payload) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  return axios.post("/api/follow/addFollow", payload, config);
+};
+
+function* follow(action) {
+  try {
+    const result = yield call(followAPI, action.payload);
+    yield put({
+      type: FOLLOW_SUCCESS,
+      payload: result.data,
+    });
+  } catch (e) {
+    console.log(e);
+    yield put({
+      type: FOLLOW_FAILURE,
+      payload: e,
+    });
   }
 }
 
