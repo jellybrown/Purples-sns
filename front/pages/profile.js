@@ -1,12 +1,14 @@
+import React, { useState, useEffect, useRef } from "react";
 import Layout from "../components/layout";
 import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Button, message } from "antd";
+import { Upload, Button, message } from "antd";
 import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
 import { SettingFilled } from "@ant-design/icons";
+import { UPDATE_USER_INFO_REQUEST } from "../redux/types";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -36,11 +38,63 @@ const InputLabel = styled.label`
 `;
 
 const Profile = ({ isAuthenticated, user }) => {
-  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { _id, name, token, profileImageUrl } = useSelector(
+    (state) => state.auth.user
+  );
   const { save, handleSubmit, watch, errors } = useForm();
+  const [previewProfileImage, setProfilePreviewImage] = useState();
+  const fileRef = useRef();
+  const [form, setForm] = useState({
+    profileImage: "",
+    name: "",
+  });
 
-  const onSubmit = (data) => {
-    const { email, name, password } = data;
+  const onChangeImage = (e) => {
+    let fileList = e.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(fileList[0]);
+    reader.onloadend = (e) => {
+      setProfilePreviewImage(e.target.result);
+    };
+    setForm({
+      ...form,
+      profileImage: e.target.files[0],
+    });
+  };
+
+  const onChangeForm = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSelectImage = () => {
+    fileRef.current.click();
+  };
+
+  useEffect(() => {
+    setProfilePreviewImage(profileImageUrl);
+    setForm({
+      ...form,
+      name: user.name,
+    });
+  }, []);
+
+  const onSubmit = () => {
+    const body = {
+      profileImage: form.profileImage,
+      prevUserName: name,
+      userName: form.name,
+      userId: _id,
+      token,
+    };
+    console.log(body);
+    dispatch({
+      type: UPDATE_USER_INFO_REQUEST,
+      payload: body,
+    });
     message.info("수정 입력", 1);
   };
 
@@ -64,7 +118,7 @@ const Profile = ({ isAuthenticated, user }) => {
               left: "50%",
               transform: "translateX(-50%)",
             }}
-            src={auth.user.profileImageUrl}
+            src={previewProfileImage}
           />
           <Button
             color="black"
@@ -74,6 +128,14 @@ const Profile = ({ isAuthenticated, user }) => {
             style={{
               marginTop: "180px",
             }}
+            onClick={handleSelectImage}
+          />
+          <input
+            style={{ display: "none" }}
+            type="file"
+            ref={fileRef}
+            onChange={onChangeImage}
+            accept="image/jpeg, image/png"
           />
         </InputWrapper>
         <div
@@ -91,10 +153,13 @@ const Profile = ({ isAuthenticated, user }) => {
         <InputWrapper>
           <InputLabel>이름</InputLabel>
           <AntInput
+            name="name"
+            id="name"
             size="large"
             style={{ width: "100%", height: "50px", fontSize: "1.3em" }}
             placeholder={"이름"}
-            value={user.name}
+            value={form.name}
+            onChange={onChangeForm}
           />
         </InputWrapper>
         <Input

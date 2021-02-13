@@ -20,15 +20,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   LOGOUT_REQUEST,
-  FOLLOW_REQUEST,
-  FOLLOW_SUCCESS,
-  FOLLOW_FAILURE,
-  USER_SEARCH_SUCCESS,
-  USER_SEARCH_FAILURE,
-  USER_SEARCH_REQUEST,
-  UNFOLLOW_SUCCESS,
-  UNFOLLOW_FAILURE,
-  UNFOLLOW_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_FAILURE,
+  UPDATE_USER_INFO_REQUEST,
 } from "../types";
 import Router from "next/router";
 
@@ -125,6 +119,42 @@ function* logout(action) {
   }
 }
 
+// update user info
+const updateUserInfoAPI = (payload) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  let form = new FormData();
+  form.append("image", payload.profileImage);
+  form.append("prevUserName", payload.prevUserName);
+  form.append("userName", payload.userName);
+  form.append("userId", payload.userId);
+  form.append("token", payload.token);
+
+  return axios.post(`/api/user/${payload.prevUserName}/profile`, form, config);
+};
+
+function* updateUserInfo(action) {
+  try {
+    const result = yield call(updateUserInfoAPI, action.payload);
+    yield put({
+      type: UPDATE_USER_INFO_SUCCESS,
+      payload: result.data,
+    });
+  } catch (e) {
+    console.log(e);
+    yield put({
+      type: UPDATE_USER_INFO_FAILURE,
+      payload: e,
+    });
+  }
+}
+
 function* watchRegisterUser() {
   yield takeEvery(REGISTER_REQUEST, registerUser);
 }
@@ -141,11 +171,16 @@ function* watchLogout() {
   yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
+function* watchUpdateUserInfo() {
+  yield takeEvery(UPDATE_USER_INFO_REQUEST, updateUserInfo);
+}
+
 export default function* authSaga() {
   yield all([
     fork(watchRegisterUser),
     fork(watchLoginUser),
     fork(watchUserLoading),
     fork(watchLogout),
+    fork(watchUpdateUserInfo),
   ]);
 }
