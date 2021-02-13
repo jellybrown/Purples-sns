@@ -26,6 +26,9 @@ import {
   USER_SEARCH_SUCCESS,
   USER_SEARCH_FAILURE,
   USER_SEARCH_REQUEST,
+  UNFOLLOW_SUCCESS,
+  UNFOLLOW_FAILURE,
+  UNFOLLOW_REQUEST,
 } from "../types";
 import Router from "next/router";
 
@@ -122,35 +125,6 @@ function* logout(action) {
   }
 }
 
-// follow
-const followAPI = (payload) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  if (payload.token) {
-    config.headers["x-auth-token"] = payload.token;
-  }
-  return axios.post("/api/follow/addFollow", payload, config);
-};
-
-function* follow(action) {
-  try {
-    const result = yield call(followAPI, action.payload);
-    yield put({
-      type: FOLLOW_SUCCESS,
-      payload: result.data,
-    });
-  } catch (e) {
-    console.log(e);
-    yield put({
-      type: FOLLOW_FAILURE,
-      payload: e,
-    });
-  }
-}
-
 function* watchRegisterUser() {
   yield takeEvery(REGISTER_REQUEST, registerUser);
 }
@@ -167,16 +141,11 @@ function* watchLogout() {
   yield takeEvery(LOGOUT_REQUEST, logout);
 }
 
-function* watchFollow() {
-  yield takeEvery(FOLLOW_REQUEST, follow);
-}
-
 export default function* authSaga() {
   yield all([
     fork(watchRegisterUser),
     fork(watchLoginUser),
     fork(watchUserLoading),
     fork(watchLogout),
-    fork(watchFollow),
   ]);
 }

@@ -63,7 +63,35 @@ router.post("/addFollow", auth, async (req, res) => {
         date: moment().format("YYYY-MM-DD hh:mm:ss"),
       });
 
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ ...user._doc, isFollowing: true });
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ msg: e.message });
+  }
+});
+
+// @routes    POST api/follow/removeFollow
+// @desc      Remove follow
+// @access    private
+router.post("/removeFollow", auth, async (req, res) => {
+  try {
+    const { unfollowUserEmail } = req.body;
+
+    await User.findOne({
+      email: unfollowUserEmail,
+    }).then(async (user) => {
+      if (!user)
+        return res
+          .status(400)
+          .json({ msg: "팔로우 취소할 유저가 존재하지 않습니다." });
+
+      const findResult = await Follow.deleteOne({
+        user: req.user.id,
+        follow: user.id,
+      });
+
+      return res.status(200).json({ ...user._doc, isFollowing: false });
     });
   } catch (e) {
     console.log(e);

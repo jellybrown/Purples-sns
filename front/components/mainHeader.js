@@ -2,7 +2,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import Logo from "./logo";
 import Link from "next/link";
 import RightMenu from "./rightMenu";
-import { Switch } from "antd";
+import { Switch, Button } from "antd";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -76,28 +76,36 @@ const MainHeader = () => {
                 transform: "translateY(-50%)",
               }}
             />
-            <Switch
-              defaultChecked={false}
-              style={{
-                fontSize: "1.5rem",
-                position: "absolute",
-                left: "calc(6% + 35px)",
-                top: "50%",
-                transform: "translateY(-50%)",
-              }}
-              size="small"
-              onClick={onClick}
-            />
           </a>
         </Link>
+        <Switch
+          defaultChecked={false}
+          style={{
+            fontSize: "1.5rem",
+            position: "absolute",
+            left: "calc(6% + 35px)",
+            top: "50%",
+            transform: "translateY(-50%)",
+          }}
+          size="small"
+          onClick={onClick}
+        />
         <Logo style={{ fontSize: "1.8em" }} />
         <RightMenu />
       </div>
       <PostfilterWrapper ref={filterPostMenu}>
-        <span>All</span>
-        <span>Followings</span>
-        <span>Followers</span>
-        <span>My</span>
+        <Button type="link" block style={{ color: "black" }}>
+          All
+        </Button>
+        <Button type="link" block style={{ color: "black" }}>
+          Followings
+        </Button>
+        <Button type="link" block style={{ color: "black" }}>
+          Followers
+        </Button>
+        <Button type="link" block style={{ color: "black" }}>
+          My
+        </Button>
       </PostfilterWrapper>
     </div>
   );

@@ -12,13 +12,10 @@ const Find = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    console.log(keyword);
-    if (keyword) {
-      dispatch({
-        type: USER_SEARCH_REQUEST,
-        payload: { keyword, token },
-      });
-    }
+    dispatch({
+      type: USER_SEARCH_REQUEST,
+      payload: { keyword, token },
+    });
   }, [dispatch, keyword]);
 
   return (
