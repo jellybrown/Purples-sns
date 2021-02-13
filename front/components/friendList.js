@@ -3,7 +3,24 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { FOLLOW_REQUEST } from "../redux/types";
+import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../redux/types";
+import Router from "next/router";
+
+const dynamicSort = (property) => {
+  let sortOrder = 1;
+  if (property[0] === "-") {
+    sortOrder = -1;
+    property = property.substr(1);
+  }
+  return function (a, b) {
+    /* next line works with strings and numbers,
+     * and you may want to customize it to your needs
+     */
+    let result =
+      a[property] > b[property] ? -1 : a[property] < b[property] ? 1 : 0;
+    return result * sortOrder;
+  };
+};
 
 const ProfileImage = styled.img`
   width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
@@ -27,6 +44,7 @@ const DeleteOrAdd = ({ userInfo }) => {
 
   const handleAddFollow = () => {
     console.log(userInfo);
+
     dispatch({
       type: FOLLOW_REQUEST,
       payload: {
@@ -35,12 +53,24 @@ const DeleteOrAdd = ({ userInfo }) => {
       },
     });
   };
+
+  const handleRemoveFollow = () => {
+    console.log(userInfo);
+    dispatch({
+      type: UNFOLLOW_REQUEST,
+      payload: {
+        unfollowUserEmail: userInfo.email,
+        token,
+      },
+    });
+  };
+
   return (
     <Wrapper>
       {isSearchPage && !userInfo.isFollowing ? (
         <IoIosAddCircle onClick={handleAddFollow} />
       ) : (
-        <RiDeleteBack2Line />
+        <RiDeleteBack2Line onClick={handleRemoveFollow} />
       )}
     </Wrapper>
   );
@@ -52,7 +82,7 @@ const FriendList = () => {
   return (
     <ul>
       {user && user.users.length > 0 ? (
-        user.users.map((friend) => (
+        user.users.sort(dynamicSort("name")).map((friend) => (
           <li
             style={{
               display: "flex",
