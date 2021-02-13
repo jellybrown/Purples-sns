@@ -3,8 +3,11 @@ import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
 import { useCallback, useState } from "react";
+import { Button, Dropdown, Menu } from "antd";
+import { BiTrash, BiPencil } from "react-icons/bi";
 
 const CardContent = () => {
+  const isMine = true; // useSelector로 내 게시글인지 가져오기
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
 
@@ -15,6 +18,35 @@ const CardContent = () => {
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
   });
+
+  const menu = (
+    <Menu
+      style={{
+        textAlign: "center",
+        borderRadius: "40px",
+        overflow: "hidden",
+      }}
+    >
+      <Menu.Item style={{ display: "inline-block" }}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ padding: "0.8rem 0.5rem 0.8rem 1.2rem" }}
+        >
+          <BiPencil style={{ fontSize: "1.5rem" }} />
+        </a>
+      </Menu.Item>
+      <Menu.Item style={{ display: "inline-block" }}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "tomato", padding: "0.8rem 1.2rem 0.8rem 0.5rem " }}
+        >
+          <BiTrash style={{ fontSize: "1.5rem" }} />
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div
@@ -33,7 +65,14 @@ const CardContent = () => {
           fontSize: "1.4rem",
         }}
       >
-        <FiMoreHorizontal style={{ marginLeft: "0.5em", cursor: "pointer" }} />
+        {isMine ? (
+          <Dropdown overlay={menu} placement="topCenter" arrow>
+            <FiMoreHorizontal
+              style={{ marginLeft: "0.5em", cursor: "pointer" }}
+            />
+          </Dropdown>
+        ) : null}
+
         <span style={{ marginLeft: "0.5em", cursor: "pointer" }}>
           {commented ? (
             <RiChat2Fill onClick={onToggleComment} />
