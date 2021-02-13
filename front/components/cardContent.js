@@ -2,7 +2,7 @@ import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Button, Dropdown, Menu } from "antd";
 import { BiTrash, BiPencil } from "react-icons/bi";
 
@@ -10,9 +10,19 @@ const CardContent = () => {
   const isMine = true; // useSelector로 내 게시글인지 가져오기
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
+  const contentRef = useRef();
 
   const onToggleComment = useCallback(() => {
     setCommented((prev) => !prev);
+    // if (commented === true) {
+    //   contentRef.current.style.transformOrigin = "top center";
+    //   contentRef.current.style.transform = "scaleY(1.5)";
+    //   contentRef.current.style.transition = "0.5s";
+    // } else {
+    //   contentRef.current.style.transformOrigin = "top center";
+    //   contentRef.current.style.transform = "scaleY(1)";
+    //   contentRef.current.style.transition = "0.5s";
+    // }
   });
 
   const onToggleLike = useCallback(() => {
@@ -50,11 +60,12 @@ const CardContent = () => {
 
   return (
     <div
+      ref={contentRef}
       style={{
         position: "relative",
-        minHeight: "180px",
-        height: "20%",
-        maxHeight: "500px",
+        minHeight: "200px",
+        height: "50%",
+        maxHeight: "800px",
       }}
     >
       <div

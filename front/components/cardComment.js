@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Card, Avatar } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ADD_COMMENT_REQUEST } from "../redux/types";
@@ -26,39 +26,65 @@ const CardComment = () => {
         left: 0,
         top: "5px",
         width: "100%",
-        height: "100%",
+        height: "700px",
         padding: "0 1.3em",
       }}
     >
       <p
         style={{
           fontSize: "0.8rem",
-          fontWeight: "500",
+
           marginLeft: "5px",
           color: "#A3A3A3",
         }}
       >
-        3개의 댓글
+        3개의 댓글이 있습니다.
       </p>
       <ul>
-        <li>
-          <span
-            style={{
-              fontWeight: "500",
-              marginRight: "12px",
-            }}
-          >
-            hehe
+        <li
+          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
+        >
+          <Card.Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title="user1"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          />
+
+          <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
+            어디 케이크야???
           </span>
-          <span style={{ fontSize: "0.85rem" }}>어디 케이크야???</span>
         </li>
-        <li>
-          <span style={{ fontWeight: "500", marginRight: "12px" }}>user</span>
-          <span style={{ fontSize: "0.85rem" }}>우리집 케이크^-^</span>
+        <li
+          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
+        >
+          <Card.Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title="user1"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          />
+
+          <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
+            어디 케이크야???
+          </span>
         </li>
-        <li>
-          <span style={{ fontWeight: "500", marginRight: "12px" }}>헤헷</span>
-          <span style={{ fontSize: "0.85rem" }}>오~</span>
+        <li
+          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
+        >
+          <Card.Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title="user1"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          />
+
+          <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
+            어디 케이크야???
+          </span>
         </li>
       </ul>
       <div
