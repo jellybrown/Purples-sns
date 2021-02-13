@@ -60,11 +60,11 @@ router.get("/user", auth, async (req, res) => {
 
     console.log("user data", user);
     console.log("follower data", followerCount);
-
     user = {
       ...user._doc,
       followerCount,
       followCount,
+      token: req.header("x-auth-token"),
     };
 
     console.log("resultUser", user);

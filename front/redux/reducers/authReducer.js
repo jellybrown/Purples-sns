@@ -172,7 +172,7 @@ const authReducer = (state = initialState, action) => {
     case FOLLOW_SUCCESS:
       return {
         ...state,
-        user: { ...user },
+        // user: action.payload,
         followLoading: false,
         followDone: true,
       };
