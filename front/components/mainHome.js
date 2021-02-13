@@ -3,7 +3,8 @@ import MainProfile from "./mainProfile";
 import PostCard from "./postCard";
 import useMediaQuery from "../utils/useMediaQuery";
 import PostForm from "./postForm";
-
+import { Button } from "antd";
+import { BsPencil } from "react-icons/bs";
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
@@ -49,6 +50,24 @@ const MainHome = () => {
           </>
         )}
       </div>
+      <Button
+        style={{
+          width: "3.8rem",
+          height: "3.8rem",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "50%",
+          position: "fixed",
+          right: "25px",
+          bottom: "25px",
+          boxShadow: "3px 3px 10px rgba(0,0,0,0.1)",
+          background: "#aab2e3",
+          border: "none",
+        }}
+      >
+        <BsPencil style={{ fontSize: "2rem", color: "#fff" }} />
+      </Button>
     </Layout>
   );
 };
