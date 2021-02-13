@@ -12,6 +12,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_FAILURE,
 } from "../types";
 import { HYDRATE } from "next-redux-wrapper";
 
@@ -159,6 +162,18 @@ const authReducer = (state = initialState, action) => {
         logoutLoading: false,
         userRole: null,
         errorMsg: action.payload.data.msg,
+      };
+    case UPDATE_USER_INFO_REQUEST:
+      return {
+        ...state,
+      };
+    case UPDATE_USER_INFO_SUCCESS:
+      return {
+        ...state,
+      };
+    case UPDATE_USER_INFO_FAILURE:
+      return {
+        ...state,
       };
     default:
       return state;

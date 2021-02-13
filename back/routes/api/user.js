@@ -7,6 +7,32 @@ import config from "../../config";
 const { JWT_SECRET } = config;
 const router = express.Router();
 
+import multer from "multer";
+import multerS3 from "multer-s3";
+import path from "path";
+import AWS from "aws-sdk";
+import dotenv from "dotenv";
+dotenv.config();
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_PRIVATE_KEY,
+});
+
+const uploadS3 = multer({
+  storage: multerS3({
+    s3,
+    bucket: "purples/upload",
+    region: "ap-northeast-2",
+    key(req, file, cb) {
+      const ext = path.extname(file.originalname);
+      const basename = path.basename(file.originalname, ext);
+      cb(null, basename + new Date().valueOf() + ext);
+    },
+  }),
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100Mb
+});
+
 // @routes    GET api/user
 // @desc      Get all user
 // @access    public
@@ -74,38 +100,28 @@ router.post("/", async (req, res) => {
 // @route   POST api/user/:username/profile
 // @desc    POST Edit Password
 // @access  Private
-router.post("/:userName/profile", async (req, res) => {
-  try {
-    const { previousPassword, password, rePassword, userId } = req.body;
+router.post(
+  "/:prevUserName/profile",
+  uploadS3.single("image"),
+  async (req, res) => {
+    console.log("file...", req.file.location);
+    try {
+      const { profileImage, prevUserName, userName, userId } = req.body;
+      console.log("request body: ", req.body);
 
-    const result = await User.findById(userId, "password");
-    bcrypt.compare(previousPassword, result.password).then((isMatch) => {
-      if (!isMatch) {
-        return res.status(400).json({
-          match_msg: "기존 비밀번호와 일치하지 않습니다.",
-        });
-      } else {
-        if (password === rePassword) {
-          bcrypt.hash(password, salt, (err, hash) => {
-            if (err) throw err;
+      const result = await User.findById(userId);
+      console.log("request user: ", result);
 
-            result.password = hash;
-            result.save();
-          });
+      result.name = userName;
 
-          res
-            .status(200)
-            .json({ success_msg: "비밀번호 업데이트에 성공했습니다." });
-        } else {
-          res
-            .status(400)
-            .json({ fail_msg: "새로운 비밀번호가 일치하지 않습니다." });
-        }
+      if (req.file !== null) {
+        result.profileImageUrl = req.file.location;
       }
-    });
-  } catch (e) {
-    console.log(e);
+      result.save();
+    } catch (e) {
+      console.log(e);
+    }
   }
-});
+);
 
 export default router;
