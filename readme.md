@@ -20,7 +20,7 @@ twitter, instagram과 같은 소셜 네트워크 서비스 입니다.<br>
 
 <br>
 
-### 2021.01.01 ~ 진행중 (front 1인, back 1인)
+- 2021.01.01 ~ 진행중 (front 1인, back 1인)
 
 <br>
 
@@ -28,19 +28,19 @@ twitter, instagram과 같은 소셜 네트워크 서비스 입니다.<br>
 
 <br>
 
-### - React
+- React
 
-### - next.js
+- next.js
 
-### - Redux, Redux-saga : 비동기 통신, 상태 관리
+- Redux, Redux-saga : 비동기 통신, 상태 관리
 
-### - axios
+- axios
 
-### - React-hook-form : 유효성 검사
+- React-hook-form : 유효성 검사
 
-### - React-reponsive : PC/모바일 화면을 다르게 하기위해 이용
+- React-reponsive : PC/모바일 화면을 다르게 하기위해 이용
 
-### - design library (ant-design)
+- design library (ant-design)
 
 <br>
 
