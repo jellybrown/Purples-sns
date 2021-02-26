@@ -2,13 +2,14 @@
 
 <br>
 
-## ❗️ 프로젝트 목적
+## ❗️ 프로젝트 소개
 
 <br>
 
-twitter, instagram과 같은 소셜 네트워크 서비스 입니다.<br>
-발랄한 느낌을 어필하고 싶어 보라색 그라데이션을 이용했고, <br>
-어플리케이션의 이름도 people(s) + purple을 합쳐 purples로 하게되었습니다.
+- twitter, instagram과 같은 소셜 네트워크 서비스 <br>
+- 발랄한 느낌 어필을 위해 보라색 그라데이션 이용 <br>
+- 어플리케이션의 이름은 people(s) + purple을 합쳐 purples로 결정<br>
+- 프로젝트가 완성되면, readme도 같이 수정할 예정<br>
 
 <br>
 
@@ -64,7 +65,7 @@ twitter, instagram과 같은 소셜 네트워크 서비스 입니다.<br>
 
 <br>
 
-### 2. 회원가입, 로그인 유효성 검사
+### 2. 회원가입, 로그인 form 유효성 검사
 
 <br>
 
@@ -171,7 +172,7 @@ function* watchAddPost() {
   yield takeEvery(ADD_POST_REQUEST, addPost);
 }
 
-...
+// ...
 
 export default function* postSaga() {
   yield all([fork(watchAddPost)], [fork(watchRemovePost)]);
@@ -258,15 +259,31 @@ const MainHome = () => {
 
 <br>
 
-### git을 이용한 협업
+### 1. git
 
-혼자만 해서 add, commit, push만 알았었는데 <br>
-git을 통해 협업을 하려면 작업 단위로 커밋해야 한다는 것과, <br>
-fetch, pull, merge 등의 명령어들을 사용해야 하는 것을 알았습니다. <br>
+혼자만 해서 add, commit, push만 알았었는데, 스터디를 하며 깨달은 것은 이렇습니다.<br>
+
+- 작업 단위의 커밋 필요<br>
+- fetch, pull, merge 등 다양한 명령어들을 사용해야 하는 것<br>
+- git은 혼자해서는 깨우치기 어렵다는 것<br>
 
 <br>
 
-### 많은 작업량
+### 2. 다른 사람과의 협업
 
-실제 서비스처럼 만들고 싶다는 마음에 시작했는데 <br>
-생각보다 작업량이 많고, 에러도 있었습니다. <br>
+제가 앞으로 보완해야 할 점들을 몸소 깨달았습니다. <br>
+아직 부족하지만 공부하며 아래와 같은 점들을 하나씩 실천해나갈 생각입니다.<br>
+
+- 제안하고자 하는 기술에 대한 이해도<br>
+- 프로젝트 사전 세부 계획 (문서화 하기)<br>
+
+<br>
+
+### 3. 영어
+
+실제 서비스처럼 만들고 싶다는 마음에 시작했는데, 생각하지 않았던 곳에서 에러가 종종 발생했습니다.<br>
+터미널에서 에러를 읽는 것은 어렵지 않았지만, <br>
+모르는 것들을 영어로 검색 해야하는데 장문의 문장들은 이해하기 힘들었습니다.<br>
+앞으로 API문서와 블로그 읽기를 위해 꾸준히 영어공부를 할 생각입니다.
+
+<br>
