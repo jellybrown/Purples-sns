@@ -7,8 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { useDispatch } from "react-redux";
-import { ADD_POST_REQUEST } from "../redux/types";
-
+import { ADD_POST_REQUEST } from "../../redux/types";
 const Wrapper = styled.div`
   overflow: hidden;
   max-height: 300px;

@@ -5,8 +5,8 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { Menu, message } from "antd";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import useMediaQuery from "../utils/useMediaQuery";
-import { LOGOUT_REQUEST } from "../redux/types";
+import useMediaQuery from "../../utils/useMediaQuery";
+import { LOGOUT_REQUEST } from "../../redux/types";
 import Router from "next/router";
 
 const StyledMenu = styled(Menu)`

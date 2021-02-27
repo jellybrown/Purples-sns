@@ -5,11 +5,10 @@ import { BiSearch } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 import { Button, Dropdown, Menu, message } from "antd";
 import { useDispatch } from "react-redux";
-import { LOGOUT_REQUEST } from "../redux/types";
 import Link from "next/link";
 import Router from "next/router";
 import UserMenu from "./userMenu";
-import useMediaQuery from "../utils/useMediaQuery";
+import useMediaQuery from "../../utils/useMediaQuery";
 
 const RightMenu = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");

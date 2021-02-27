@@ -1,7 +1,7 @@
 import { Button, Card, Avatar } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { ADD_COMMENT_REQUEST } from "../redux/types";
+import { ADD_COMMENT_REQUEST } from "../../redux/types";
 
 const CardComment = () => {
   const [comment, setComment] = useState("");

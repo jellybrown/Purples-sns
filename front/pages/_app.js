@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 
 import PropTypes from "prop-types";
 import Head from "next/head";
-import GlobalStyles from "../components/globalStyles";
+
 import { wrapper } from "../redux";
 import { USER_LOADING_REQUEST } from "../redux/types";
 import { getCookie } from "../redux/reducers/authReducer";
+import GlobalStyles from "../styles/globalStyles";
 
 const App = ({ Component, pageProps }) => {
   return (
