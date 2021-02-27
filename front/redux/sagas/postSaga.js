@@ -1,6 +1,9 @@
 import axios from "axios";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import {
+  LOAD_POST_REQUEST,
+  LOAD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
   ADD_COMMENT_REQUEST,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
@@ -24,8 +27,11 @@ const addPostAPI = (payload) => {
     config.headers["x-auth-token"] = payload.token;
   }
   let form = new FormData();
+
+  for (const file of payload.images) {
+    form.append("image[]", file);
+  }
   form.append("contents", payload.contents);
-  form.append("image", payload.images);
   form.append("userName", payload.userName);
   form.append("writer", payload.writer);
   form.append("token", payload.token);
@@ -123,6 +129,28 @@ function* searchPost(action) {
   }
 }
 
+// All posts load
+const loadPostAPI = (payload) => {
+  return axios.get(`/api/post/skip/${payload}`);
+};
+function* loadPosts(action) {
+  try {
+    const result = yield call(loadPostAPI, action.payload);
+    console.log(result, "loadPosts");
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      payload: result.data,
+    });
+  } catch (e) {
+    console.log(e);
+    yield put({
+      type: LOAD_POST_FAILURE,
+      payload: e,
+    });
+  }
+}
+
+// watch functions...
 function* watchAddPost() {
   yield takeEvery(ADD_POST_REQUEST, addPost);
 }
@@ -138,6 +166,9 @@ function* watchAddComment() {
 function* watchRemoveComment() {
   yield takeEvery(REMOVE_COMMENT_REQUEST, removeComment);
 }
+function* watchLoadPosts() {
+  yield takeEvery(LOAD_POST_REQUEST, loadPosts);
+}
 
 export default function* postSaga() {
   yield all([
@@ -146,5 +177,6 @@ export default function* postSaga() {
     fork(watchAddComment),
     fork(watchRemoveComment),
     fork(watchSearchPost),
+    fork(watchLoadPosts),
   ]);
 }

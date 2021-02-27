@@ -92,7 +92,7 @@ const PostForm = () => {
       };
     }
 
-    setUserPhoto(Array.from(fileList));
+    setUserPhoto(fileList);
   };
 
   // 프리뷰 영역 slick arrow (prev, next)

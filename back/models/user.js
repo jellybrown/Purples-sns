@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   },
   register_date: {
     type: Date,
-    default: moment().format("YYYY-MM-DD hh:mm:ss"),
+    default: moment().format("YYYY-MM-DD HH:mm:ss"),
   },
   posts: [
     {

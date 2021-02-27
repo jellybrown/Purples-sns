@@ -58,6 +58,7 @@ router.get("/skip/:skip", async (req, res) => {
   try {
     const postCount = await Post.countDocuments();
     const postFindResult = await Post.find()
+      .populate("writer", "name")
       .skip(Number(req.params.skip))
       .limit(6)
       .sort({ date: -1 });
@@ -74,7 +75,7 @@ router.get("/skip/:skip", async (req, res) => {
   @desc     Create a post
   @access   Private
  */
-router.post("/", auth, uploadS3.array("image", 5), async (req, res, next) => {
+router.post("/", auth, uploadS3.array("image[]", 5), async (req, res, next) => {
   try {
     console.log("req.body.image", req.body.image);
     console.log(req.files.map((v) => v.location));
@@ -147,7 +148,7 @@ router.post("/:id/comments", async (req, res, next) => {
     writer: userId,
     writerName: userName,
     post: id,
-    date: moment().format("YYYY-MM-DD hh:mm:ss"),
+    date: moment().format("YYYY-MM-DD HH:mm:ss"),
   });
   console.log(comment, "comment");
 
@@ -218,7 +219,7 @@ router.post("/:id/edit", auth, async (req, res, next) => {
       {
         contents,
         imageUrls,
-        date: moment().format("YYYY-MM-DD hh:mm:ss"),
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
       },
       { new: true }
     );
