@@ -1,5 +1,7 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { BiSearch } from "react-icons/bi";
+import { BsFillPersonPlusFill } from "react-icons/bs";
 import { Menu, message } from "antd";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -89,7 +91,7 @@ const UserMenu = () => {
             }}
           >
             <span>친구 찾기</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+            <BsFillPersonPlusFill style={{ fontSize: "1.2rem" }} />
           </Menu.Item>
           <Menu.Item
             key="2"
@@ -101,7 +103,7 @@ const UserMenu = () => {
             }}
           >
             <span>게시글 검색</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+            <BiSearch style={{ fontSize: "1.2rem" }} />
           </Menu.Item>
         </StyledMenu>
       ) : null}
@@ -125,7 +127,7 @@ const UserMenu = () => {
             }}
           >
             <span>친구 찾기</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+            <BsFillPersonPlusFill style={{ fontSize: "1.2rem" }} />
           </Menu.Item>
           <Menu.Item
             key="2"
@@ -137,7 +139,7 @@ const UserMenu = () => {
             }}
           >
             <span>게시글 검색</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+            <BiSearch style={{ fontSize: "1.2rem" }} />
           </Menu.Item>
         </StyledMenu>
       ) : null}
