@@ -7,9 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_POST_REQUEST } from "../redux/types";
-
 import { message } from "antd";
+import { ADD_POST_REQUEST } from "../../redux/types";
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -103,7 +102,12 @@ const PostForm = () => {
     return (
       <GrNext
         className={className}
-        style={{ ...style, display: "block", transform: "scale(1.5)" }}
+        style={{
+          ...style,
+          display: "block",
+          transform: "translateX(-15px) scale(1.3)",
+          paddingleftt: "2em",
+        }}
         onClick={onClick}
       />
     );
@@ -113,7 +117,11 @@ const PostForm = () => {
     return (
       <GrPrevious
         className={className}
-        style={{ ...style, display: "block", transform: "scale(1.5)" }}
+        style={{
+          ...style,
+          display: "block",
+          transform: "translateX(15px) scale(1.3)",
+        }}
         onClick={onClick}
       />
     );

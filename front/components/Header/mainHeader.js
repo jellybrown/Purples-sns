@@ -1,5 +1,5 @@
 import { AiOutlineHome } from "react-icons/ai";
-import Logo from "./logo";
+import Logo from "../logo";
 import Link from "next/link";
 import RightMenu from "./rightMenu";
 import { Switch, Button } from "antd";

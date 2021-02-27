@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Layout from "../components/layout";
+import Layout from "../styles/layout";
 import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";

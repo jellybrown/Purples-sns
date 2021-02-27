@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FriendsBox from "../components/friendsBox";
-import MainHeader from "../components/MainHeader";
+import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/searchBar";
 import { LightColorBg } from "../styles/bg";
 import { useDispatch, useSelector } from "react-redux";
