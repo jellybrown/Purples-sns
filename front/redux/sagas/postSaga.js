@@ -1,9 +1,14 @@
 import axios from "axios";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import {
+  LOAD_POST_REQUEST,
+  LOAD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
+  ADD_COMMENT_REQUEST,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
+  REMOVE_COMMENT_REQUEST,
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
@@ -13,7 +18,25 @@ import {
 } from "../types";
 
 const addPostAPI = (payload) => {
-  return axios.post("api/post", payload);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  let form = new FormData();
+
+  for (const file of payload.images) {
+    form.append("image[]", file);
+  }
+  form.append("contents", payload.contents);
+  form.append("userName", payload.userName);
+  form.append("writer", payload.writer);
+  form.append("token", payload.token);
+
+  return axios.post("/api/post", form, config);
 };
 
 function* addPost(action) {
@@ -106,6 +129,28 @@ function* searchPost(action) {
   }
 }
 
+// All posts load
+const loadPostAPI = (payload) => {
+  return axios.get(`/api/post/skip/${payload}`);
+};
+function* loadPosts(action) {
+  try {
+    const result = yield call(loadPostAPI, action.payload);
+    console.log(result, "loadPosts");
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      payload: result.data,
+    });
+  } catch (e) {
+    console.log(e);
+    yield put({
+      type: LOAD_POST_FAILURE,
+      payload: e,
+    });
+  }
+}
+
+// watch functions...
 function* watchAddPost() {
   yield takeEvery(ADD_POST_REQUEST, addPost);
 }
@@ -121,13 +166,17 @@ function* watchAddComment() {
 function* watchRemoveComment() {
   yield takeEvery(REMOVE_COMMENT_REQUEST, removeComment);
 }
+function* watchLoadPosts() {
+  yield takeEvery(LOAD_POST_REQUEST, loadPosts);
+}
 
 export default function* postSaga() {
-  yield all(
-    [fork(watchAddPost)],
-    [fork(watchRemovePost)],
-    [fork(watchAddComment)],
-    [fork(watchRemoveComment)],
-    [fork(watchSearchPost)]
-  );
+  yield all([
+    fork(watchAddPost),
+    fork(watchRemovePost),
+    fork(watchAddComment),
+    fork(watchRemoveComment),
+    fork(watchSearchPost),
+    fork(watchLoadPosts),
+  ]);
 }

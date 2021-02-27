@@ -14,7 +14,7 @@ const PostSchema = new mongoose.Schema({
   ],
   date: {
     type: String,
-    default: moment().format("YYYY-MM-DD hh:mm:ss"),
+    default: moment().format("YYYY-MM-DD HH:mm:ss"),
   },
   comments: [
     {

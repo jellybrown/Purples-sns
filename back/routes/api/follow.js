@@ -60,7 +60,7 @@ router.post("/addFollow", auth, async (req, res) => {
       await Follow.create({
         user: req.user.id,
         follow: user.id,
-        date: moment().format("YYYY-MM-DD hh:mm:ss"),
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
       });
 
       return res.status(200).json({ ...user._doc, isFollowing: true });

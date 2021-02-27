@@ -3,64 +3,43 @@ import { Card, Avatar } from "antd";
 import CardContent from "./cardContent";
 import PostCardImg from "./postCardImg";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LOAD_POST_REQUEST } from "../../redux/types";
 
 const { Meta } = Card;
 
 const PostCard = () => {
+  const { posts, loading } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POST_REQUEST,
+      payload: 0,
+    });
+  }, []);
+
   return (
     <>
-      <Card
-        style={{
-          maxWidth: "500px",
-          width: "93%",
-          borderRadius: "30px",
-          overflow: "hidden",
-          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-          marginBottom: "70px",
-        }}
-        cover={<PostCardImg />}
-      >
-        <CardContent />
-      </Card>
-      <Card
-        style={{
-          maxWidth: "500px",
-          width: "93%",
-          borderRadius: "30px",
-          overflow: "hidden",
-          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-          marginBottom: "70px",
-        }}
-        cover={<PostCardImg />}
-      >
-        <CardContent />
-      </Card>
-      <Card
-        style={{
-          maxWidth: "500px",
-          width: "93%",
-          borderRadius: "30px",
-          overflow: "hidden",
-          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-          marginBottom: "70px",
-        }}
-        cover={<PostCardImg />}
-      >
-        <CardContent />
-      </Card>
-      <Card
-        style={{
-          maxWidth: "500px",
-          width: "93%",
-          borderRadius: "30px",
-          overflow: "hidden",
-          boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-          marginBottom: "70px",
-        }}
-        cover={<PostCardImg />}
-      >
-        <CardContent />
-      </Card>
+      {posts.map((post) => (
+        <Card
+          style={{
+            maxWidth: "500px",
+            width: "93%",
+            borderRadius: "30px",
+            overflow: "hidden",
+            boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
+            marginBottom: "70px",
+          }}
+          cover={<PostCardImg images={post.imageUrls} />}
+        >
+          <CardContent
+            contents={post.contents}
+            writer={post.writer.name}
+            date={post.date}
+          />
+        </Card>
+      ))}
     </>
   );
 };

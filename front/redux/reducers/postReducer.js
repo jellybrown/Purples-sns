@@ -1,31 +1,28 @@
 import { HYDRATE } from "next-redux-wrapper";
 import {
   ADD_COMMENT_FAILURE,
+  ADD_COMMENT_REQUEST,
   ADD_COMMENT_SUCCESS,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
+  LOAD_POST_REQUEST,
+  LOAD_POST_SUCCESS,
   REMOVE_COMMENT_FAILURE,
   REMOVE_COMMENT_REQUEST,
   REMOVE_COMMENT_SUCCESS,
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
+  SEARCH_POST_FAILURE,
+  SEARCH_POST_REQUEST,
+  SEARCH_POST_SUCCESS,
 } from "../types";
 
 const initialState = {
-  posts: [
-    {
-      id: 1,
-      name: "abcd",
-      content: "ddddㅎㅎㅎ",
-    },
-    {
-      id: 2,
-      name: "zzzz",
-      content: "ㅎ하ㅏ하하핳",
-    },
-  ],
+  posts: [],
+  loading: false,
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
@@ -35,12 +32,30 @@ const initialState = {
   searchPostLoading: false,
   searchPostDone: false,
   searchPostError: null,
+  postCount: "",
 };
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
       return { ...state, ...action.payload };
+    case LOAD_POST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case LOAD_POST_SUCCESS:
+      return {
+        ...state,
+        posts: [...state.posts, ...action.payload.postFindResult],
+        postCount: action.payload.postCount,
+        loading: false,
+      };
+    case LOAD_POST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+      };
     case SEARCH_POST_REQUEST:
       return {
         ...state,
@@ -67,8 +82,8 @@ const postReducer = (state = initialState, action) => {
       };
     case ADD_POST_SUCCESS:
       return {
-        ...state,
-        posts: [...posts, action.payload],
+        ...state.posts,
+        posts: [...state.posts, action.payload],
         addPostLoading: false,
         addPostDone: true,
       };

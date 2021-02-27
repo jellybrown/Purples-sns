@@ -23,7 +23,7 @@ const s3 = new AWS.S3({
 const uploadS3 = multer({
   storage: multerS3({
     s3,
-    bucket: "purple-sns/upload",
+    bucket: "purples/upload",
     region: "ap-northeast-2",
     key(req, file, cb) {
       const ext = path.extname(file.originalname);
@@ -31,7 +31,7 @@ const uploadS3 = multer({
       cb(null, basename + new Date().valueOf() + ext);
     },
   }),
-  limits: { fileSize: 100 * 1024 * 1024 }, // 100mb
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100Mb
 });
 
 /*
@@ -58,6 +58,7 @@ router.get("/skip/:skip", async (req, res) => {
   try {
     const postCount = await Post.countDocuments();
     const postFindResult = await Post.find()
+      .populate("writer", "name")
       .skip(Number(req.params.skip))
       .limit(6)
       .sort({ date: -1 });
@@ -74,10 +75,12 @@ router.get("/skip/:skip", async (req, res) => {
   @desc     Create a post
   @access   Private
  */
-router.post("/", auth, uploadS3.none(), async (req, res, next) => {
+router.post("/", auth, uploadS3.array("image[]", 5), async (req, res, next) => {
   try {
-    console.log("request", req);
-    const { contents, imageUrls, writer } = req.body;
+    console.log("req.body.image", req.body.image);
+    console.log(req.files.map((v) => v.location));
+    const imageUrls = req.files.map((v) => v.location);
+    const { contents, writer } = req.body;
 
     // post 생성
     const post = await Post.create({
@@ -91,7 +94,7 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
       $push: { posts: post._id },
     });
 
-    return res.redirect(`/api/post/${post._id}`);
+    return res.json(post);
   } catch (e) {
     console.error(e);
   }
@@ -145,7 +148,7 @@ router.post("/:id/comments", async (req, res, next) => {
     writer: userId,
     writerName: userName,
     post: id,
-    date: moment().format("YYYY-MM-DD hh:mm:ss"),
+    date: moment().format("YYYY-MM-DD HH:mm:ss"),
   });
   console.log(comment, "comment");
 
@@ -216,7 +219,7 @@ router.post("/:id/edit", auth, async (req, res, next) => {
       {
         contents,
         imageUrls,
-        date: moment().format("YYYY-MM-DD hh:mm:ss"),
+        date: moment().format("YYYY-MM-DD HH:mm:ss"),
       },
       { new: true }
     );
