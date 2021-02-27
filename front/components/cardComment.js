@@ -26,14 +26,14 @@ const CardComment = () => {
         left: 0,
         top: "5px",
         width: "100%",
-        height: "700px",
+        height: "500px",
         padding: "0 1.3em",
       }}
     >
       <p
         style={{
-          fontSize: "0.8rem",
-
+          fontSize: "0.85rem",
+          marginBottom: "2em",
           marginLeft: "5px",
           color: "#A3A3A3",
         }}
@@ -42,7 +42,11 @@ const CardComment = () => {
       </p>
       <ul>
         <li
-          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "0.8em",
+          }}
         >
           <Card.Meta
             avatar={
@@ -55,35 +59,58 @@ const CardComment = () => {
           <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
             어디 케이크야???
           </span>
-        </li>
-        <li
-          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
-        >
-          <Card.Meta
-            avatar={
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            }
-            title="user1"
-            style={{ display: "inline-flex", alignItems: "center" }}
-          />
-
-          <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
-            어디 케이크야???
+          <span
+            style={{ marginLeft: "20px", fontSize: "0.8rem", color: "#A3A3A3" }}
+          >
+            1일 전
           </span>
         </li>
         <li
-          style={{ display: "flex", alignItems: "center", marginBottom: "1em" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "0.8em",
+          }}
         >
           <Card.Meta
             avatar={
               <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             }
-            title="user1"
+            title="usersdasdad"
             style={{ display: "inline-flex", alignItems: "center" }}
           />
 
           <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
-            어디 케이크야???
+            어디 케이크야vddsfs???
+          </span>
+          <span
+            style={{ marginLeft: "20px", fontSize: "0.8rem", color: "#A3A3A3" }}
+          >
+            1일 전
+          </span>
+        </li>
+        <li
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "0.8em",
+          }}
+        >
+          <Card.Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title="userasdasa"
+            style={{ display: "inline-flex", alignItems: "center" }}
+          />
+
+          <span style={{ marginLeft: "1em", fontSize: "0.85rem" }}>
+            어디 케이dfdsfs크야???
+          </span>
+          <span
+            style={{ marginLeft: "20px", fontSize: "0.8rem", color: "#A3A3A3" }}
+          >
+            1일 전
           </span>
         </li>
       </ul>
