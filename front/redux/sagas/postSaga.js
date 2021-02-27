@@ -1,9 +1,11 @@
 import axios from "axios";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import {
+  ADD_COMMENT_REQUEST,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
+  REMOVE_COMMENT_REQUEST,
   REMOVE_POST_FAILURE,
   REMOVE_POST_REQUEST,
   REMOVE_POST_SUCCESS,
@@ -13,7 +15,22 @@ import {
 } from "../types";
 
 const addPostAPI = (payload) => {
-  return axios.post("api/post", payload);
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  let form = new FormData();
+  form.append("contents", payload.contents);
+  form.append("image", payload.images);
+  form.append("userName", payload.userName);
+  form.append("writer", payload.writer);
+  form.append("token", payload.token);
+
+  return axios.post("/api/post", form, config);
 };
 
 function* addPost(action) {
@@ -123,11 +140,11 @@ function* watchRemoveComment() {
 }
 
 export default function* postSaga() {
-  yield all(
-    [fork(watchAddPost)],
-    [fork(watchRemovePost)],
-    [fork(watchAddComment)],
-    [fork(watchRemoveComment)],
-    [fork(watchSearchPost)]
-  );
+  yield all([
+    fork(watchAddPost),
+    fork(watchRemovePost),
+    fork(watchAddComment),
+    fork(watchRemoveComment),
+    fork(watchSearchPost),
+  ]);
 }

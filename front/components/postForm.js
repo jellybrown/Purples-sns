@@ -6,8 +6,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { GrPrevious, GrNext } from "react-icons/gr";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_POST_REQUEST } from "../redux/types";
+
+import { message } from "antd";
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -16,6 +18,8 @@ const Wrapper = styled.div`
 
 const PostForm = () => {
   const dispatch = useDispatch();
+  const { _id, name, token } = useSelector((state) => state.auth.user);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [previewImageUrl, setPreviewImageUrl] = useState([]);
@@ -42,22 +46,25 @@ const PostForm = () => {
 
   // 글 작성시 text,photo 정보를 dispatch하고, 모달을 닫는 함수 (handleOk)
   const handleOk = () => {
-    console.log(userText);
-    let photoInfo;
-    let imageFile;
-    if (userPhoto.length > 1) {
-      photoInfo = userPhoto.map((photos) => {
-        imageFile = imageUploader(photos);
-      });
-    } else {
-      imageFile = imageUploader(userPhoto);
+    // image 변수화
+    if (userPhoto === null || userPhoto.length == 0) {
+      message.info("이미지를 하나 이상 등록해주세요.", 1);
+      return;
     }
+    console.log("postForm.handleOk() photo => ", userPhoto);
+
+    const body = {
+      contents: userText,
+      images: userPhoto,
+      writer: _id,
+      userName: name,
+      token,
+    };
+    console.log("postForm.handleOk() body => ", body);
+
     dispatch({
       type: ADD_POST_REQUEST,
-      payload: {
-        text: userText,
-        photo: imageFile,
-      },
+      payload: body,
     });
     setIsModalVisible(false);
   };
@@ -86,7 +93,7 @@ const PostForm = () => {
       };
     }
 
-    setUserPhoto(e.target.files);
+    setUserPhoto(Array.from(fileList));
   };
 
   // 프리뷰 영역 slick arrow (prev, next)
