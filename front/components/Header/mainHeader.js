@@ -5,6 +5,7 @@ import RightMenu from "./rightMenu";
 import { Switch, Button } from "antd";
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import FilterMenu from "./FilterMenu";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -15,9 +16,12 @@ const PostfilterWrapper = styled.div`
   padding: 1em;
   white-space: nowrap;
   overflow-x: auto;
-  display: flex;
-  justify-content: space-around;
 
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   /* -webkit-transform: translateZ(0px);
   -webkit-transform: translate3d(0, 0, 0);
   -webkit-perspective: 1000; */
@@ -25,7 +29,6 @@ const PostfilterWrapper = styled.div`
 
 const MainHeader = () => {
   const [secondMenuY, setSecondMenuY] = useState(false);
-  const filterPostMenu = useRef();
 
   const [menuList, setMenuList] = useState([
     {
@@ -52,32 +55,12 @@ const MainHeader = () => {
 
   const onClickSlide = (checked) => {
     console.log(checked);
-    console.log(filterPostMenu);
 
     if (secondMenuY) {
-      filterPostMenu.current.style.transition = "0.5s";
-      filterPostMenu.current.style.transform = "translateY(0)";
       setSecondMenuY(false);
     } else {
-      filterPostMenu.current.style.transition = "0.5s";
-      filterPostMenu.current.style.transform = "translateY(52px)";
       setSecondMenuY(true);
     }
-  };
-
-  const onClickMenu = (currentMenu) => {
-    const updatedMenu = menuList.map((menu) => {
-      const updatedItem = {
-        ...menu,
-        active: false,
-      };
-
-      if (menu.id === currentMenu.id) updatedItem.active = true;
-
-      return updatedItem;
-    });
-    setMenuList(updatedMenu);
-    console.log(updatedMenu);
   };
 
   return (
@@ -131,21 +114,7 @@ const MainHeader = () => {
         <Logo style={{ fontSize: "1.8em" }} />
         <RightMenu />
       </div>
-      <PostfilterWrapper ref={filterPostMenu}>
-        {menuList?.map((menu) => (
-          <Button
-            id={menu.id}
-            onClick={() => onClickMenu(menu)}
-            type="link"
-            style={{
-              color: menu.active ? "black" : "gray",
-              fontWeight: menu.active ? "bold" : "normal",
-            }}
-          >
-            {menu.name}
-          </Button>
-        ))}
-      </PostfilterWrapper>
+      <FilterMenu secondMenu={secondMenuY} />
     </div>
   );
 };
