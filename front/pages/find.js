@@ -1,31 +1,38 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import FriendsBox from "../components/friendsBox";
-import MainHeader from "../components/MainHeader";
+import MainHeader from "../components/Header/mainHeader";
 import SearchBar from "../components/searchBar";
 import { LightColorBg } from "../styles/bg";
-import { useDispatch, useSelector } from "react-redux";
-import { USER_SEARCH_REQUEST } from "../redux/types";
 
 const Find = () => {
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.auth.user);
-  const [keyword, setKeyword] = useState("");
+  const [term, setTerm] = useState();
 
-  useEffect(() => {
+  const onChange = (e) => {
+    setTerm(e.target.value);
+  };
+  const onSubmit = () => {
     dispatch({
-      type: USER_SEARCH_REQUEST,
-      payload: { keyword, token },
+      type: SEARCH_POST_REQUEST,
+      payload: term,
     });
-  }, [dispatch, keyword]);
+  };
 
   return (
     <LightColorBg>
       <MainHeader />
       <div style={{ width: "100%" }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ width: "95%" }}>
-            <SearchBar placeholder="사용자 검색..." setKeyword={setKeyword} />
-          </div>
+          <form onSubmit={onSubmit}>
+            <div style={{ width: "95%" }}>
+              <SearchBar
+                onChange={onChange}
+                value={term}
+                placeholder="친구 검색..."
+              />
+            </div>
+          </form>
         </div>
         <FriendsBox isFindPage />
       </div>

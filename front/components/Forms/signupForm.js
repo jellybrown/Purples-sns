@@ -4,12 +4,12 @@ import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import Input from "../styles/input";
+import Input from "../../styles/input";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { REGISTER_REQUEST } from "../redux/types";
+import { REGISTER_REQUEST } from "../../redux/types";
 import Link from "next/link";
-import { StyledAtag } from "../styles/aTag";
+import { StyledAtag } from "../../styles/aTag";
 import { message } from "antd";
 
 const InputWrapper = styled.div`
