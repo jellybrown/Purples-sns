@@ -96,7 +96,12 @@ const PostForm = () => {
     return (
       <GrNext
         className={className}
-        style={{ ...style, display: "block", transform: "scale(1.5)" }}
+        style={{
+          ...style,
+          display: "block",
+          transform: "translateX(-15px) scale(1.3)",
+          paddingleftt: "2em",
+        }}
         onClick={onClick}
       />
     );
@@ -106,7 +111,11 @@ const PostForm = () => {
     return (
       <GrPrevious
         className={className}
-        style={{ ...style, display: "block", transform: "scale(1.5)" }}
+        style={{
+          ...style,
+          display: "block",
+          transform: "translateX(15px) scale(1.3)",
+        }}
         onClick={onClick}
       />
     );
