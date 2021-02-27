@@ -82,8 +82,8 @@ const postReducer = (state = initialState, action) => {
       };
     case ADD_POST_SUCCESS:
       return {
-        ...state,
-        posts: [...posts, action.payload],
+        ...state.posts,
+        posts: [...state.posts, action.payload],
         addPostLoading: false,
         addPostDone: true,
       };

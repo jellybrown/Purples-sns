@@ -94,7 +94,7 @@ router.post("/", auth, uploadS3.array("image[]", 5), async (req, res, next) => {
       $push: { posts: post._id },
     });
 
-    return res.redirect(`/api/post/${post._id}`);
+    return res.json(post);
   } catch (e) {
     console.error(e);
   }
