@@ -27,7 +27,30 @@ const MainHeader = () => {
   const [secondMenuY, setSecondMenuY] = useState(false);
   const filterPostMenu = useRef();
 
-  const onClick = (checked) => {
+  const [menuList, setMenuList] = useState([
+    {
+      id: 1,
+      name: "All",
+      active: true,
+    },
+    {
+      id: 2,
+      name: "Followings",
+      active: false,
+    },
+    {
+      id: 3,
+      name: "Followers",
+      active: false,
+    },
+    {
+      id: 4,
+      name: "My",
+      active: false,
+    },
+  ]);
+
+  const onClickSlide = (checked) => {
     console.log(checked);
     console.log(filterPostMenu);
 
@@ -40,6 +63,21 @@ const MainHeader = () => {
       filterPostMenu.current.style.transform = "translateY(52px)";
       setSecondMenuY(true);
     }
+  };
+
+  const onClickMenu = (currentMenu) => {
+    const updatedMenu = menuList.map((menu) => {
+      const updatedItem = {
+        ...menu,
+        active: false,
+      };
+
+      if (menu.id === currentMenu.id) updatedItem.active = true;
+
+      return updatedItem;
+    });
+    setMenuList(updatedMenu);
+    console.log(updatedMenu);
   };
 
   return (
@@ -88,24 +126,25 @@ const MainHeader = () => {
             transform: "translateY(-50%)",
           }}
           size="small"
-          onClick={onClick}
+          onClick={onClickSlide}
         />
         <Logo style={{ fontSize: "1.8em" }} />
         <RightMenu />
       </div>
       <PostfilterWrapper ref={filterPostMenu}>
-        <Button type="link" block style={{ color: "black" }}>
-          All
-        </Button>
-        <Button type="link" block style={{ color: "black" }}>
-          Followings
-        </Button>
-        <Button type="link" block style={{ color: "black" }}>
-          Followers
-        </Button>
-        <Button type="link" block style={{ color: "black" }}>
-          My
-        </Button>
+        {menuList?.map((menu) => (
+          <Button
+            id={menu.id}
+            onClick={() => onClickMenu(menu)}
+            type="link"
+            style={{
+              color: menu.active ? "black" : "gray",
+              fontWeight: menu.active ? "bold" : "normal",
+            }}
+          >
+            {menu.name}
+          </Button>
+        ))}
       </PostfilterWrapper>
     </div>
   );
