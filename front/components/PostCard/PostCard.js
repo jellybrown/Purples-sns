@@ -1,8 +1,8 @@
+import React, { useEffect } from "react";
 import "antd/dist/antd.css";
 import { Card } from "antd";
 import CardContent from "./CardContent";
 import PostCardImg from "./PostCardImg";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_POST_REQUEST } from "../../redux/types";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import FriendList from "./FriendList";
 import styled from "styled-components";
 

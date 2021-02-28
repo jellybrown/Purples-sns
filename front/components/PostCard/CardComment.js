@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { Button, Card, Avatar } from "antd";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ADD_COMMENT_REQUEST } from "../../redux/types";
 
