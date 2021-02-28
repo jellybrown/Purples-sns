@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import moment from "moment";
 
+// MongoDB 게시글 스키마
 const PostSchema = new mongoose.Schema({
   contents: {
     type: String,
@@ -35,6 +36,7 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
+// post의 복수형인 users collection에 접근
 const Post = mongoose.model("post", PostSchema);
 
 export default Post;

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import moment from "moment";
 
+// MongoDB 팔로우 스키마
 const FollowSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -18,6 +19,7 @@ const FollowSchema = new mongoose.Schema({
   },
 });
 
+// follow의 복수형인 follows collection에 접근
 const Follow = mongoose.model("follow", FollowSchema);
 
 export default Follow;

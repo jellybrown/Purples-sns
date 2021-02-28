@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import moment from "moment";
 
+// MongoDB 댓글 스키마
 const CommentSchema = new mongoose.Schema({
   contents: {
     type: String,
@@ -23,6 +24,7 @@ const CommentSchema = new mongoose.Schema({
   },
 });
 
+// comment의 복수형인 comments collection에 접근
 const Comment = mongoose.model("comment", CommentSchema);
 
 export default Comment;
