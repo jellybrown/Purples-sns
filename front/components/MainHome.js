@@ -1,10 +1,10 @@
-import MainProfile from "./mainProfile";
+import MainProfile from "./MainProfile";
 import useMediaQuery from "../utils/useMediaQuery";
 import { Button } from "antd";
 import { BsPencil } from "react-icons/bs";
 import Layout from "../styles/layout";
-import PostCard from "./PostCard/postCard";
-import PostForm from "./Forms/postForm";
+import PostCard from "./PostCard/PostCard";
+import PostForm from "./Forms/PostForm";
 
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");

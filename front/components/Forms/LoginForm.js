@@ -3,12 +3,12 @@ import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
 import { useRef, useState } from "react";
-import Input from "../styles/input";
+import Input from "../../styles/input";
 import styled from "styled-components";
 import Link from "next/link";
-import { StyledAtag } from "../styles/aTag";
+import { StyledAtag } from "../../styles/aTag";
 import { useDispatch } from "react-redux";
-import { LOG_IN_REQUEST } from "../redux/types";
+import { LOG_IN_REQUEST } from "../../redux/types";
 
 const InputWrapper = styled.div`
   position: relative;

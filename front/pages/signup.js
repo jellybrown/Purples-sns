@@ -1,4 +1,4 @@
-import Logo from "../components/logo";
+import Logo from "../components/Logo";
 import SignupForm from "../components/signupForm";
 import styled from "styled-components";
 import { GradientBg } from "../styles/bg";

@@ -7,7 +7,7 @@ import { Button, Dropdown, Menu, message } from "antd";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import Router from "next/router";
-import UserMenu from "./userMenu";
+import UserMenu from "./UserMenu";
 import useMediaQuery from "../../utils/useMediaQuery";
 
 const RightMenu = () => {

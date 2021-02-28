@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MainHeader from "../components/Header/MainHeader";
-import SearchBar from "../components/searchBar";
+import SearchBar from "../components/SearchBar";
 import { LightColorBg } from "../styles/bg";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";

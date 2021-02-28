@@ -1,5 +1,5 @@
-import LoginForm from "../components/loginForm";
-import Logo from "../components/logo";
+import LoginForm from "../components/Forms/LoginForm";
+import Logo from "../components/Logo";
 import { GradientBg } from "../styles/bg";
 
 const Login = () => {

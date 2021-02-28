@@ -1,7 +1,7 @@
 import "antd/dist/antd.css";
 import { Card, Avatar } from "antd";
-import CardContent from "./cardContent";
-import PostCardImg from "./postCardImg";
+import CardContent from "./CardContent";
+import PostCardImg from "./PostCardImg";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_POST_REQUEST } from "../../redux/types";

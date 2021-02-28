@@ -1,4 +1,4 @@
-import FriendsBox from "../components/friendsBox";
+import FriendsBox from "../components/FriendsBox";
 
 const Test = () => {
   return <FriendsBox />;
