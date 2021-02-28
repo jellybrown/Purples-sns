@@ -1,5 +1,5 @@
 import { Button, Input, Modal } from "antd";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";

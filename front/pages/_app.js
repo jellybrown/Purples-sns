@@ -7,6 +7,7 @@ import { wrapper } from "../redux";
 import { USER_LOADING_REQUEST } from "../redux/types";
 import { getCookie } from "../redux/reducers/authReducer";
 import GlobalStyles from "../styles/globalStyles";
+import "antd/dist/antd.css";
 
 /*
  * Application Container. 공통의 레이아웃을 작성.

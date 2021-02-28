@@ -1,5 +1,5 @@
 import "antd/dist/antd.css";
-import { Card, Avatar } from "antd";
+import { Card } from "antd";
 import CardContent from "./CardContent";
 import PostCardImg from "./PostCardImg";
 import { useEffect } from "react";

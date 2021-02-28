@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { Card } from "antd";
 import styled from "styled-components";

@@ -3,10 +3,8 @@ import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FcMenu } from "react-icons/fc";
 import { BiSearch } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
-import { Button, Dropdown, Menu, message } from "antd";
-import { useDispatch } from "react-redux";
+import { Button, Dropdown } from "antd";
 import Link from "next/link";
-import Router from "next/router";
 import UserMenu from "./UserMenu";
 import useMediaQuery from "../../utils/useMediaQuery";
 
