@@ -1,4 +1,4 @@
-import LoginForm from "../components/loginForm";
+import LoginForm from "../components/Forms/loginForm";
 import Logo from "../components/logo";
 import { GradientBg } from "../styles/bg";
 
