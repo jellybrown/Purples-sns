@@ -1,5 +1,5 @@
 import React from "react";
-import MainHome from "../components/mainHome";
+import MainHome from "../components/MainHome";
 import MainLogin from "../components/mainLogin";
 
 const Main = ({ isAuthenticated }) => {

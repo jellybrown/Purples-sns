@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StyledAtag } from "../styles/aTag";
 import { GradientBg } from "../styles/bg";
 import Button from "../styles/button";
-import Logo from "./logo";
+import Logo from "./Logo";
 
 const MainLogin = () => {
   return (

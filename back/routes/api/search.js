@@ -5,15 +5,23 @@ import Follow from "../../models/follow";
 
 const router = express();
 
+/*
+  @route    GET  api/search
+  @desc     사용자 리스트 검색 (팔로잉/언팔로잉)
+  @access   Private
+ */
 router.get("/", auth, async (req, res, next) => {
   try {
+    // 요청자가 팔로잉하고 있는 정보 검색.
     const following = await Follow.find({ user: req.user.id });
     console.log("searchTerm following: ", following);
 
+    // 요청자를 제외한 전체 사용자 검색.
     const result = await User.find({ _id: { $ne: req.user.id } })
       .populate({ path: "users" })
       .lean();
 
+    // 요청자가 팔로잉하고 있는 사용자일 경우 isFollowing 값에 true 설정.
     for (let i = 0; i < result.length; i++) {
       result[i].isFollowing = false;
       for (let j = 0; j < following.length; j++) {
@@ -22,8 +30,8 @@ router.get("/", auth, async (req, res, next) => {
         }
       }
     }
-    console.log(result, "Search result");
 
+    // 결과 정보 응답
     res.send(result);
   } catch (e) {
     console.log(e);
@@ -31,12 +39,20 @@ router.get("/", auth, async (req, res, next) => {
   }
 });
 
+/*
+  @route    GET  api/search/:searchTerm
+  @desc     사용자 리스트 검색 (검색조건 적용)
+  @access   Private
+ */
 router.get("/:searchTearm", auth, async (req, res, next) => {
+  // 검색조건 확인용 로그
   console.log(req.params.searchTearm);
   try {
+    // 요청자가 팔로잉하고 있는 정보 검색.
     const following = await Follow.find({ user: req.user.id });
     console.log("searchTerm following: ", following);
 
+    // 요청자를 제외한 전체 사용자 검색. (검색조건으로 넘어온 값에 일치하는 사용자만 검색)
     const result = await User.find({
       _id: { $ne: req.user.id },
       name: {
@@ -47,6 +63,7 @@ router.get("/:searchTearm", auth, async (req, res, next) => {
       .populate({ path: "users" })
       .lean();
 
+    // 요청자가 팔로잉하고 있는 사용자일 경우 isFollowing 값에 true 설정.
     for (let i = 0; i < result.length; i++) {
       result[i].isFollowing = false;
       for (let j = 0; j < following.length; j++) {
@@ -57,6 +74,7 @@ router.get("/:searchTearm", auth, async (req, res, next) => {
     }
     console.log(result, "Search result");
 
+    // 결과 정보 응답
     res.send(result);
   } catch (e) {
     console.log(e);

@@ -1,8 +1,7 @@
+import React from "react";
 import { FiMail } from "react-icons/fi";
-import { BsFillPersonFill } from "react-icons/Bs";
 import { HiLockClosed } from "react-icons/Hi";
 import { useForm } from "react-hook-form";
-import { useRef, useState } from "react";
 import Input from "../../styles/input";
 import styled from "styled-components";
 import Link from "next/link";

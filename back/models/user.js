@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import moment from "moment";
 
+// MongoDB 사용자 스키마
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -49,6 +50,7 @@ const UserSchema = new mongoose.Schema({
   ],
 });
 
+// user의 복수형인 users collection에 접근
 const User = mongoose.model("user", UserSchema);
 
 export default User;

@@ -1,9 +1,9 @@
+import React, { useCallback, useRef, useState } from "react";
 import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
-import { useCallback, useRef, useState } from "react";
-import { Button, Dropdown, Menu } from "antd";
+import { Dropdown, Menu } from "antd";
 import { BiTrash, BiPencil } from "react-icons/bi";
 
 function time_ago(time) {

@@ -1,4 +1,5 @@
-import FriendList from "./friendList";
+import React from "react";
+import FriendList from "./FriendList";
 import styled from "styled-components";
 
 const MyFollowersTitle = () => {
