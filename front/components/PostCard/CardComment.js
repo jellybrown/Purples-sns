@@ -20,14 +20,23 @@ const CardCommentBox = styled.div`
   width: 100%;
   min-height: 200px;
   max-height: 800px;
-  padding: 0 1.3em;
 `;
 
 const CommentCount = styled.p`
   font-size: 0.85rem;
-  margin-bottom: 2em;
+  margin-bottom: 1.3em;
   margin-left: 5px;
   color: #a3a3a3;
+`;
+
+const CommentLists = styled.ul`
+  height: 110px;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 
 const CommentList = styled.li`
@@ -66,11 +75,27 @@ const CardComment = () => {
   return (
     <CardCommentBox>
       <CommentCount>3개의 댓글이 있습니다.</CommentCount>
-      <ul>
+      <CommentLists>
         <CommentList>
           <StyledCommentMeta
             avatar={<Avatar size="small" src="https://picsum.photos/20" />}
             title="user1"
+          />
+          <CommentText>어디 케이크fdv디 케이크f</CommentText>
+          <CommentDate>1일 전</CommentDate>
+        </CommentList>
+        <CommentList>
+          <StyledCommentMeta
+            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
+            title="user1"
+          />
+          <CommentText>어디 케이dfsdfsd크야???</CommentText>
+          <CommentDate>1일 전</CommentDate>
+        </CommentList>
+        <CommentList>
+          <StyledCommentMeta
+            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
+            title="ua히힣"
           />
           <CommentText>어디 케이크야???</CommentText>
           <CommentDate>1일 전</CommentDate>
@@ -107,23 +132,7 @@ const CardComment = () => {
           <CommentText>어디 케이크야???</CommentText>
           <CommentDate>1일 전</CommentDate>
         </CommentList>
-        <CommentList>
-          <StyledCommentMeta
-            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
-            title="user1"
-          />
-          <CommentText>어디 케이크야???</CommentText>
-          <CommentDate>1일 전</CommentDate>
-        </CommentList>
-        <CommentList>
-          <StyledCommentMeta
-            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
-            title="user1"
-          />
-          <CommentText>어디 케이크야???</CommentText>
-          <CommentDate>1일 전</CommentDate>
-        </CommentList>
-      </ul>
+      </CommentLists>
       <div
         style={{
           display: "flex",
@@ -144,7 +153,7 @@ const CardComment = () => {
             width: "90%",
           }}
         />
-        <div style={{ position: "absolute", bottom: "10px", right: "6px" }}>
+        <div style={{ position: "absolute", bottom: "10px", right: "-5px" }}>
           <Button type="link" onClick={onAddComment}>
             입력
           </Button>

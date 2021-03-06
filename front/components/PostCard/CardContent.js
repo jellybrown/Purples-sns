@@ -5,6 +5,7 @@ import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
 import { Dropdown, Menu } from "antd";
 import { BiTrash, BiPencil } from "react-icons/bi";
+import { CalculatorFilled } from "@ant-design/icons";
 
 function time_ago(time) {
   switch (typeof time) {
@@ -119,6 +120,7 @@ const CardContent = ({ contents, writer, date }) => {
         minHeight: "200px",
         height: "50%",
         maxHeight: "800px",
+        overflow: "hidden",
       }}
     >
       <div
@@ -153,7 +155,9 @@ const CardContent = ({ contents, writer, date }) => {
         </span>
       </div>
       {commented ? (
-        <CardComment />
+        <>
+          <CardComment />
+        </>
       ) : (
         <div>
           <span
