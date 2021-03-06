@@ -5,7 +5,6 @@ import { LightColorBg } from "../styles/bg";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { SEARCH_POST_REQUEST } from "../redux/types";
-import MainHeader from "../components/Header/mainHeader";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
