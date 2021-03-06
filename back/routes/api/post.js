@@ -245,4 +245,26 @@ router.post("/:id/edit", auth, async (req, res, next) => {
   }
 });
 
+/*
+  @route    POST  api/post/search/:searchTerm
+  @desc     Search post
+  @access   Private
+ */
+router.get("/search/:searchTerm", auth, async (req, res, next) => {
+  try {
+    console.log(req.params.searchTerm);
+    const result = await Post.find({
+      contents: {
+        $regex: req.params.searchTerm,
+        $options: "i",
+      },
+    }).populate({ path: "posts" });
+    console.log("search post ", result);
+    res.send(result);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 export default router;

@@ -15,6 +15,9 @@ import {
   SEARCH_POST_FAILURE,
   SEARCH_POST_REQUEST,
   SEARCH_POST_SUCCESS,
+  CLEAR_POST_REQUEST,
+  CLEAR_POST_SUCCESS,
+  CLEAR_POST_FAILURE,
 } from "../types";
 
 const addPostAPI = (payload) => {
@@ -111,7 +114,17 @@ function* removeComment(action) {
   }
 }
 const searchPostAPI = (payload) => {
-  return axios.get(`api/post/search/${payload}`);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (payload.token) config.headers["x-auth-token"] = payload.token;
+
+  return axios.get(
+    `/api/post/search/${encodeURIComponent(payload.keyword)}`,
+    config
+  );
 };
 
 function* searchPost(action) {
@@ -150,6 +163,18 @@ function* loadPosts(action) {
   }
 }
 
+function* clearPost(action) {
+  try {
+    yield put({
+      type: CLEAR_POST_REQUEST,
+    });
+  } catch (e) {
+    yield put({
+      type: CLEAR_POST_FAILURE,
+    });
+  }
+}
+
 // watch functions...
 function* watchAddPost() {
   yield takeEvery(ADD_POST_REQUEST, addPost);
@@ -169,6 +194,9 @@ function* watchRemoveComment() {
 function* watchLoadPosts() {
   yield takeEvery(LOAD_POST_REQUEST, loadPosts);
 }
+function* watchClearPost() {
+  yield takeEvery(CLEAR_POST_REQUEST, clearPost);
+}
 
 export default function* postSaga() {
   yield all([
@@ -178,5 +206,6 @@ export default function* postSaga() {
     fork(watchRemoveComment),
     fork(watchSearchPost),
     fork(watchLoadPosts),
+    fork(watchClearPost),
   ]);
 }
