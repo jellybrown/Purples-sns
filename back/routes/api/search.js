@@ -44,9 +44,9 @@ router.get("/", auth, async (req, res, next) => {
   @desc     사용자 리스트 검색 (검색조건 적용)
   @access   Private
  */
-router.get("/:searchTearm", auth, async (req, res, next) => {
+router.get("/:searchTerm", auth, async (req, res, next) => {
   // 검색조건 확인용 로그
-  console.log(req.params.searchTearm);
+  console.log(req.params.searchTerm);
   try {
     // 요청자가 팔로잉하고 있는 정보 검색.
     const following = await Follow.find({ user: req.user.id });
@@ -56,7 +56,7 @@ router.get("/:searchTearm", auth, async (req, res, next) => {
     const result = await User.find({
       _id: { $ne: req.user.id },
       name: {
-        $regex: req.params.searchTearm,
+        $regex: req.params.searchTerm,
         $options: "i",
       },
     })
