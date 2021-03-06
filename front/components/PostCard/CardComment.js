@@ -7,7 +7,7 @@ import styled from "styled-components";
 const StyledCommentMeta = styled(Card.Meta)`
   display: inline-flex;
   align-items: center;
-
+  overflow: visible;
   .ant-card-meta-title {
     font-size: 0.9rem;
   }
@@ -67,6 +67,30 @@ const CardComment = () => {
     <CardCommentBox>
       <CommentCount>3개의 댓글이 있습니다.</CommentCount>
       <ul>
+        <CommentList>
+          <StyledCommentMeta
+            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
+            title="user1"
+          />
+          <CommentText>어디 케이크야???</CommentText>
+          <CommentDate>1일 전</CommentDate>
+        </CommentList>
+        <CommentList>
+          <StyledCommentMeta
+            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
+            title="user1"
+          />
+          <CommentText>어디 케이크야???</CommentText>
+          <CommentDate>1일 전</CommentDate>
+        </CommentList>
+        <CommentList>
+          <StyledCommentMeta
+            avatar={<Avatar size="small" src="https://picsum.photos/20" />}
+            title="user1"
+          />
+          <CommentText>어디 케이크야???</CommentText>
+          <CommentDate>1일 전</CommentDate>
+        </CommentList>
         <CommentList>
           <StyledCommentMeta
             avatar={<Avatar size="small" src="https://picsum.photos/20" />}
