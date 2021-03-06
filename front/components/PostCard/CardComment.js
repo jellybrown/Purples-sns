@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Button, Card, Avatar } from "antd";
+import { Card, Avatar } from "antd";
 import { useDispatch } from "react-redux";
-import { ADD_COMMENT_REQUEST } from "../../redux/types";
+
 import styled from "styled-components";
+import CommentForm from "../Forms/CommentForm";
 
 const StyledCommentMeta = styled(Card.Meta)`
   display: inline-flex;
@@ -57,21 +58,6 @@ const CommentDate = styled.span`
 `;
 
 const CardComment = () => {
-  const [comment, setComment] = useState("");
-
-  const onChange = (e) => {
-    setComment(e.target.value);
-    console.log(comment);
-  };
-
-  const dispatch = useDispatch();
-  const onAddComment = () => {
-    dispatch({
-      type: ADD_COMMENT_REQUEST,
-      payload: comment,
-    });
-  };
-
   return (
     <CardCommentBox>
       <CommentCount>3개의 댓글이 있습니다.</CommentCount>
@@ -133,32 +119,7 @@ const CardComment = () => {
           <CommentDate>1일 전</CommentDate>
         </CommentList>
       </CommentLists>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <input
-          onChange={onChange}
-          value={comment}
-          placeholder="댓글 입력..."
-          style={{
-            position: "absolute",
-            bottom: "15px",
-            paddingTop: "10px",
-            marginLeft: "5px",
-            border: "none",
-            outline: "none",
-            width: "90%",
-          }}
-        />
-        <div style={{ position: "absolute", bottom: "10px", right: "-5px" }}>
-          <Button type="link" onClick={onAddComment}>
-            입력
-          </Button>
-        </div>
-      </div>
+      <CommentForm />
     </CardCommentBox>
   );
 };
