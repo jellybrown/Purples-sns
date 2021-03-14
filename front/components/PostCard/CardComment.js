@@ -112,20 +112,18 @@ function time_ago(time) {
 }
 
 const CardComment = ({ post }) => {
-  // post에 각각의 포스트가 있음
+  const { comments } = post;
+  const currentUser = useSelector((state) => state.auth.userId);
 
-  // comments.map(comment => (
-  //   <li>댓글 돌려서 렌더링</li>
-  // ))
-
-  const currentUser = useSelector((state) => state.auth.user.userId);
-
-  const checkMyComment = () => {
-    const result = currentUser === post.writer._id ? true : false;
+  const checkMyComment = (comment) => {
+    const result = currentUser === comment.writer._id ? true : false;
     return result;
   };
 
-  const { comments } = post;
+  const deleteComment = (comment) => {
+    //comment id 받아서 삭제하기
+  };
+
   return (
     <CardCommentBox>
       <CommentCount>{comments.length}개의 댓글이 있습니다.</CommentCount>
@@ -142,7 +140,16 @@ const CardComment = ({ post }) => {
                 />
                 <CommentText>{comment.contents}</CommentText>
                 <CommentDate>{time_ago(comment.date)}</CommentDate>
-                {checkMyComment() ? <TiMinus /> : null}
+                {checkMyComment(comment) ? (
+                  <TiMinus
+                    onClick={deleteComment(comment)}
+                    style={{
+                      fontSize: "1.5rem",
+                      marginLeft: "3rem",
+                      cursor: "pointer",
+                    }}
+                  />
+                ) : null}
               </CommentList>
             );
           })}

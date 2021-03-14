@@ -5,7 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
 import { createWrapper } from "next-redux-wrapper";
-import {} from "reduxjs";
+
 const makeStore = (initialState = {}, options) => {
   const sagaMiddleware = createSagaMiddleware();
 
