@@ -60,7 +60,9 @@ function time_ago(time) {
   return time;
 }
 
-const CardContent = ({ contents, writer, date }) => {
+const CardContent = ({ post }) => {
+  const { comments, contents, date } = post;
+  const { name: writer } = post.writer;
   const isMine = true; // useSelector로 내 게시글인지 가져오기
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
@@ -156,7 +158,7 @@ const CardContent = ({ contents, writer, date }) => {
       </div>
       {commented ? (
         <>
-          <CardComment />
+          <CardComment post={post} />
         </>
       ) : (
         <div>

@@ -1,21 +1,26 @@
 import { Button } from "antd";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ADD_COMMENT_REQUEST } from "../../redux/types";
 
-const CommentForm = () => {
+const CommentForm = ({ post }) => {
   const [text, setText] = useState("");
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
     setText(e.target.value);
-    console.log(comment);
   };
 
   const onAddComment = () => {
     dispatch({
       type: ADD_COMMENT_REQUEST,
-      payload: text,
+      payload: {
+        contents: text,
+        userId: user._id,
+        userName: user.name,
+        id: post._id,
+      },
     });
   };
 

@@ -5,6 +5,8 @@ import {
   LOAD_POST_SUCCESS,
   LOAD_POST_FAILURE,
   ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_FAILURE,
   ADD_POST_FAILURE,
   ADD_POST_REQUEST,
   ADD_POST_SUCCESS,
@@ -74,7 +76,7 @@ function* removePost(action) {
 }
 
 const addCommentAPI = (payload) => {
-  return axios.post(`api/post/${payload.postId}/comment`, payload);
+  return axios.post(`api/post/${payload.id}/comments`, payload);
 };
 
 function* addComment(action) {

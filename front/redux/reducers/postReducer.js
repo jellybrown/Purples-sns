@@ -119,12 +119,12 @@ const postReducer = (state = initialState, action) => {
         addCommentLoading: true,
       };
     case ADD_COMMENT_SUCCESS: {
-      const id = action.payload.postId;
-      const newComment = action.payload.comment;
+      const id = action.payload.id; //postId
+      const newComment = action.payload.contents; // contents -> 이름변경 필요
       return {
         ...state,
         addCommentLoading: false,
-        post: post[id + 1].comments.push(newComment), // immer로 바꿔야하나?
+        posts: [...posts, { ...post, comments: [...comments, newComment] }],
       };
     }
     case ADD_COMMENT_FAILURE:

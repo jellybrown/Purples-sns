@@ -33,11 +33,7 @@ const PostCard = () => {
           }}
           cover={<PostCardImg images={post.imageUrls} />}
         >
-          <CardContent
-            contents={post.contents}
-            writer={post.writer.name}
-            date={post.date}
-          />
+          <CardContent post={post} />
         </Card>
       ))}
     </>

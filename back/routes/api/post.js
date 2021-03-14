@@ -143,9 +143,9 @@ router.get("/:id/comments", async (req, res) => {
  */
 router.post("/:id/comments", async (req, res, next) => {
   // Comment model에 필요한 정보를 Request에서 읽어온다.
-  const { contents, userId, userName, id } = req;
+  const { contents, userId, userName, id } = req.body;
   const comment = await Comment.create({
-    contents: contents,
+    contents,
     writer: userId,
     writerName: userName,
     post: id,
