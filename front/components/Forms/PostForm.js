@@ -11,8 +11,24 @@ import { message } from "antd";
 import { ADD_POST_REQUEST } from "../../redux/types";
 
 const Wrapper = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
   overflow: hidden;
-  max-height: 300px;
+  border: 1px dashed #000000;
+  border-radius: 20px;
+  margin: 0 10px;
+  padding: 0;
+`;
+
+const ImageStyle = styled.img`
+  padding: 0;
+  width: 110px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const PostForm = () => {
@@ -177,28 +193,14 @@ const PostForm = () => {
         {previewImageUrl ? (
           <p style={{ textAlign: "right" }}>미리보기</p>
         ) : null}
-        <div style={{ position: "relative" }}>
-          <Slick
-            dots={false}
-            initialSlide={0}
-            beforeChange={(slide) => setCurrentSlide(slide)}
-            slidesToShow={1}
-            slidesToScroll={1}
-            autoplay={false}
-            nextArrow={<NextArr />}
-            prevArrow={<PrevArr />}
-          >
-            {previewImageUrl
-              ? previewImageUrl.map((imageUrl) => (
-                  <Wrapper>
-                    <img
-                      style={{ width: "300px", margin: "0 auto" }}
-                      src={imageUrl}
-                    />
-                  </Wrapper>
-                ))
-              : null}
-          </Slick>
+        <div style={{ position: "relative", padding: "20px 0" }}>
+          {previewImageUrl
+            ? previewImageUrl.map((imageUrl) => (
+                <Wrapper>
+                  <ImageStyle src={imageUrl} />
+                </Wrapper>
+              ))
+            : null}
         </div>
       </Modal>
     </>
