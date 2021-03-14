@@ -144,7 +144,7 @@ const PostForm = () => {
   };
 
   return (
-    <>
+    <div style={{ borderRadius: "25px", overflow: "hidden" }}>
       <Button
         onClick={showModal}
         style={{
@@ -203,7 +203,7 @@ const PostForm = () => {
             : null}
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 export default PostForm;
