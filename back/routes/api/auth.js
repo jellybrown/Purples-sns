@@ -77,6 +77,8 @@ router.get("/user", auth, async (req, res) => {
     // 사용자 정보에 팔로워/팔로잉 수 설정.
     const followerCount = await Follow.find({ follow: req.user.id }).count();
     const followCount = await Follow.find({ user: req.user.id }).count();
+    const followers = await Follow.find({ follow: req.user.id }).populate("follow");
+    const follows = await Follow.find({ user: req.user.id }).populate("user");
 
     console.log("user data", user);
     console.log("follower/follow count: ", followerCount, ", ", followCount);
@@ -84,6 +86,8 @@ router.get("/user", auth, async (req, res) => {
     // user object에 follow, follower, token 정보를 담는다.
     user.followCount = followCount;
     user.followerCount = followerCount;
+    user.follows = follows;
+    user.followers = followers;
     user.token = req.header("x-auth-token");
 
     console.log("resultUser", user);

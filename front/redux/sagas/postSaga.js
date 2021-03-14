@@ -21,6 +21,8 @@ import {
   CLEAR_POST_SUCCESS,
   CLEAR_POST_FAILURE,
   CHANGE_POST_FILTER_REQUEST,
+  CHANGE_POST_FILTER_SUCCESS,
+  CHANGE_POST_FILTER_FAILURE
 } from "../types";
 
 const addPostAPI = (payload) => {
@@ -147,7 +149,9 @@ function* searchPost (action) {
 
 // All posts load
 const loadPostAPI = (payload) => {
-  return axios.get(`/api/post/skip/${payload}`);
+  return axios.get('/api/post/skip', {
+    params: payload
+  });
 };
 function* loadPosts (action) {
   try {

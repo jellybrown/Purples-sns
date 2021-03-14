@@ -44,23 +44,43 @@ const uploadS3 = multer({
   @desc     포스트 정보를 가져오기 위한 API
   @access   public
  */
-router.get("/skip/:skip", async (req, res) => {
+router.get("/skip", async (req, res) => {
   try {
     // MongoDB의 Posts collection 도큐먼트 수
     const postCount = await Post.countDocuments();
 
-    // Request Parameter로 받은 skip 수만큼 skip 후,
-    // Post 정보를 읽어온다. (6개 제한)
-    const postFindResult = await Post.find()
-      .populate("writer", "name")
-      .populate("comments")
-      .populate({
-        path: 'comments',
-        populate: { path: 'writer' },
-      })
-      .skip(Number(req.params.skip))
-      .limit(6)
-      .sort({ date: -1 });
+    console.log('skip API req.query is ', req.query);
+    let postFindResult;
+    if (req.query.filter === "All") {
+      // Request Parameter로 받은 skip 수만큼 skip 후,
+      // Post 정보를 읽어온다. (6개 제한)
+      postFindResult = await Post.find()
+        .populate("writer", "name")
+        .populate("comments")
+        .populate({
+          path: 'comments',
+          populate: { path: 'writer' },
+        })
+        .skip(Number(req.query.skip))
+        .limit(6)
+        .sort({ date: -1 });
+    } else if (req.query.filter === "Followings") {
+      postFindResult = "";
+    } else if (req.query.filter === "Followers") {
+      postFindResult = "";
+    } else if (req.query.filter === "My") {
+      postFindResult = await Post.find({ writer: req.query.userId })
+        .populate("writer", "name")
+        .populate("comments")
+        .populate({
+          path: 'comments',
+          populate: { path: 'writer' },
+        })
+        .skip(Number(req.query.skip))
+        .limit(6)
+        .sort({ date: -1 });
+    }
+
 
     // 결과 값으로 읽어온 포스트 정보, 전체 포스트 수를 담아 응답한다.
     const result = { postFindResult, postCount };
