@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TiMinus } from "react-icons/ti";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
+import { REMOVE_COMMENT_REQUEST } from "../../redux/types";
 
 const StyledCommentMeta = styled(Card.Meta)`
   display: inline-flex;
@@ -113,7 +114,9 @@ function time_ago(time) {
 
 const CardComment = ({ post }) => {
   const { comments } = post;
+  const { token } = useSelector((state) => state.auth.user);
   const currentUser = useSelector((state) => state.auth.userId);
+  const dispatch = useDispatch();
 
   const checkMyComment = (comment) => {
     const result = currentUser === comment.writer._id ? true : false;
@@ -122,6 +125,16 @@ const CardComment = ({ post }) => {
 
   const deleteComment = (comment) => {
     //comment id 받아서 삭제하기
+
+    const body = {
+      token,
+      post,
+      comment,
+    };
+    dispatch({
+      type: REMOVE_COMMENT_REQUEST,
+      payload: body,
+    });
   };
 
   return (
