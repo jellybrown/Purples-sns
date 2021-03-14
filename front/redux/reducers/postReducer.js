@@ -21,6 +21,9 @@ import {
   CLEAR_POST_REQUEST,
   CLEAR_POST_SUCCESS,
   CLEAR_POST_FAILURE,
+  CHANGE_POST_FILTER_REQUEST,
+  CHANGE_POST_FILTER_SUCCESS,
+  CHANGE_POST_FILTER_FAILURE,
 } from "../types";
 
 const initialState = {
@@ -38,6 +41,28 @@ const initialState = {
   postCount: "",
   searchBy: "",
   searchResult: "",
+  postFilter: [
+    {
+      id: 1,
+      name: "All",
+      active: true,
+    },
+    {
+      id: 2,
+      name: "Followings",
+      active: false,
+    },
+    {
+      id: 3,
+      name: "Followers",
+      active: false,
+    },
+    {
+      id: 4,
+      name: "My",
+      active: false,
+    },
+  ]
 };
 
 const postReducer = (state = initialState, action) => {
@@ -181,6 +206,22 @@ const postReducer = (state = initialState, action) => {
         posts: [],
         loading: false,
       };
+    case CHANGE_POST_FILTER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case CHANGE_POST_FILTER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        postFilter: action.payload
+      }
+    case CHANGE_POST_FILTER_FAILURE:
+      return {
+        ...state,
+        loading: false
+      }
     default:
       return state;
   }

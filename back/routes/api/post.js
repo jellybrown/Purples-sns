@@ -29,7 +29,7 @@ const uploadS3 = multer({
     s3,
     bucket: "purples/upload", // 버킷 및 디렉터리 정보 (S3 repository 단위)
     region: "ap-northeast-2", // 리전 정보 (S3 Bucket region)
-    key(req, file, cb) {
+    key (req, file, cb) {
       const ext = path.extname(file.originalname);
       const basename = path.basename(file.originalname, ext);
       // 업로드하는 파일에 현재 날짜시간 정보를 붙여서 업로드한다.
@@ -53,6 +53,11 @@ router.get("/skip/:skip", async (req, res) => {
     // Post 정보를 읽어온다. (6개 제한)
     const postFindResult = await Post.find()
       .populate("writer", "name")
+      .populate("comments")
+      .populate({
+        path: 'comments',
+        populate: { path: 'writer' },
+      })
       .skip(Number(req.params.skip))
       .limit(6)
       .sort({ date: -1 });
