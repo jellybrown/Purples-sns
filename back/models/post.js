@@ -36,7 +36,7 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-// post의 복수형인 users collection에 접근
+// post의 복수형인 posts collection에 접근
 const Post = mongoose.model("post", PostSchema);
 
 export default Post;

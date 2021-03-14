@@ -6,6 +6,7 @@ import RightMenu from "./RightMenu";
 import { Switch, Button } from "antd";
 import styled from "styled-components";
 import FilterMenu from "./FilterMenu";
+import { useSelector } from "react-redux";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -29,29 +30,7 @@ const PostfilterWrapper = styled.div`
 
 const MainHeader = () => {
   const [secondMenuY, setSecondMenuY] = useState(false);
-
-  const [menuList, setMenuList] = useState([
-    {
-      id: 1,
-      name: "All",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "Followings",
-      active: false,
-    },
-    {
-      id: 3,
-      name: "Followers",
-      active: false,
-    },
-    {
-      id: 4,
-      name: "My",
-      active: false,
-    },
-  ]);
+  const { postFilter } = useSelector((state) => state.post);
 
   const onClickSlide = (checked) => {
     console.log(checked);
@@ -114,7 +93,7 @@ const MainHeader = () => {
         <Logo style={{ fontSize: "1.8em" }} />
         <RightMenu />
       </div>
-      <FilterMenu secondMenu={secondMenuY} />
+      <FilterMenu secondMenu={secondMenuY} postFilter={postFilter} />
     </div>
   );
 };

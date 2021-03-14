@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "antd";
+import { CHANGE_POST_FILTER_REQUEST } from "../../redux/types";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -20,8 +22,9 @@ const PostfilterWrapper = styled.div`
   }
 `;
 
-const FilterMenu = ({ secondMenu }) => {
+const FilterMenu = ({ secondMenu, postFilter }) => {
   const filterPostMenu = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (secondMenu) {
@@ -33,31 +36,8 @@ const FilterMenu = ({ secondMenu }) => {
     }
   }, [secondMenu]);
 
-  const [menuList, setMenuList] = useState([
-    {
-      id: 1,
-      name: "All",
-      active: true,
-    },
-    {
-      id: 2,
-      name: "Followings",
-      active: false,
-    },
-    {
-      id: 3,
-      name: "Followers",
-      active: false,
-    },
-    {
-      id: 4,
-      name: "My",
-      active: false,
-    },
-  ]);
-
   const onClickMenu = (currentMenu) => {
-    const updatedMenu = menuList.map((menu) => {
+    const updatedMenu = postFilter.map((menu) => {
       const updatedItem = {
         ...menu,
         active: false,
@@ -67,14 +47,18 @@ const FilterMenu = ({ secondMenu }) => {
 
       return updatedItem;
     });
-    setMenuList(updatedMenu);
+
+    dispatch({
+      type: CHANGE_POST_FILTER_REQUEST,
+      payload: updatedMenu
+    });
     console.log(updatedMenu);
   };
 
   return (
     <PostfilterWrapper ref={filterPostMenu}>
       <div style={{ width: "130%" }}>
-        {menuList?.map((menu) => (
+        {postFilter?.map((menu) => (
           <Button
             id={menu.id}
             onClick={() => onClickMenu(menu)}

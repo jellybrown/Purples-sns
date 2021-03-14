@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function useMediaQuery(query) {
+export default function useMediaQuery (query) {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {

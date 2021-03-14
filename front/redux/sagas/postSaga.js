@@ -20,6 +20,7 @@ import {
   CLEAR_POST_REQUEST,
   CLEAR_POST_SUCCESS,
   CLEAR_POST_FAILURE,
+  CHANGE_POST_FILTER_REQUEST,
 } from "../types";
 
 const addPostAPI = (payload) => {
@@ -44,7 +45,7 @@ const addPostAPI = (payload) => {
   return axios.post("/api/post", form, config);
 };
 
-function* addPost(action) {
+function* addPost (action) {
   try {
     const result = yield call(addPostAPI, action.payload);
     yield put({
@@ -63,7 +64,7 @@ const removePostAPI = (payload) => {
   return axios.delete("api/post", payload);
 };
 
-function* removePost(action) {
+function* removePost (action) {
   try {
     const result = yield call(removePostAPI, action.payload);
     yield put({
@@ -82,7 +83,7 @@ const addCommentAPI = (payload) => {
   return axios.post(`api/post/${payload.id}/comments`, payload);
 };
 
-function* addComment(action) {
+function* addComment (action) {
   try {
     const result = yield call(addCommentAPI, action.payload);
     yield put({
@@ -101,7 +102,7 @@ const removeCommentAPI = (payload) => {
   return axios.delete(`api/post/${payload.postId}/comment`, payload);
 };
 
-function* removeComment(action) {
+function* removeComment (action) {
   try {
     const result = yield call(removeCommentAPI, action.payload);
     yield put({
@@ -129,7 +130,7 @@ const searchPostAPI = (payload) => {
   );
 };
 
-function* searchPost(action) {
+function* searchPost (action) {
   try {
     const result = yield call(searchPostAPI, action.payload);
     yield put({
@@ -148,7 +149,7 @@ function* searchPost(action) {
 const loadPostAPI = (payload) => {
   return axios.get(`/api/post/skip/${payload}`);
 };
-function* loadPosts(action) {
+function* loadPosts (action) {
   try {
     const result = yield call(loadPostAPI, action.payload);
     console.log(result, "loadPosts");
@@ -165,7 +166,7 @@ function* loadPosts(action) {
   }
 }
 
-function* clearPost(action) {
+function* clearPost (action) {
   try {
     yield put({
       type: CLEAR_POST_REQUEST,
@@ -177,30 +178,47 @@ function* clearPost(action) {
   }
 }
 
-// watch functions...
-function* watchAddPost() {
-  yield takeEvery(ADD_POST_REQUEST, addPost);
-}
-function* watchRemovePost() {
-  yield takeEvery(REMOVE_POST_REQUEST, removePost);
-}
-function* watchSearchPost() {
-  yield takeEvery(SEARCH_POST_REQUEST, searchPost);
-}
-function* watchAddComment() {
-  yield takeEvery(ADD_COMMENT_REQUEST, addComment);
-}
-function* watchRemoveComment() {
-  yield takeEvery(REMOVE_COMMENT_REQUEST, removeComment);
-}
-function* watchLoadPosts() {
-  yield takeEvery(LOAD_POST_REQUEST, loadPosts);
-}
-function* watchClearPost() {
-  yield takeEvery(CLEAR_POST_REQUEST, clearPost);
+function* changePostFilter (action) {
+  try {
+    yield put({
+      type: CHANGE_POST_FILTER_SUCCESS,
+      payload: action.payload
+    });
+  } catch (e) {
+    console.log(e);
+    yield put({
+      type: CHANGE_POST_FILTER_FAILURE,
+    })
+  }
 }
 
-export default function* postSaga() {
+// watch functions...
+function* watchAddPost () {
+  yield takeEvery(ADD_POST_REQUEST, addPost);
+}
+function* watchRemovePost () {
+  yield takeEvery(REMOVE_POST_REQUEST, removePost);
+}
+function* watchSearchPost () {
+  yield takeEvery(SEARCH_POST_REQUEST, searchPost);
+}
+function* watchAddComment () {
+  yield takeEvery(ADD_COMMENT_REQUEST, addComment);
+}
+function* watchRemoveComment () {
+  yield takeEvery(REMOVE_COMMENT_REQUEST, removeComment);
+}
+function* watchLoadPosts () {
+  yield takeEvery(LOAD_POST_REQUEST, loadPosts);
+}
+function* watchClearPost () {
+  yield takeEvery(CLEAR_POST_REQUEST, clearPost);
+}
+function* watchChangePostFilter () {
+  yield takeEvery(CHANGE_POST_FILTER_REQUEST, changePostFilter);
+}
+
+export default function* postSaga () {
   yield all([
     fork(watchAddPost),
     fork(watchRemovePost),
@@ -209,5 +227,6 @@ export default function* postSaga() {
     fork(watchSearchPost),
     fork(watchLoadPosts),
     fork(watchClearPost),
+    fork(watchChangePostFilter)
   ]);
 }
