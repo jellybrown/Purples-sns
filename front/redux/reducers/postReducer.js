@@ -18,6 +18,9 @@ import {
   SEARCH_POST_FAILURE,
   SEARCH_POST_REQUEST,
   SEARCH_POST_SUCCESS,
+  CLEAR_POST_REQUEST,
+  CLEAR_POST_SUCCESS,
+  CLEAR_POST_FAILURE,
 } from "../types";
 
 const initialState = {
@@ -33,6 +36,8 @@ const initialState = {
   searchPostDone: false,
   searchPostError: null,
   postCount: "",
+  searchBy: "",
+  searchResult: "",
 };
 
 const postReducer = (state = initialState, action) => {
@@ -59,12 +64,14 @@ const postReducer = (state = initialState, action) => {
     case SEARCH_POST_REQUEST:
       return {
         ...state,
+        searchBy: action.payload,
         searchPostLoading: true,
       };
     case SEARCH_POST_SUCCESS:
       return {
         ...state,
-        searchPost: posts.map((post) => post.content.contains(action.payload)),
+        searchBy: action.payload,
+        searchResult: action.payload,
         searchPostLoading: false,
         searchPostDone: true,
       };
@@ -74,6 +81,7 @@ const postReducer = (state = initialState, action) => {
         error: action.payload,
         searchPostLoading: false,
         searchPostError: true,
+        searchResult: action.payload,
       };
     case ADD_POST_REQUEST:
       return {
@@ -154,6 +162,24 @@ const postReducer = (state = initialState, action) => {
         ...state,
         addCommentError: action.error,
         removeCommentLoading: false,
+      };
+    case CLEAR_POST_REQUEST:
+      return {
+        ...state,
+        posts: [],
+        loading: true,
+      };
+    case CLEAR_POST_SUCCESS:
+      return {
+        ...state,
+        posts: [],
+        loading: false,
+      };
+    case CLEAR_POST_FAILURE:
+      return {
+        ...state,
+        posts: [],
+        loading: false,
       };
     default:
       return state;
