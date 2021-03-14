@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Avatar } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-
+import { TiMinus } from "react-icons/ti";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
 
@@ -58,13 +58,21 @@ const CommentDate = styled.span`
 `;
 
 const CardComment = ({ post }) => {
-  const { wrtier, comments } = post;
+  // post에 각각의 포스트가 있음
+
   // comments.map(comment => (
   //   <li>댓글 돌려서 렌더링</li>
   // ))
+
+  const currentUser = useSelector((state) => state.auth.user.userId);
+
+  const checkMyComment = () => {
+    const result = currentUser === post.writer._id ? true : false;
+    return result;
+  };
+
   return (
     <CardCommentBox>
-      {console.log(comments)}
       <CommentCount>3개의 댓글이 있습니다.</CommentCount>
       <CommentLists>
         <CommentList>
@@ -74,6 +82,7 @@ const CardComment = ({ post }) => {
           />
           <CommentText>어디 케이크fdv디 케이크f</CommentText>
           <CommentDate>1일 전</CommentDate>
+          {checkMyComment() ? <TiMinus /> : null}
         </CommentList>
         <CommentList>
           <StyledCommentMeta
@@ -82,6 +91,7 @@ const CardComment = ({ post }) => {
           />
           <CommentText>어디 케이dfsdfsd크야???</CommentText>
           <CommentDate>1일 전</CommentDate>
+          {checkMyComment() ? <TiMinus /> : null}
         </CommentList>
         <CommentList>
           <StyledCommentMeta
@@ -90,6 +100,7 @@ const CardComment = ({ post }) => {
           />
           <CommentText>어디 케이크야???</CommentText>
           <CommentDate>1일 전</CommentDate>
+          {checkMyComment() ? <TiMinus /> : null}
         </CommentList>
         <CommentList>
           <StyledCommentMeta
