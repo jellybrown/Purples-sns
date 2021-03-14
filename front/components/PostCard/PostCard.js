@@ -8,16 +8,44 @@ import { LOAD_POST_REQUEST } from "../../redux/types";
 import { Spin } from "antd";
 
 const PostCard = () => {
-  const { posts, loading, postCount } = useSelector((state) => state.post);
+  const { posts, loading, postCount, postFilter } = useSelector((state) => state.post);
+  const { userId, follows, followers } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const getActiveFilterName = () => {
+    const activeFilter = postFilter.filter((menu) => menu.active);
+    return activeFilter[0].name;
+  }
+
+  // 마운트 시점의 콜백
   useEffect(() => {
     window.scrollTo(0, 0); // 스크롤 최상단으로 이동
+
     dispatch({
       type: LOAD_POST_REQUEST,
-      payload: 0,
+      payload: {
+        skip: 0,
+        filter: getActiveFilterName(),
+        userId,
+        follows,
+        followers
+      },
     });
   }, []);
+
+  // post filter가 변경됐을 때의 콜백
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POST_REQUEST,
+      payload: {
+        skip: 0,
+        filter: getActiveFilterName(),
+        userId,
+        follows,
+        followers
+      },
+    });
+  }, [postFilter]);
 
   // infinite scroll
   const skipNumberRef = useRef(0);
@@ -34,7 +62,13 @@ const PostCard = () => {
           if (remainPostCount >= 0) {
             dispatch({
               type: LOAD_POST_REQUEST,
-              payload: skipNumberRef.current + 6,
+              payload: {
+                skip: skipNumberRef.current + 6,
+                filter: getActiveFilterName(),
+                userId,
+                follows,
+                followers
+              },
             });
             skipNumberRef.current += 6;
           } else {
@@ -93,8 +127,8 @@ const PostCard = () => {
           />
         </div>
       ) : (
-        ""
-      )}
+            ""
+          )}
     </>
   );
 };

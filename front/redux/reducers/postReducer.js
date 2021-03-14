@@ -209,6 +209,7 @@ const postReducer = (state = initialState, action) => {
     case CHANGE_POST_FILTER_REQUEST:
       return {
         ...state,
+        posts: [],
         loading: true,
       }
     case CHANGE_POST_FILTER_SUCCESS:

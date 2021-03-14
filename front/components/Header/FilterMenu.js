@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "antd";
-import { CHANGE_POST_FILTER_REQUEST } from "../../redux/types";
+import { CHANGE_POST_FILTER_REQUEST, CLEAR_POST_REQUEST } from "../../redux/types";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
