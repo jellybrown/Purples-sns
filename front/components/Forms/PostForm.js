@@ -40,7 +40,6 @@ const PostForm = () => {
   const [previewImageUrl, setPreviewImageUrl] = useState([]);
   const [userText, setUserText] = useState("");
   const [userPhoto, setUserPhoto] = useState([]);
-  let data = [];
 
   const fileRef = useRef();
   const formRef = useRef();
@@ -92,10 +91,15 @@ const PostForm = () => {
     fileRef.current.click();
   };
 
+  // data: 프리뷰할때 미리보기 될 사진 배열
+  // fileList: 실제로 서버에 올라가는 사진 배열
+  let data = [];
+  let fileList;
   // 이미지 프리뷰를 위한 함수 (onChangePhoto)
   // 파일정보는 state로 관리함 (userPhoto)
-  const onChangePhoto = (e) => {
-    let fileList = e.target.files;
+
+  const previewAndUpdatePhoto = (fileList) => {
+    // fileList = e.target.files;
 
     for (let i = 0; i < fileList.length; i++) {
       let reader = new FileReader();
@@ -107,40 +111,13 @@ const PostForm = () => {
         setPreviewImageUrl(Object.assign([], data));
       };
     }
-
+    console.log(data);
     setUserPhoto(fileList);
   };
 
-  // 프리뷰 영역 slick arrow (prev, next)
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const NextArr = (props) => {
-    const { className, style, onClick } = props;
-    return (
-      <GrNext
-        className={className}
-        style={{
-          ...style,
-          display: "block",
-          transform: "translateX(-15px) scale(1.3)",
-          paddingleftt: "2em",
-        }}
-        onClick={onClick}
-      />
-    );
-  };
-  const PrevArr = (props) => {
-    const { className, style, onClick } = props;
-    return (
-      <GrPrevious
-        className={className}
-        style={{
-          ...style,
-          display: "block",
-          transform: "translateX(15px) scale(1.3)",
-        }}
-        onClick={onClick}
-      />
-    );
+  const onChangePhoto = (e) => {
+    fileList = e.target.files;
+    previewAndUpdatePhoto(fileList);
   };
 
   return (
