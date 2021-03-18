@@ -33,7 +33,7 @@
 
 - next.js
 
-- Redux, Redux-saga : 비동기 통신, 상태 관리
+- Redux, Redux-saga --> Redux-toolkit 으로 변경중
 
 - axios
 
@@ -112,7 +112,7 @@
 
 <br>
 
-- post작성, 회원가입, 로그인 등 비동기 통신을 위해 redux와 redux-saga를 적용했습니다.
+- post작성, 회원가입, 로그인 등 비동기 통신을 위해 redux와 redux-saga를 적용했습니다. (redux-toolkit으로 변경중입니다. 03/18)
 
 <br>
 
