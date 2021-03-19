@@ -3,12 +3,12 @@ import {
   combineReducers,
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
-import { postSlice } from "./postlice";
+import { postSlice } from "./PostSlice";
 
 // reudx tookit사용해서 스토어 만드는중. 2021/03/19
 
 const reducer = combineReducers({
-  posts: postSlice,
+  post: postSlice,
 });
 
 const store = configureStore({
