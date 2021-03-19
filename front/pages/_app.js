@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
 
-import { wrapper } from "../redux";
+import { wrapper } from "../redux"; // 나중에 toolkit 완성되면 기존 index파일 삭제 2021/03/19
 import { USER_LOADING_REQUEST } from "../redux/types";
 import { getCookie } from "../redux/reducers/authReducer";
 import GlobalStyles from "../styles/globalStyles";
