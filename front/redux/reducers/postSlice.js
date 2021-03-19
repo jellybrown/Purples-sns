@@ -102,7 +102,7 @@ export const addComment = createAsyncThunk(
 );
 
 // * post slice (with comment) *
-export const postsSlice = createSlice({
+export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {
@@ -181,7 +181,7 @@ export const postsSlice = createSlice({
   },
 });
 
-export default postsSlice.reducer;
+export default postSlice.reducer;
 
 // remove comment, clear post 추가해야함
 // clear post랑 remove post랑 두개가 무슨차이인지 모르겠다. 2021/03/18
