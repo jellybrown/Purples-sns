@@ -1,8 +1,10 @@
 import React from "react";
 import MainHome from "../components/MainHome";
 import MainLogin from "../components/mainLogin";
-//import {connect, useDispatch} from "react-redux"; 나중에 사용
-//import { wrapper } from "../redux/reducers/store"; 나중에 사용
+import { getCookie, userLoading } from "../redux/AuthSlice";
+import { wrapper } from "../redux/store";
+//import {connect} from "react-redux";
+import axios from "axios";
 
 const Main = ({ isAuthenticated }) => {
   return (
@@ -15,6 +17,26 @@ const Main = ({ isAuthenticated }) => {
     </div>
   );
 };
+// 로그인할때도 이 getServer~ 이 실행되는데,
+// 결국은 로그인할때도 api/auth 를 두번이나 요청한다... 왜지?
+// 이거때매 오류나는거 아닌가? userLoading에서 오류난다.
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    console.log("getserversideProps-------");
+
+    const token = getCookie("token", context.req);
+
+    let haveToken = false;
+
+    if (token !== undefined && token !== null) {
+      context.store.dispatch(userLoading({ token }));
+    }
+
+    // context.store.dispatch({
+    //   type: LOAD_POSTS_REQUEST,
+    // });
+  }
+);
 
 export default Main;
 
@@ -52,3 +74,27 @@ export default Main;
 // );
 
 // export default Main;
+
+// const fetchAndWait = (store, param) =>
+//   new Promise((resolve) => {
+//     store.dispatch({
+//       type: USER_LOADING_REQUEST,
+//       payload: param,
+//     });
+//     const unsubscribe = store.subscribe(() => {
+//       const state = store.getState();
+//       unsubscribe();
+//       return resolve(state);
+//     });
+//   });
+
+// App.getInitialProps = async ({ Component, ctx }) => {
+//   const token = getCookie("token", ctx.req);
+//   let updatedStore;
+
+//   if (token !== undefined && token !== null) {
+//     updatedStore = await fetchAndWait(ctx.store, token);
+//   }
+//   const pageProps = updatedStore ? updatedStore.auth : {};
+//   return { pageProps };
+// };

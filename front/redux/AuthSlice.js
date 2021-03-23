@@ -1,3 +1,4 @@
+import cookie from "js-cookie";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Router from "next/router";
@@ -35,7 +36,9 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
 // user loading --> 이름 바꿔야하지 않을까? 알아보기 힘든거같은..?. 2021/03/19
 export const userLoading = createAsyncThunk(
   "auth/userLoading",
-  async (token) => {
+  async ({ token }) => {
+    console.log("--------- t o k e n -----");
+    console.log(token);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -48,24 +51,23 @@ export const userLoading = createAsyncThunk(
   }
 );
 
-
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-      // logout
-    logout = (state) => {
-        state.loading = true;
-        removeCookie("token");
-        state.token = null;
-        state.user = null;
-        state.userId = null;
-        state.userRole = null;
-        state.isAuthenticated = false;
-        setTimeout(() => {
-            state.loading = false;
-        },1000)
-      }
+    // logout
+    logout: (state) => {
+      state.loading = true;
+      removeCookie("token");
+      state.token = null;
+      state.user = null;
+      state.userId = null;
+      state.userRole = null;
+      state.isAuthenticated = false;
+      setTimeout(() => {
+        state.loading = false;
+      }, 1000);
+    },
   },
   extraReducers: {
     // registerUser
@@ -74,6 +76,7 @@ export const authSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
+
       setCookie("token", payload.data.token);
       Router.push("/login");
       state.isAuthenticated = true;
@@ -92,6 +95,8 @@ export const authSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
+      console.log("-----------");
+      console.log(payload);
       setCookie("token", payload.data.token);
       Router.push("/");
       state.isAuthenticated = true;
@@ -100,7 +105,7 @@ export const authSlice = createSlice({
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = false;
-      removeCookie("token");
+      //removeCookie("token");
       state.isAuthenticated = false;
       console.log("loginUser rejected 💣", action);
     },
@@ -121,15 +126,15 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       console.log("userLoading rejected 💣", action);
     },
-     
   },
 });
 
 /**
  * cookie methods
  */
-// -> 클래스로 묶기 
+// -> 클래스로 묶기
 export const setCookie = (key, value) => {
+  console.log(value);
   if (process.browser) {
     cookie.set(key, value, {
       expires: 1,

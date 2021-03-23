@@ -8,6 +8,7 @@ import Link from "next/link";
 import { StyledAtag } from "../../styles/aTag";
 import { useDispatch } from "react-redux";
 import { LOG_IN_REQUEST } from "../../redux/types";
+import { loginUser } from "../../redux/AuthSlice";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -24,11 +25,12 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    const loginUser = { email: data.email, password: data.password };
-    dispatch({
-      type: LOG_IN_REQUEST,
-      payload: loginUser,
-    });
+    const userInfo = { email: data.email, password: data.password };
+    dispatch(loginUser(userInfo));
+    // dispatch({
+    //   type: LOG_IN_REQUEST,
+    //   payload: loginUser,
+    // });
   };
 
   return (

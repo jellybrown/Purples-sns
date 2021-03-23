@@ -1,9 +1,6 @@
-import {
-  createSlice,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
- 
+
 const initialState = {
   loading: false,
   posts: [],
@@ -61,7 +58,6 @@ export const searchPost = createAsyncThunk(
   }
 );
 
-
 // Add post
 export const addPost = createAsyncThunk("post/addPost", async (payload) => {
   const config = {
@@ -107,9 +103,9 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     // 비동기가 아닌 상태관리는 reducers에 작성. 2021/03/18
-    changePostFilter = (state, { payload }) => {
+    changePostFilter: (state, { payload }) => {
       state.postFilter = payload.data;
-    }
+    },
   },
   extraReducers: {
     // loadPosts

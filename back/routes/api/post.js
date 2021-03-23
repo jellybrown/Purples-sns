@@ -29,7 +29,7 @@ const uploadS3 = multer({
     s3,
     bucket: "purples/upload", // 버킷 및 디렉터리 정보 (S3 repository 단위)
     region: "ap-northeast-2", // 리전 정보 (S3 Bucket region)
-    key (req, file, cb) {
+    key(req, file, cb) {
       const ext = path.extname(file.originalname);
       const basename = path.basename(file.originalname, ext);
       // 업로드하는 파일에 현재 날짜시간 정보를 붙여서 업로드한다.
@@ -49,7 +49,7 @@ router.get("/skip", async (req, res) => {
     // MongoDB의 Posts collection 도큐먼트 수
     const postCount = await Post.countDocuments();
 
-    console.log('skip API req.query is ', req.query);
+    console.log("skip API req.query is ", req.query);
     let postFindResult;
     if (req.query.filter === "All") {
       // Request Parameter로 받은 skip 수만큼 skip 후,
@@ -58,8 +58,8 @@ router.get("/skip", async (req, res) => {
         .populate("writer", "name")
         .populate("comments")
         .populate({
-          path: 'comments',
-          populate: { path: 'writer' },
+          path: "comments",
+          populate: { path: "writer" },
         })
         .skip(Number(req.query.skip))
         .limit(6)
@@ -73,14 +73,13 @@ router.get("/skip", async (req, res) => {
         .populate("writer", "name")
         .populate("comments")
         .populate({
-          path: 'comments',
-          populate: { path: 'writer' },
+          path: "comments",
+          populate: { path: "writer" },
         })
         .skip(Number(req.query.skip))
         .limit(6)
         .sort({ date: -1 });
     }
-
 
     // 결과 값으로 읽어온 포스트 정보, 전체 포스트 수를 담아 응답한다.
     const result = { postFindResult, postCount };

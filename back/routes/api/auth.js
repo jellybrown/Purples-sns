@@ -15,6 +15,7 @@ const router = express.Router();
 // @desc    로그인 API
 // @access  public
 router.post("/", (req, res) => {
+  console.log("login 시도");
   const { email, password } = req.body;
 
   // email이나 password 값이 넘어오지 않았을 경우 400 error response 응답 처리.
@@ -77,7 +78,9 @@ router.get("/user", auth, async (req, res) => {
     // 사용자 정보에 팔로워/팔로잉 수 설정.
     const followerCount = await Follow.find({ follow: req.user.id }).count();
     const followCount = await Follow.find({ user: req.user.id }).count();
-    const followers = await Follow.find({ follow: req.user.id }).populate("follow");
+    const followers = await Follow.find({ follow: req.user.id }).populate(
+      "follow"
+    );
     const follows = await Follow.find({ user: req.user.id }).populate("user");
 
     console.log("user data", user);

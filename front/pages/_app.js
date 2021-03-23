@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
 
-import { wrapper } from "../redux"; // 나중에 toolkit 완성되면 기존 index파일 삭제 2021/03/19
 import { USER_LOADING_REQUEST } from "../redux/types";
 import { getCookie } from "../redux/reducers/authReducer";
 import GlobalStyles from "../styles/globalStyles";
 import "antd/dist/antd.css";
+import { wrapper } from "../redux/store";
 
 /*
  * Application Container. 공통의 레이아웃을 작성.
@@ -34,30 +34,30 @@ const App = ({ Component, pageProps }) => {
   );
 };
 
-const fetchAndWait = (store, param) =>
-  new Promise((resolve) => {
-    store.dispatch({
-      type: USER_LOADING_REQUEST,
-      payload: param,
-    });
-    const unsubscribe = store.subscribe(() => {
-      const state = store.getState();
-      unsubscribe();
-      return resolve(state);
-    });
-  });
+// const fetchAndWait = (store, param) =>
+//   new Promise((resolve) => {
+//     store.dispatch({
+//       type: USER_LOADING_REQUEST,
+//       payload: param,
+//     });
+//     const unsubscribe = store.subscribe(() => {
+//       const state = store.getState();
+//       unsubscribe();
+//       return resolve(state);
+//     });
+//   });
 
-App.getInitialProps = async ({ Component, ctx }) => {
-  const token = getCookie("token", ctx.req);
-  let updatedStore;
+// App.getInitialProps = async ({ Component, ctx }) => {
+//   const token = getCookie("token", ctx.req);
+//   let updatedStore;
 
-  if (token !== undefined && token !== null) {
-    updatedStore = await fetchAndWait(ctx.store, token);
-    console.log(updatedStore);
-  }
-  const pageProps = updatedStore ? updatedStore.auth : {};
-  return { pageProps };
-};
+//   if (token !== undefined && token !== null) {
+//     updatedStore = await fetchAndWait(ctx.store, token);
+//     console.log(updatedStore);
+//   }
+//   const pageProps = updatedStore ? updatedStore.auth : {};
+//   return { pageProps };
+// };
 
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,
