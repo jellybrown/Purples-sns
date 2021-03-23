@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@babel/polyfill": "^7.12.1",
+    "@reduxjs/toolkit": "^1.5.0",
     "antd": "^4.10.2",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",

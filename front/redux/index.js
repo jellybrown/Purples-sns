@@ -18,8 +18,8 @@ export const reducer = (state = {}, action) => {
     console.log("---------ACTION-----");
     console.log({ ...action.payload });
     return {
-      ...action.payload,
       ...state,
+      ...action.payload,
     };
   }
   return combineReducers({

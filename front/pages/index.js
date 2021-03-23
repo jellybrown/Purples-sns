@@ -3,7 +3,7 @@ import MainHome from "../components/MainHome";
 import MainLogin from "../components/mainLogin";
 import { getCookie, userLoading } from "../redux/AuthSlice";
 import { wrapper } from "../redux/store";
-//import {connect} from "react-redux";
+import { connect } from "react-redux";
 import axios from "axios";
 
 const Main = ({ isAuthenticated }) => {
@@ -37,8 +37,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
     // });
   }
 );
-
-export default Main;
+export default connect((state) => state)(Main);
+//export default Main;
 
 // _app.js에 설정한거 여기다 해야하는거 아닐까? 2021/03/22
 // toolkit 할때 설정하기
