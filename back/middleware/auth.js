@@ -3,6 +3,7 @@ import config from "../config/index";
 
 const { JWT_SECRET } = config;
 const auth = (req, res, next) => {
+  console.log("-----auth middleware---------");
   const token = req.header("x-auth-token");
 
   if (!token) {

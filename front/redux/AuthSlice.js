@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
 // user loading --> 이름 바꿔야하지 않을까? 알아보기 힘든거같은..?. 2021/03/19
 export const userLoading = createAsyncThunk(
   "auth/userLoading",
-  async ({ token }) => {
+  async (token) => {
     console.log("--------- t o k e n -----");
     console.log(token);
     const config = {
@@ -47,7 +47,7 @@ export const userLoading = createAsyncThunk(
     if (token) {
       config.headers["x-auth-token"] = token;
     }
-    return axios.post("api/auth", config);
+    return axios.get("api/auth/user", config);
   }
 );
 
@@ -116,9 +116,9 @@ export const authSlice = createSlice({
     [userLoading.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.isAuthenticated = true;
-      state.userId = payload.data.user._id; // 왜 여기는 언더바 ? login/register에는 그냥 id인데.. 2021/03/19
-      state.userName = payload.data.user.name;
-      state.userRole = payload.data.user.role;
+      state.userId = payload.data._id; // 왜 여기는 언더바 ? login/register에는 그냥 id인데.. 2021/03/19
+      state.userName = payload.data.name;
+      state.userRole = payload.data.role;
     },
     [userLoading.rejected]: (state, action) => {
       state.loading = false;

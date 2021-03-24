@@ -29,7 +29,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     let haveToken = false;
 
     if (token !== undefined && token !== null) {
-      context.store.dispatch(userLoading({ token }));
+      context.store.dispatch(userLoading(token));
     }
 
     // context.store.dispatch({

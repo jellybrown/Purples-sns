@@ -68,6 +68,7 @@ router.post("/logout", (req, res) => {
 // @access  public
 router.get("/user", auth, async (req, res) => {
   try {
+    console.log("----- auth POST api ---");
     // middleware auth를 통해 설정된 req.user.id에 대해 MongoDB 검색
     // lean() method를 통해 결과 값을 변경할 수 있도록 함.
     let user = await User.findById(req.user.id).select("-password").lean();
