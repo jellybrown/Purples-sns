@@ -3,23 +3,21 @@ import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/SearchBar";
 import { LightColorBg } from "../styles/bg";
 import { useDispatch, useSelector } from "react-redux";
-import { SEARCH_POST_REQUEST } from "../redux/types";
 import PostCardImg from "../components/PostCard/PostCardImg";
 import CardContent from "../components/PostCard/CardContent";
 import { Card } from "antd";
+import { searchPost } from "../redux/PostSlice";
 
 const Search = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
   const [keyword, setKeyword] = useState("");
-  const { searchResult } = useSelector((state) => state.post);
+  const { data: searchedPost } = useSelector(
+    (state) => state.post.searchResult
+  );
 
   useEffect(() => {
-    keyword &&
-      dispatch({
-        type: SEARCH_POST_REQUEST,
-        payload: { keyword, token },
-      });
+    keyword && dispatch(searchPost({ keyword, token }));
   }, [dispatch, keyword]);
 
   return (
@@ -41,9 +39,9 @@ const Search = () => {
           // paddingLeft: "10%",
         }}
       >
-        {searchResult &&
-          searchResult.length > 0 &&
-          searchResult.map((post) => (
+        {searchedPost &&
+          searchedPost.length > 0 &&
+          searchedPost.map((post) => (
             <Card
               style={{
                 maxWidth: "500px",
