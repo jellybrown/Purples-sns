@@ -4,47 +4,44 @@ import { Alert, Card } from "antd";
 import CardContent from "./CardContent";
 import PostCardImg from "./PostCardImg";
 import { useDispatch, useSelector } from "react-redux";
-import { LOAD_POST_REQUEST } from "../../redux/types";
 import { Spin } from "antd";
+import { loadPost } from "../../redux/PostSlice";
 
 const PostCard = () => {
-  const { posts, loading, postCount, postFilter } = useSelector((state) => state.post);
+  const { posts, loading, postCount, postFilter } = useSelector(
+    (state) => state.post
+  );
   const { userId, follows, followers } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const getActiveFilterName = () => {
     const activeFilter = postFilter.filter((menu) => menu.active);
     return activeFilter[0].name;
-  }
+  };
 
   // 마운트 시점의 콜백
   useEffect(() => {
     window.scrollTo(0, 0); // 스크롤 최상단으로 이동
-
-    dispatch({
-      type: LOAD_POST_REQUEST,
-      payload: {
-        skip: 0,
-        filter: getActiveFilterName(),
-        userId,
-        follows,
-        followers
-      },
-    });
+    const payload = {
+      skip: 0,
+      filter: getActiveFilterName(),
+      userId,
+      follows,
+      followers,
+    };
+    dispatch(loadPost({ payload }));
   }, []);
 
   // post filter가 변경됐을 때의 콜백
   useEffect(() => {
-    dispatch({
-      type: LOAD_POST_REQUEST,
-      payload: {
-        skip: 0,
-        filter: getActiveFilterName(),
-        userId,
-        follows,
-        followers
-      },
-    });
+    const payload = {
+      skip: 0,
+      filter: getActiveFilterName(),
+      userId,
+      follows,
+      followers,
+    };
+    dispatch(loadPost({ payload }));
   }, [postFilter]);
 
   // infinite scroll
@@ -60,16 +57,14 @@ const PostCard = () => {
         if (entry.isIntersecting) {
           let remainPostCount = postCountRef.current - skipNumberRef.current;
           if (remainPostCount >= 0) {
-            dispatch({
-              type: LOAD_POST_REQUEST,
-              payload: {
-                skip: skipNumberRef.current + 6,
-                filter: getActiveFilterName(),
-                userId,
-                follows,
-                followers
-              },
-            });
+            let payload = {
+              skip: skipNumberRef.current + 6,
+              filter: getActiveFilterName(),
+              userId,
+              follows,
+              followers,
+            };
+            dispatch(loadPost({ payload }));
             skipNumberRef.current += 6;
           } else {
             endMsg.current = true;
@@ -127,8 +122,8 @@ const PostCard = () => {
           />
         </div>
       ) : (
-            ""
-          )}
+        ""
+      )}
     </>
   );
 };
