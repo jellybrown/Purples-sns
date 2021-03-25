@@ -119,6 +119,7 @@ export const authSlice = createSlice({
       state.userId = payload.data._id; // 왜 여기는 언더바 ? login/register에는 그냥 id인데.. 2021/03/19
       state.userName = payload.data.name;
       state.userRole = payload.data.role;
+      state.user = payload.data;
     },
     [userLoading.rejected]: (state, action) => {
       state.loading = false;
