@@ -5,17 +5,18 @@ import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/searchBar";
 import { LightColorBg } from "../styles/bg";
 import { USER_SEARCH_REQUEST } from "../redux/types";
+import { searchUser } from "../redux/UserSlice";
 
 const Find = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
+
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    dispatch({
-      type: USER_SEARCH_REQUEST,
-      payload: { keyword, token },
-    });
+    console.log("-----Find-----");
+    console.log({ keyword, token });
+    dispatch(searchUser({ keyword, token }));
   }, [dispatch, keyword]);
 
   return (
