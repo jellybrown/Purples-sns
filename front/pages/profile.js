@@ -37,9 +37,10 @@ const InputLabel = styled.label`
   font-size: 1.5em;
 `;
 
-const Profile = ({ isAuthenticated, user }) => {
+const Profile = () => {
   const dispatch = useDispatch();
-  const { _id, name, token, profileImageUrl } = useSelector(
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { _id, name, token, profileImageUrl, email } = useSelector(
     (state) => state.auth.user
   );
   const { save, handleSubmit, watch, errors } = useForm();
@@ -78,7 +79,7 @@ const Profile = ({ isAuthenticated, user }) => {
     setProfilePreviewImage(profileImageUrl);
     setForm({
       ...form,
-      name: user.name,
+      name,
     });
   }, []);
 
@@ -144,11 +145,11 @@ const Profile = ({ isAuthenticated, user }) => {
             margin: "0 0 80px",
           }}
         >
-          <Name style={{ margin: "0 auto" }}>{user.name}</Name>
+          <Name style={{ margin: "0 auto" }}>{name}</Name>
         </div>
         <InputWrapper>
           <InputLabel>아이디</InputLabel>
-          <BasicLabel>{user.email}</BasicLabel>
+          <BasicLabel>{email}</BasicLabel>
         </InputWrapper>
         <InputWrapper>
           <InputLabel>이름</InputLabel>
