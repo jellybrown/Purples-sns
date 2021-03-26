@@ -93,7 +93,7 @@ export const removePost = createAsyncThunk(
 export const addComment = createAsyncThunk(
   "post/addComment",
   async (payload) => {
-    return axios.post(`api/post/${payload.id}/comments`, payload);
+    return axios.post(`/api/post/${payload.id}/comments`, payload);
   }
 );
 

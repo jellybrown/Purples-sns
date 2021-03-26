@@ -9,6 +9,7 @@ import { GrPrevious, GrNext } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { ADD_POST_REQUEST } from "../../redux/types";
+import { addPost } from "../../redux/PostSlice";
 
 const Wrapper = styled.div`
   display: inline-block;
@@ -76,10 +77,8 @@ const PostForm = () => {
     };
     console.log("postForm.handleOk() body => ", body);
 
-    dispatch({
-      type: ADD_POST_REQUEST,
-      payload: body,
-    });
+    dispatch(addPost(body));
+
     setIsModalVisible(false);
   };
 
