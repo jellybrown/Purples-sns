@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../redux/types";
+import { follow, unFollow } from "../redux/UserSlice";
 
 const dynamicSort = (property) => {
   let sortOrder = 1;
@@ -44,25 +45,34 @@ const DeleteOrAdd = ({ userInfo }) => {
 
   const handleAddFollow = () => {
     console.log(userInfo);
-
-    dispatch({
-      type: FOLLOW_REQUEST,
-      payload: {
-        followUserEmail: userInfo.email,
-        token,
-      },
-    });
+    const payload = {
+      followUserEmail: userInfo.email,
+      token,
+    };
+    dispatch(follow(payload));
+    // dispatch({
+    //   type: FOLLOW_REQUEST,
+    //   payload: {
+    //     followUserEmail: userInfo.email,
+    //     token,
+    //   },
+    // });
   };
 
   const handleRemoveFollow = () => {
     console.log(userInfo);
-    dispatch({
-      type: UNFOLLOW_REQUEST,
-      payload: {
-        unfollowUserEmail: userInfo.email,
-        token,
-      },
-    });
+    const payload = {
+      unfollowUserEmail: userInfo.email,
+      token,
+    };
+    dispatch(unFollow(payload));
+    // dispatch({
+    //   type: UNFOLLOW_REQUEST,
+    //   payload: {
+    //     unfollowUserEmail: userInfo.email,
+    //     token,
+    //   },
+    // });
   };
 
   return (
@@ -82,23 +92,27 @@ const FriendList = () => {
   return (
     <ul>
       {user && user.users.length > 0 ? (
-        user.users.sort(dynamicSort("name")).map((friend) => (
-          <li
-            style={{
-              display: "flex",
-              alignItems: "center",
-              padding: "1em 0",
-            }}
-          >
-            {friend.profileImageUrl ? (
-              <ProfileImage src={friend.profileImageUrl} />
-            ) : (
-              <FaUserCircle style={{ fontSize: "3rem" }} />
-            )}
-            <span style={{ flex: "1", paddingLeft: "1em" }}>{friend.name}</span>
-            <DeleteOrAdd userInfo={friend} />
-          </li>
-        ))
+        Object.values(user.users)
+          .sort(dynamicSort("name"))
+          .map((friend) => (
+            <li
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "1em 0",
+              }}
+            >
+              {friend.profileImageUrl ? (
+                <ProfileImage src={friend.profileImageUrl} />
+              ) : (
+                <FaUserCircle style={{ fontSize: "3rem" }} />
+              )}
+              <span style={{ flex: "1", paddingLeft: "1em" }}>
+                {friend.name}
+              </span>
+              <DeleteOrAdd userInfo={friend} />
+            </li>
+          ))
       ) : (
         <div>친구가 없습니다.</div>
       )}
