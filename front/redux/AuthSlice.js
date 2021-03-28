@@ -15,10 +15,33 @@ const initialState = {
   previousMatchMsg: "",
 };
 
+// update user
+export const updateUser = createAsyncThunk("auth/updateUser", async (payload) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  if (payload.token) {
+    config.headers["x-auth-token"] = payload.token;
+  }
+  let form = new FormData();
+  form.append("image", payload.profileImage);
+  form.append("prevUserName", payload.prevUserName);
+  form.append("userName", payload.userName);
+  form.append("userId", payload.userId);
+  form.append("token", payload.token);
+
+  return axios.post(`/api/user/${payload.prevUserName}/profile`, form, config);
+});
+
 // register user
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
-  async (payload) => {
+  async (token) => {
+    if (token) {
+      config.headers["x-auth-token"] = token;
+    }
     return axios.post("api/user", payload);
   }
 );
@@ -70,6 +93,19 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: {
+    // updateUser
+    [updateUser.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [updateUser.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.user.profileImageUrl = payload.data.profileImageUrl;
+      state.user.name = payload.data.name;
+      state.userName = payload.data.name;
+    },
+    [updateUser.rejected]: (state, action) => {
+      state.loading = false;
+    },
     // registerUser
     [registerUser.pending]: (state, action) => {
       state.loading = true;

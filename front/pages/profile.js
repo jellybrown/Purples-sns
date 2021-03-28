@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
 import { SettingFilled } from "@ant-design/icons";
-import { UPDATE_USER_INFO_REQUEST } from "../redux/types";
+import { updateUser } from "../redux/AuthSlice"
 
 const InputWrapper = styled.div`
   position: relative;
@@ -92,10 +92,8 @@ const Profile = () => {
       token,
     };
     console.log(body);
-    dispatch({
-      type: UPDATE_USER_INFO_REQUEST,
-      payload: body,
-    });
+
+    dispatch(updateUser(body));
     message.info("수정 입력", 1);
   };
 
