@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 
 import PropTypes from "prop-types";
 import Head from "next/head";
-
-import { USER_LOADING_REQUEST } from "../redux/types";
-import { getCookie } from "../redux/reducers/authReducer";
 import GlobalStyles from "../styles/globalStyles";
 import "antd/dist/antd.css";
 import { wrapper } from "../redux/store";
+import { Router } from "next/router";
+import { useSelector } from "react-redux";
 
 /*
  * Application Container. 공통의 레이아웃을 작성.
@@ -23,7 +22,9 @@ const App = ({ Component, pageProps }) => {
   // Component는 요청한 페이지로 `GET /` 요청을 받으면, /pages/index.js 파일이 props로 내려오게 된다.
   // pageProps는 페이지 getInitialProps를 통해 내려받은 props를 의미한다.
   // 다음으로 _document.js가 실행된다.
-  return (
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  return isAuthenticated ? (
     <>
       <Head>
         <title>Purples</title>
@@ -31,6 +32,8 @@ const App = ({ Component, pageProps }) => {
       <GlobalStyles />
       <Component {...pageProps} />
     </>
+  ) : (
+    Router.push("/login")
   );
 };
 
