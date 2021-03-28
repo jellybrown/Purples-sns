@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import Post from "../../models/post";
 import Comment from "../../models/comment";
 import User from "../../models/user";
+import Follow from '../../models/follow';
 import auth from "../../middleware/auth";
 
 // express router를 생성한다. (이 라우터를 express object에서 사용한다.)
@@ -65,9 +66,37 @@ router.get("/skip", async (req, res) => {
         .limit(6)
         .sort({ date: -1 });
     } else if (req.query.filter === "Followings") {
-      postFindResult = "";
+      const followingUsers = await Follow.find({ user: req.query.userId })
+        .select({ "follow": 1, "_id": 0 })
+        .lean();
+      const followingsData = followingUsers.map((data) => data.follow);
+
+      postFindResult = await Post.find({ writer: { "$in": followingsData } })
+        .populate("writer", "name")
+        .populate("comments")
+        .populate({
+          path: "comments",
+          populate: { path: "writer" },
+        })
+        .skip(Number(req.query.skip))
+        .limit(6)
+        .sort({ date: -1 });
     } else if (req.query.filter === "Followers") {
-      postFindResult = "";
+      const followerUsers = await Follow.find({ follow: req.query.userId })
+        .select({ "user": 1, "_id": 0 })
+        .lean();
+      const followerData = followerUsers.map((data) => data.user);
+
+      postFindResult = await Post.find({ writer: { "$in": followerData } })
+        .populate("writer", "name")
+        .populate("comments")
+        .populate({
+          path: "comments",
+          populate: { path: "writer" },
+        })
+        .skip(Number(req.query.skip))
+        .limit(6)
+        .sort({ date: -1 });
     } else if (req.query.filter === "My") {
       postFindResult = await Post.find({ writer: req.query.userId })
         .populate("writer", "name")
@@ -168,14 +197,14 @@ router.get("/:id/comments", async (req, res) => {
 router.post("/:id/comments", async (req, res, next) => {
   // Comment model에 필요한 정보를 Request에서 읽어온다.
   const { contents, userId, userName, id } = req.body;
-  const comment = await Comment.create({
+  let comment = await Comment.create({
     contents,
     writer: userId,
     writerName: userName,
     post: id,
     date: moment().format("YYYY-MM-DD HH:mm:ss"),
   });
-  console.log(comment, "comment");
+  comment = await comment.populate("writer").execPopulate();
 
   try {
     // 생성한 Comment 모델의 id를 Post Document 안에 추가한다.

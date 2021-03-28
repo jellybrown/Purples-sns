@@ -104,7 +104,8 @@ export const postSlice = createSlice({
   reducers: {
     // 비동기가 아닌 상태관리는 reducers에 작성. 2021/03/18
     changePostFilter: (state, { payload }) => {
-      state.postFilter = payload.data;
+      state.posts = []; // 필터가 바뀌었기 때문에 기존 포스트 초기화.
+      state.postFilter = payload;
     },
   },
   extraReducers: {
@@ -164,10 +165,9 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [addComment.fulfilled]: (state, { payload }) => {
-      const payloadId = payload.id; //postId ex)aadfdsf323sdfsd
-      const newComment = payload.contents;
-      const targetPost = state.posts.filter((post) => post._id === payloadId);
-      targetPost.comments.push(newComment);
+      const payloadId = payload.data.post; //postId ex)aadfdsf323sdfsd
+      const targetPost = state.posts.filter((post) => post._id === payloadId)[0];
+      targetPost.comments.push(payload.data);
       state.loading = false;
     },
     [addComment.rejected]: (state, action) => {
@@ -177,6 +177,8 @@ export const postSlice = createSlice({
   },
 });
 
+
+export const { changePostFilter } = postSlice.actions; 
 export default postSlice.reducer;
 
 // remove comment, clear post 추가해야함

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Modal } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
 import Slick from "react-slick";
@@ -8,7 +8,6 @@ import styled from "styled-components";
 import { GrPrevious, GrNext } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
-import { ADD_POST_REQUEST } from "../../redux/types";
 import { addPost } from "../../redux/PostSlice";
 
 const Wrapper = styled.div`
@@ -44,6 +43,15 @@ const PostForm = () => {
 
   const fileRef = useRef();
   const formRef = useRef();
+
+  useEffect(() => {
+    !isModalVisible && (() => {
+      // 입력 후 초기화
+      setPreviewImageUrl([]);
+      setUserText("");
+      setUserPhoto([]);
+    })();
+  }, [isModalVisible])
 
   const onChangeText = (e) => {
     setUserText(e.target.value);
