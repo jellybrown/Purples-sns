@@ -4,6 +4,7 @@ import MainLogin from "../components/mainLogin";
 import { getCookie, userLoading } from "../redux/AuthSlice";
 import { wrapper } from "../redux/store";
 import { connect } from "react-redux";
+import { postSlice } from "../redux/PostSlice";
 
 const Main = ({ isAuthenticated }) => {
   return (
