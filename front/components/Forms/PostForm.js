@@ -1,14 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Modal } from "antd";
 import { AiOutlinePlus } from "react-icons/ai";
-import Slick from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import { GrPrevious, GrNext } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { addPost } from "../../redux/PostSlice";
+
+const PostFormWrapper = styled.div`
+  width: 93%;
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+  overflow: hidden;
+
+  .write__button {
+    max-width: 500px;
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+    border-radius: 20px;
+    opacity: 0.7;
+    font-size: 0.8rem;
+  }
+`;
 
 const Wrapper = styled.div`
   display: inline-block;
@@ -16,7 +34,7 @@ const Wrapper = styled.div`
   width: 100px;
   height: 100px;
   overflow: hidden;
-  border: 1px dashed #000000;
+  border: 1px solid #e1e1e1;
   border-radius: 20px;
   margin: 0 10px;
   padding: 0;
@@ -45,13 +63,14 @@ const PostForm = () => {
   const formRef = useRef();
 
   useEffect(() => {
-    !isModalVisible && (() => {
-      // 입력 후 초기화
-      setPreviewImageUrl([]);
-      setUserText("");
-      setUserPhoto([]);
-    })();
-  }, [isModalVisible])
+    !isModalVisible &&
+      (() => {
+        // 입력 후 초기화
+        setPreviewImageUrl([]);
+        setUserText("");
+        setUserPhoto([]);
+      })();
+  }, [isModalVisible]);
 
   const onChangeText = (e) => {
     setUserText(e.target.value);
@@ -59,12 +78,6 @@ const PostForm = () => {
 
   const showModal = () => {
     setIsModalVisible(true);
-  };
-
-  const imageUploader = (photo) => {
-    const formData = new FormData();
-    formData.append("file", photo);
-    return formData;
   };
 
   // 글 작성시 text,photo 정보를 dispatch하고, 모달을 닫는 함수 (handleOk)
@@ -128,23 +141,8 @@ const PostForm = () => {
   };
 
   return (
-    <div style={{ borderRadius: "25px", overflow: "hidden" }}>
-      <Button
-        onClick={showModal}
-        style={{
-          maxWidth: "500px",
-          width: "93%",
-          cursor: "pointer",
-          marginBottom: "25px",
-          display: "flex",
-          alignItems: "center",
-          padding: "20px",
-          color: "#333",
-          borderRadius: "20px",
-          opacity: "0.7",
-          fontSize: "0.8rem",
-        }}
-      >
+    <PostFormWrapper>
+      <Button className="write__button" onClick={showModal}>
         <AiOutlinePlus style={{ fontSize: "1.2rem", marginRight: "0.7em" }} />
         게시글 작성...
       </Button>
@@ -187,7 +185,7 @@ const PostForm = () => {
             : null}
         </div>
       </Modal>
-    </div>
+    </PostFormWrapper>
   );
 };
 export default PostForm;
