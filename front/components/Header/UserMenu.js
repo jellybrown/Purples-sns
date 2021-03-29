@@ -8,12 +8,19 @@ import { useDispatch } from "react-redux";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { LOGOUT_REQUEST } from "../../redux/types";
 import Router from "next/router";
+import Link from "next/link";
 
 const StyledMenu = styled(Menu)`
   box-shadow: none !important;
   -webkit-box-shadow: none !important;
   margin-top: 10px;
   width: 200px;
+
+  .menu__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const UserMenu = () => {
@@ -29,10 +36,6 @@ const UserMenu = () => {
     message.info("로그아웃에 성공하였습니다.", 1);
   };
 
-  const handleProfileClick = (e) => {
-    Router.push("/profile");
-  };
-
   const loggedIn = true;
 
   return (
@@ -46,17 +49,13 @@ const UserMenu = () => {
           >
             <span>로그아웃</span>
           </Menu.Item>
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>프로필</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+          <Menu.Item key="2">
+            <Link href="/profile">
+              <a className="menu__link">
+                <span>프로필</span>
+                <FaUserCircle style={{ fontSize: "1.2rem" }} />
+              </a>
+            </Link>
           </Menu.Item>
         </StyledMenu>
       )}
@@ -69,77 +68,29 @@ const UserMenu = () => {
           >
             <span>로그아웃</span>
           </Menu.Item>
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>프로필</span>
-            <FaUserCircle style={{ fontSize: "1.2rem" }} />
+          <Menu.Item key="2">
+            <Link href="/profile">
+              <a className="menu__link">
+                <span>프로필</span>
+                <FaUserCircle style={{ fontSize: "1.2rem" }} />
+              </a>
+            </Link>
           </Menu.Item>
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>친구 찾기</span>
-            <BsFillPersonPlusFill style={{ fontSize: "1.2rem" }} />
+          <Menu.Item key="3">
+            <Link href="/find">
+              <a className="menu__link">
+                <span>친구 찾기</span>
+                <BsFillPersonPlusFill style={{ fontSize: "1.2rem" }} />
+              </a>
+            </Link>
           </Menu.Item>
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>게시글 검색</span>
-            <BiSearch style={{ fontSize: "1.2rem" }} />
-          </Menu.Item>
-        </StyledMenu>
-      ) : null}
-      {isTabletOrMobileDevice && !loggedIn ? (
-        <StyledMenu>
-          <Menu.Item
-            key="1"
-            onClick={handleLogoutClick}
-            style={{ borderBottom: "1px solid #ddd" }}
-          >
-            <span>로그인</span>
-          </Menu.Item>
-
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>친구 찾기</span>
-            <BsFillPersonPlusFill style={{ fontSize: "1.2rem" }} />
-          </Menu.Item>
-          <Menu.Item
-            key="2"
-            onClick={handleProfileClick}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>게시글 검색</span>
-            <BiSearch style={{ fontSize: "1.2rem" }} />
+          <Menu.Item key="4">
+            <Link href="/search">
+              <a className="menu__link">
+                <span>게시글 검색</span>
+                <BiSearch style={{ fontSize: "1.2rem" }} />
+              </a>
+            </Link>
           </Menu.Item>
         </StyledMenu>
       ) : null}
