@@ -125,7 +125,6 @@ router.post(
   uploadS3.single("image"), // 프로필 이미지 AWS S3 업로드를 위한 미들웨어
   async (req, res) => {
     // uploadS3 미들웨어를 통해 AWS S3 업로드한 프로필 이미지 URL 확인
-    console.log("file...", req.file.location);
     try {
       // request body에서 사용자 이름과 아이디를 파싱
       const { profileImage, prevUserName, userName, userId } = req.body;
@@ -141,6 +140,7 @@ router.post(
 
       // 변경한 정보 MongoDB Document 반영
       result.save();
+      return res.json(result);
     } catch (e) {
       console.log(e);
     }

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "antd";
 import { CHANGE_POST_FILTER_REQUEST, CLEAR_POST_REQUEST } from "../../redux/types";
+import { changePostFilter } from "../../redux/PostSlice";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -33,6 +34,7 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
     } else {
       filterPostMenu.current.style.transition = "0.5s";
       filterPostMenu.current.style.transform = "translateY(0)";
+      
     }
   }, [secondMenu]);
 
@@ -48,10 +50,7 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
       return updatedItem;
     });
 
-    dispatch({
-      type: CHANGE_POST_FILTER_REQUEST,
-      payload: updatedMenu
-    });
+    dispatch(changePostFilter(updatedMenu));
     console.log(updatedMenu);
   };
 

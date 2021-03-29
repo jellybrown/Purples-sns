@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_COMMENT_REQUEST } from "../../redux/types";
+import { addComment } from "../../redux/PostSlice";
 
 const CommentForm = ({ post }) => {
   const [text, setText] = useState("");
@@ -13,15 +13,13 @@ const CommentForm = ({ post }) => {
   };
 
   const onAddComment = () => {
-    dispatch({
-      type: ADD_COMMENT_REQUEST,
-      payload: {
-        contents: text,
-        userId: user._id,
-        userName: user.name,
-        id: post._id,
-      },
-    });
+    dispatch(addComment({
+      contents: text,
+      userId: user._id,
+      userName: user.name,
+      id: post._id,
+    }));
+    setText("");
   };
 
   return (
