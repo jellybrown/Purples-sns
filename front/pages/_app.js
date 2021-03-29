@@ -5,8 +5,6 @@ import Head from "next/head";
 import GlobalStyles from "../styles/globalStyles";
 import "antd/dist/antd.css";
 import { wrapper } from "../redux/store";
-import { Router } from "next/router";
-import { useSelector } from "react-redux";
 
 /*
  * Application Container. 공통의 레이아웃을 작성.
@@ -18,13 +16,13 @@ import { useSelector } from "react-redux";
  * - 추가 데이터를 페이지에 주입
  * - 글로벌 CSS 추가
  */
+
 const App = ({ Component, pageProps }) => {
   // Component는 요청한 페이지로 `GET /` 요청을 받으면, /pages/index.js 파일이 props로 내려오게 된다.
   // pageProps는 페이지 getInitialProps를 통해 내려받은 props를 의미한다.
   // 다음으로 _document.js가 실행된다.
-  const { isAuthenticated } = useSelector((state) => state.auth);
 
-  return isAuthenticated ? (
+  return (
     <>
       <Head>
         <title>Purples</title>
@@ -32,8 +30,6 @@ const App = ({ Component, pageProps }) => {
       <GlobalStyles />
       <Component {...pageProps} />
     </>
-  ) : (
-    Router.push("/login")
   );
 };
 

@@ -1,6 +1,7 @@
 import FriendsBox from "../components/FriendsBox";
+import Loading from "../components/Loading";
 
 const Test = () => {
-  return <FriendsBox />;
+  return <Loading />;
 };
 export default Test;
