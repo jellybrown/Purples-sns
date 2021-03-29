@@ -7,6 +7,7 @@ import { message } from "antd";
 import { addPost } from "../../redux/PostSlice";
 
 const PostFormWrapper = styled.div`
+  max-width: 500px;
   width: 93%;
   display: flex;
   justify-content: center;

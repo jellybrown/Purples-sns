@@ -5,17 +5,19 @@ const SearchInput = styled.input`
   color: #8c8c8c;
   border-radius: 3rem;
   border: 1px solid #cfcfcf;
-  padding: 1.1em;
+  padding: 0.8em 1.1em;
   width: 100%;
   text-align: center;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background: #fff;
   &::placeholder {
     color: #c7c7c7;
   }
 `;
 const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 50%;
   right: 2em;
@@ -41,7 +43,7 @@ const SearchBar = ({ setKeyword, ...props }) => {
       <IconWrapper>
         <BiSearch
           style={{
-            fontSize: "1.3rem",
+            fontSize: "1.1rem",
             color: "#333",
           }}
         />
