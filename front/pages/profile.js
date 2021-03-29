@@ -9,6 +9,7 @@ import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
 import { SettingFilled } from "@ant-design/icons";
 import { UPDATE_USER_INFO_REQUEST } from "../redux/types";
+import { wrapper } from "../redux/store";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -40,9 +41,14 @@ const InputLabel = styled.label`
 const Profile = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { _id, name, token, profileImageUrl, email } = useSelector(
-    (state) => state.auth.user
-  );
+
+  useEffect(() => {
+    !isAuthenticated && Router.push("/login");
+  }, []);
+  // 로딩페이지 만들기
+  const { _id, name, token, profileImageUrl, email } =
+    isAuthenticated && useSelector((state) => state.auth.user);
+
   const { save, handleSubmit, watch, errors } = useForm();
   const [previewProfileImage, setProfilePreviewImage] = useState();
   const fileRef = useRef();
@@ -99,7 +105,7 @@ const Profile = () => {
     message.info("수정 입력", 1);
   };
 
-  return isAuthenticated ? (
+  return (
     <Layout>
       <form
         style={{
@@ -176,9 +182,41 @@ const Profile = () => {
         />
       </form>
     </Layout>
-  ) : (
-    (() => Router.push("/"))()
   );
 };
+
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   async (context) => {
+//     const cookie = context.req ? context.req.headers.cookie : "";
+//     axios.defaults.headers.Cookie = "";
+//     if (context.req && cookie) {
+//       axios.defaults.headers.Cookie = cookie;
+//     }
+//     context.store.dispatch({
+//       type: LOAD_MY_INFO_REQUEST,
+//     });
+//     context.store.dispatch({
+//       type: LOAD_POSTS_REQUEST,
+//     });
+//     context.store.dispatch(END);
+//     await context.store.sagaTask.toPromise();
+//   }
+// );
+
+// export const getServerSideProps = wrapper.getServerSideProps(
+//   async (context) => {
+//     // Get the user's session based on the request
+//     console.log("hello yujin", context.store.getState().auth);
+//     const isAuthenticated = context.store.getState().auth;
+//     if (!isAuthenticated) {
+//       return {
+//         redirect: {
+//           destination: "/login",
+//           permanent: false,
+//         },
+//       };
+//     }
+//   }
+// );
 
 export default Profile;
