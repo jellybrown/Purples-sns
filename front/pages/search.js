@@ -3,10 +3,32 @@ import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/SearchBar";
 import { LightColorBg } from "../styles/bg";
 import { useDispatch, useSelector } from "react-redux";
-import PostCardImg from "../components/PostCard/PostCardImg";
-import CardContent from "../components/PostCard/CardContent";
-import { Card } from "antd";
+import { Card, List } from "antd";
 import { searchPost } from "../redux/PostSlice";
+import styled from "styled-components";
+
+const SearchLists = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+
+  .image__wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    border: 1px solid #cfcfcf;
+  }
+
+  img {
+    height: 130%;
+    min-height: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+`;
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -28,35 +50,28 @@ const Search = () => {
           <SearchBar placeholder="게시글 검색..." setKeyword={setKeyword} />
         </div>
       </div>
-      {/* 검색한 게시글 렌더링 */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginTop: "50px",
-          alignItems: "center",
-          // marginLeft: "calc(10% + 320px)",
-          // paddingLeft: "10%",
-        }}
-      >
-        {searchedPost &&
-          searchedPost.length > 0 &&
-          searchedPost.map((post) => (
-            <Card
-              style={{
-                maxWidth: "500px",
-                width: "93%",
-                borderRadius: "30px",
-                overflow: "hidden",
-                boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-                marginBottom: "70px",
-              }}
-              cover={<PostCardImg images={post.imageUrls} />}
-            >
-              <CardContent post={post} />
-            </Card>
-          ))}
-      </div>
+      <SearchLists>
+        <List
+          size="large"
+          style={{ width: "98%" }}
+          grid={{
+            column: 3,
+            gutter: 2,
+            xs: 1,
+            sm: 2,
+            md: 2,
+            lg: 3,
+          }}
+          dataSource={searchedPost}
+          renderItem={(post) => (
+            <List.Item style={{ marginBottom: "50px" }}>
+              <Card className="image__wrapper">
+                <img src={post.imageUrls[0]} />
+              </Card>
+            </List.Item>
+          )}
+        ></List>
+      </SearchLists>
     </LightColorBg>
   );
 };
