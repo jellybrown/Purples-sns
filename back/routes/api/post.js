@@ -42,6 +42,33 @@ const uploadS3 = multer({
 
 /*
   @route    GET   api/post
+  @desc     All Post (전체 포스트 정보)
+  @access   Public
+ */
+router.get("/", async (req, res, next) => {
+  try {
+    // MongoDB의 Posts collection 도큐먼트 수
+    const postCount = await Post.countDocuments();
+    const postFindResult = await Post.find()
+      .populate("writer", "name")
+      .populate("comments")
+      .populate({
+        path: "comments",
+        populate: { path: "writer" },
+      })
+      .sort({ date: -1 });
+    // 결과 값으로 읽어온 포스트 정보, 전체 포스트 수를 담아 응답한다.
+    const result = { postFindResult, postCount };
+
+    return res.json(result); // 찾은 Post Document를 결과값으로 응답.
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+/*
+  @route    GET   api/post/skip
   @desc     포스트 정보를 가져오기 위한 API
   @access   public
  */
