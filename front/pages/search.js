@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Card, List } from "antd";
 import { searchPost } from "../redux/PostSlice";
 import styled from "styled-components";
+import Router from "next/router";
 
 const SearchLists = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ const SearchLists = styled.div`
     overflow: hidden;
     height: 300px;
     border: 1px solid #cfcfcf;
+    cursor: pointer;
   }
 
   img {
@@ -42,6 +44,11 @@ const Search = () => {
     keyword && dispatch(searchPost({ keyword, token }));
   }, [dispatch, keyword]);
 
+  const onClickPost = (postId) => {
+    console.log(postId);
+    Router.push(`/post/${postId}`);
+  };
+
   return (
     <LightColorBg>
       <MainHeader />
@@ -65,7 +72,10 @@ const Search = () => {
           dataSource={searchedPost}
           renderItem={(post) => (
             <List.Item style={{ marginBottom: "50px" }}>
-              <Card className="image__wrapper">
+              <Card
+                className="image__wrapper"
+                onClick={() => onClickPost(post._id)}
+              >
                 <img src={post.imageUrls[0]} />
               </Card>
             </List.Item>
