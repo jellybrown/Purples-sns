@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 import Post from "../../models/post";
 import Comment from "../../models/comment";
 import User from "../../models/user";
-import Follow from '../../models/follow';
+import Follow from "../../models/follow";
 import auth from "../../middleware/auth";
 
 // express router를 생성한다. (이 라우터를 express object에서 사용한다.)
@@ -67,11 +67,11 @@ router.get("/skip", async (req, res) => {
         .sort({ date: -1 });
     } else if (req.query.filter === "Followings") {
       const followingUsers = await Follow.find({ user: req.query.userId })
-        .select({ "follow": 1, "_id": 0 })
+        .select({ follow: 1, _id: 0 })
         .lean();
       const followingsData = followingUsers.map((data) => data.follow);
 
-      postFindResult = await Post.find({ writer: { "$in": followingsData } })
+      postFindResult = await Post.find({ writer: { $in: followingsData } })
         .populate("writer", "name")
         .populate("comments")
         .populate({
@@ -83,11 +83,11 @@ router.get("/skip", async (req, res) => {
         .sort({ date: -1 });
     } else if (req.query.filter === "Followers") {
       const followerUsers = await Follow.find({ follow: req.query.userId })
-        .select({ "user": 1, "_id": 0 })
+        .select({ user: 1, _id: 0 })
         .lean();
       const followerData = followerUsers.map((data) => data.user);
 
-      postFindResult = await Post.find({ writer: { "$in": followerData } })
+      postFindResult = await Post.find({ writer: { $in: followerData } })
         .populate("writer", "name")
         .populate("comments")
         .populate({
@@ -163,7 +163,7 @@ router.get("/:id", async (req, res, next) => {
     post.save();
 
     console.log("Detail Post: ", post);
-    res.json(post); // 찾은 Post Document를 결과값으로 응답.
+    return res.json(post); // 찾은 Post Document를 결과값으로 응답.
   } catch (e) {
     console.error(e);
     next(e);
