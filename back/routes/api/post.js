@@ -50,7 +50,7 @@ router.get("/", async (req, res, next) => {
     // MongoDB의 Posts collection 도큐먼트 수
     const postCount = await Post.countDocuments();
     const postFindResult = await Post.find()
-      .populate("writer", "name")
+      .populate("writer", ["name", "profileImageUrl"])
       .populate("comments")
       .populate({
         path: "comments",
@@ -83,7 +83,7 @@ router.get("/skip", async (req, res) => {
       // Request Parameter로 받은 skip 수만큼 skip 후,
       // Post 정보를 읽어온다. (6개 제한)
       postFindResult = await Post.find()
-        .populate("writer", "name")
+        .populate("writer", ["name", "profileImageUrl"])
         .populate("comments")
         .populate({
           path: "comments",
@@ -99,7 +99,7 @@ router.get("/skip", async (req, res) => {
       const followingsData = followingUsers.map((data) => data.follow);
 
       postFindResult = await Post.find({ writer: { $in: followingsData } })
-        .populate("writer", "name")
+        .populate("writer", ["name", "profileImageUrl"])
         .populate("comments")
         .populate({
           path: "comments",
@@ -115,7 +115,7 @@ router.get("/skip", async (req, res) => {
       const followerData = followerUsers.map((data) => data.user);
 
       postFindResult = await Post.find({ writer: { $in: followerData } })
-        .populate("writer", "name")
+        .populate("writer", ["name", "profileImageUrl"])
         .populate("comments")
         .populate({
           path: "comments",
@@ -126,7 +126,7 @@ router.get("/skip", async (req, res) => {
         .sort({ date: -1 });
     } else if (req.query.filter === "My") {
       postFindResult = await Post.find({ writer: req.query.userId })
-        .populate("writer", "name")
+        .populate("writer", ["name", "profileImageUrl"])
         .populate("comments")
         .populate({
           path: "comments",
