@@ -19,21 +19,9 @@ const PostCard = () => {
     return activeFilter[0].name;
   };
 
-  // 마운트 시점의 콜백
-  useEffect(() => {
-    window.scrollTo(0, 0); // 스크롤 최상단으로 이동
-    const payload = {
-      skip: 0,
-      filter: getActiveFilterName(),
-      userId,
-      follows,
-      followers,
-    };
-    dispatch(loadPost({ payload }));
-  }, []);
-
   // post filter가 변경됐을 때의 콜백
   useEffect(() => {
+    window.scrollTo(0, 0);
     const payload = {
       skip: 0,
       filter: getActiveFilterName(),
