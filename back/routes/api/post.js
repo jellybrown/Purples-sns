@@ -186,7 +186,9 @@ router.get("/:id", async (req, res, next) => {
   try {
     // post id를 가지고 MongoDB Posts collection에서 Document를 찾는다.
     // populate를 통해 작성자 이름정보를 함께 읽어온다.
-    const post = await Post.findById(req.params.id).populate("writer", "name");
+    const post = await Post.findById(req.params.id)
+      .populate("writer", "name")
+      .populate("comments");
     post.save();
 
     console.log("Detail Post: ", post);
