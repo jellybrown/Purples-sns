@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 import { LightColorBg } from "../styles/bg";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, List } from "antd";
-import { searchPost } from "../redux/PostSlice";
+import { getAllPost, searchPost } from "../redux/PostSlice";
 import styled from "styled-components";
 import Router from "next/router";
 
@@ -39,6 +39,11 @@ const Search = () => {
   const { data: searchedPost } = useSelector(
     (state) => state.post.searchResult
   );
+  let posts;
+
+  useEffect(() => {
+    dispatch(getAllPost());
+  }, []);
 
   useEffect(() => {
     keyword && dispatch(searchPost({ keyword, token }));

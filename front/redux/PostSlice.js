@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   loading: false,
   posts: [],
+  justReadPost: [],
   postCount: "",
   searchBy: "",
   searchResult: "",
@@ -31,7 +32,7 @@ const initialState = {
   ],
 };
 
-// Load all posts
+// Load all posts (6개씩)
 export const loadPost = createAsyncThunk(
   "post/loadPost",
   async ({ payload }) => {
@@ -39,6 +40,11 @@ export const loadPost = createAsyncThunk(
     return axios.get("/api/post/skip", { params: payload }); // params를 어디서 쓰는지 모르겠음
   }
 );
+
+// get all posts (전체포스트, 정보 읽기용)
+export const getAllPost = createAsyncThunk("post/getAllPost", async () => {
+  return axios.get("/api/post");
+});
 
 // Search post
 export const searchPost = createAsyncThunk(
@@ -122,6 +128,18 @@ export const postSlice = createSlice({
       state.loading = false;
       console.log("loadPost rejected 💣", action);
     },
+    [getAllPost.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getAllPost.fulfilled]: (state, { payload }) => {
+      // payload는 객체 형태로 받고있다. 2021/03/18
+      state.loading = false;
+      state.posts = payload.data.postFindResult;
+    },
+    [getAllPost.rejected]: (state, action) => {
+      state.loading = false;
+      console.log("getAllPost rejected 💣", action);
+    },
     // searchPost
     [searchPost.pending]: (state, action) => {
       state.loading = true;
@@ -166,7 +184,9 @@ export const postSlice = createSlice({
     },
     [addComment.fulfilled]: (state, { payload }) => {
       const payloadId = payload.data.post; //postId ex)aadfdsf323sdfsd
-      const targetPost = state.posts.filter((post) => post._id === payloadId)[0];
+      const targetPost = state.posts.filter(
+        (post) => post._id === payloadId
+      )[0];
       targetPost.comments.push(payload.data);
       state.loading = false;
     },
@@ -177,8 +197,7 @@ export const postSlice = createSlice({
   },
 });
 
-
-export const { changePostFilter } = postSlice.actions; 
+export const { changePostFilter } = postSlice.actions;
 export default postSlice.reducer;
 
 // remove comment, clear post 추가해야함
