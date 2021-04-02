@@ -11,6 +11,7 @@ import useMediaQuery from "../../utils/useMediaQuery";
 import { NextArrow, PrevArrow } from "../../styles/slickArrow";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiDivide } from "react-icons/fi";
+import { timeAgo } from "../../utils/timeAgo";
 
 const StylePC = styled.section`
   position: absolute;
@@ -54,6 +55,8 @@ const StyledList = styled(List)`
     color: #303030;
     padding-left: 10px;
     flex: 1;
+    display: flex;
+    justify-content: space-between;
   }
   .ant-list-item {
     border-bottom: none !important;
@@ -143,7 +146,9 @@ const Post = ({ post }) => {
                   <div>아이콘영역</div>
                 </article>
                 <article style={{ padding: "1em 2em" }}>
-                  <p style={{ textAlign: "right" }}>13개의 댓글이 있습니다.</p>
+                  <p style={{ textAlign: "right", color: "#a3a3a3" }}>
+                    {post.comments.length || 0}개의 댓글이 있습니다.
+                  </p>
                   <div>
                     <StyledList
                       dataSource={post.comments}
@@ -154,7 +159,12 @@ const Post = ({ post }) => {
                             avatar={<Avatar icon={<AiOutlineUser />} />}
                           />
                           <div className="comment__content">
-                            {item.contents}
+                            <span>{item.contents}</span>
+                            <span
+                              style={{ fontSize: "0.8em", color: "#a3a3a3" }}
+                            >
+                              {timeAgo(item.date)}
+                            </span>
                           </div>
                         </List.Item>
                       )}
