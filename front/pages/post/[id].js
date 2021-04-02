@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { List, Card, Col, Row, Avatar } from "antd";
+import { List, Card, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,6 +12,8 @@ import { NextArrow, PrevArrow } from "../../styles/slickArrow";
 import { AiOutlineUser } from "react-icons/ai";
 import { FiDivide } from "react-icons/fi";
 import { timeAgo } from "../../utils/timeAgo";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../../redux/PostSlice";
 
 const StylePC = styled.section`
   position: absolute;
@@ -77,6 +79,26 @@ const Post = ({ post }) => {
     console.log("curr", currentSlide);
   }, [currentSlide]);
   console.log(post);
+
+  const [text, setText] = useState("");
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const onAddComment = () => {
+    dispatch(
+      addComment({
+        contents: text,
+        userId: user._id,
+        userName: user.name,
+        id: post._id,
+      })
+    );
+    setText("");
+  };
 
   return (
     <LightColorBg>
@@ -169,6 +191,29 @@ const Post = ({ post }) => {
                         </List.Item>
                       )}
                     ></StyledList>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input
+                        onChange={onChange}
+                        value={text}
+                        placeholder="댓글 입력..."
+                        style={{
+                          paddingTop: "10px",
+                          marginLeft: "5px",
+                          border: "none",
+                          outline: "none",
+                        }}
+                      />
+                      <div style={{}}>
+                        <Button type="link" onClick={onAddComment}>
+                          입력
+                        </Button>
+                      </div>
+                    </div>
                     {/* {post.comments.map((comment) => (
                       <Card></Card>
                       <Card.Meta
