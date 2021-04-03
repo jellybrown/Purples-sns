@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
-import { List, Card, Col, Row, Avatar, Button } from "antd";
+import { List, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -40,6 +40,9 @@ const DetailPage = styled.section`
       color: rgba(0, 0, 0, 0.5);
     }
   }
+  .ant-btn {
+    padding: 0;
+  }
 `;
 
 const StyledList = styled(List)`
@@ -48,16 +51,25 @@ const StyledList = styled(List)`
   }
   .ant-list-item-meta {
     align-items: center;
+    flex: none;
   }
   .ant-list-item-meta-content {
     width: auto;
+  }
+  .comment__item {
+    flex: 1;
+    display: flex;
   }
   .comment__content {
     color: #303030;
     padding-left: 10px;
     flex: 1;
-    display: flex;
-    justify-content: space-between;
+  }
+  .comment__delete {
+    font-size: 0.8em;
+    color: #ccc;
+    border: none;
+    background: none;
   }
   .ant-list-item {
     border-bottom: none !important;
@@ -76,6 +88,7 @@ const Post = () => {
   const thisPost = useSelector((state) => state.post.posts).filter(
     (post) => post._id === id
   );
+  const boxRef = useRef();
 
   console.log("---this post----");
   console.log(thisPost);
@@ -101,7 +114,13 @@ const Post = () => {
       })
     );
     setText("");
+    setTimeout(() => {
+      boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+    }, 300);
   };
+
+  const isMyPost = () => thisPost[0].writer._id === user._id;
+  const isMyComment = (commentId) => commentId === user._id;
 
   return (
     <LightColorBg>
@@ -165,7 +184,7 @@ const Post = () => {
                 <div>{thisPost[0].contents}</div>
                 <div>아이콘영역</div>
               </article>
-              <article style={{ padding: "1em 2em" }}>
+              <article style={{ padding: "1em 2em" }} ref={boxRef}>
                 <p style={{ textAlign: "right", color: "#a3a3a3" }}>
                   {thisPost[0].comments.length || 0}개의 댓글이 있습니다.
                 </p>
@@ -178,11 +197,24 @@ const Post = () => {
                           title={<span>{item.writerName}</span>}
                           avatar={<Avatar icon={<AiOutlineUser />} />}
                         />
-                        <div className="comment__content">
-                          <span>{item.contents}</span>
-                          <span style={{ fontSize: "0.8em", color: "#a3a3a3" }}>
-                            {timeAgo(item.date)}
-                          </span>
+                        <div className="comment__item">
+                          <div className="comment__content">
+                            <span style={{ fontSize: "0.9em" }}>
+                              {item.contents}
+                            </span>
+                            <span
+                              style={{
+                                fontSize: "0.8em",
+                                color: "#a3a3a3",
+                                marginLeft: "8px",
+                              }}
+                            >
+                              {timeAgo(item.date)}
+                            </span>
+                          </div>
+                          {isMyComment(item.writer._id) ? (
+                            <button className="comment__delete">삭제</button>
+                          ) : null}
                         </div>
                       </List.Item>
                     )}
@@ -202,6 +234,7 @@ const Post = () => {
                         marginLeft: "5px",
                         border: "none",
                         outline: "none",
+                        flex: "1",
                       }}
                     />
                     <div style={{}}>
@@ -216,33 +249,6 @@ const Post = () => {
           </Col>
         </Row>
       </DetailPage>
-
-      {/* {isTabletOrMobileDevice && (
-        <StyleMobile>
-          <Row>
-            <Col xs={24} md={11} xxl={10}>
-              <div
-                style={{
-                  width: "100%",
-                  height: "500px",
-                  overflow: "hidden",
-                  background: "white",
-                }}
-              >
-                <img style={{ width: "100%" }} src={post.imageUrls[0]} />
-              </div>
-            </Col>
-            <Col
-              xs={24}
-              md={13}
-              xxl={14}
-              style={{ background: "white", background: "white" }}
-            >
-              <div style={{ height: "500px" }}>{post.contents}</div>
-            </Col>
-          </Row>
-        </StyleMobile>
-      )} */}
     </LightColorBg>
   );
 };
