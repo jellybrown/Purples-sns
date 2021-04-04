@@ -16,7 +16,7 @@ import { addComment, getAllPost } from "../../redux/PostSlice";
 import { useRouter } from "next/router";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
-import { array } from "prop-types";
+import { getPost } from "../../redux/PostSlice";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -85,25 +85,21 @@ const Wrapper = styled.div`
 
 const Post = () => {
   const router = useRouter();
-  const { id } = router.query; //postid
   // const thisPost = useSelector((state) => state.post.posts).filter(
   //   (post) => post._id === id
   // );
-  const [thisPost, setThisPost] = useState({
-    comments: [],
-    imageUrls: [],
-  });
+  const thisPost = useSelector((state) => state.post.thisPost);
 
-  useEffect(async () => {
-    let post = await axios.get(`api/post/${id}`);
-    setThisPost(post.data);
-    console.log("hello", post.data);
+  useEffect(() => {
+    dispatch(
+      getPost({
+        id: router.query.id,
+      })
+    );
   }, []);
 
   const boxRef = useRef();
 
-  console.log("---this post----");
-  console.log(thisPost);
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -117,16 +113,23 @@ const Post = () => {
   };
 
   const onAddComment = () => {
+    console.log("---ON ADD------");
+    console.log(thisPost);
     dispatch(
       addComment({
         contents: text,
         userId: user._id,
         userName: user.name,
-        id: thisPost[0]._id,
+        id: thisPost._id,
       })
     );
     setText("");
   };
+
+  useEffect(() => {
+    console.log("---this post----");
+    console.log(thisPost);
+  }, [thisPost]);
 
   useEffect(() => {
     boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
@@ -272,7 +275,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const token = getCookie("token", context.req);
     if (token !== undefined && token !== null) {
       await context.store.dispatch(userLoading(token));
-      await context.store.dispatch(getAllPost());
     }
 
     return {

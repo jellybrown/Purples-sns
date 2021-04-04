@@ -4,7 +4,9 @@ import axios from "axios";
 const initialState = {
   loading: false,
   posts: [],
-  justReadPost: [],
+  thisPost: {
+    comments: [],
+  },
   postCount: "",
   searchBy: "",
   searchResult: "",
@@ -103,6 +105,11 @@ export const addComment = createAsyncThunk(
   }
 );
 
+// Get a post
+export const getPost = createAsyncThunk("post/getPost", async (payload) => {
+  return axios.get(`/api/post/${payload.id}`);
+});
+
 // * post slice (with comment) *
 export const postSlice = createSlice({
   name: "post",
@@ -128,17 +135,18 @@ export const postSlice = createSlice({
       state.loading = false;
       console.log("loadPost rejected 💣", action);
     },
-    [getAllPost.pending]: (state, action) => {
+    //setThisPost
+    [loadPost.pending]: (state, action) => {
       state.loading = true;
     },
-    [getAllPost.fulfilled]: (state, { payload }) => {
+    [loadPost.fulfilled]: (state, { payload }) => {
       // payload는 객체 형태로 받고있다. 2021/03/18
       state.loading = false;
-      state.posts = payload.data.postFindResult;
+      state.posts.push(...payload.data.postFindResult);
     },
-    [getAllPost.rejected]: (state, action) => {
+    [loadPost.rejected]: (state, action) => {
       state.loading = false;
-      console.log("getAllPost rejected 💣", action);
+      console.log("loadPost rejected 💣", action);
     },
     // searchPost
     [searchPost.pending]: (state, action) => {
@@ -183,16 +191,34 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [addComment.fulfilled]: (state, { payload }) => {
-      const payloadId = payload.data.post; //postId ex)aadfdsf323sdfsd
+      console.log("----FULLFILL", payload);
       const targetPost = state.posts.filter(
-        (post) => post._id === payloadId
-      )[0];
-      targetPost.comments.push(payload.data);
+        (post) => post._id === payload.data.post
+      );
+      console.log("targetPost is ", targetPost);
+      setTimeout(() => {
+        console.log(targetPost.comments);
+      }, 1000);
+
+      targetPost.comments?.push(payload.data); // 메인화면 커멘트 업데이트
+      state.thisPost?.comments?.push(payload.data); // 상세피이지 커멘트 업데이트
+
       state.loading = false;
     },
     [addComment.rejected]: (state, action) => {
       state.loading = false;
       console.log("addComment rejected 💣", action);
+    },
+    [getPost.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [getPost.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.thisPost = payload.data;
+    },
+    [getPost.rejected]: (state, action) => {
+      state.loading = false;
+      console.log("getPost rejected ", action);
     },
   },
 });
