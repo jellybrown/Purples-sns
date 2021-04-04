@@ -41,9 +41,9 @@ const Search = () => {
   );
   let posts;
 
-  useEffect(() => {
-    dispatch(getAllPost());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllPost());
+  // }, []);
 
   useEffect(() => {
     keyword && dispatch(searchPost({ keyword, token }));

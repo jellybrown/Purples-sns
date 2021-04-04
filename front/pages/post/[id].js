@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { List, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
@@ -16,6 +16,7 @@ import { addComment, getAllPost } from "../../redux/PostSlice";
 import { useRouter } from "next/router";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
+import { array } from "prop-types";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -85,9 +86,20 @@ const Wrapper = styled.div`
 const Post = () => {
   const router = useRouter();
   const { id } = router.query; //postid
-  const thisPost = useSelector((state) => state.post.posts).filter(
-    (post) => post._id === id
-  );
+  // const thisPost = useSelector((state) => state.post.posts).filter(
+  //   (post) => post._id === id
+  // );
+  const [thisPost, setThisPost] = useState({
+    comments: [],
+    imageUrls: [],
+  });
+
+  useEffect(async () => {
+    let post = await axios.get(`api/post/${id}`);
+    setThisPost(post.data);
+    console.log("hello", post.data);
+  }, []);
+
   const boxRef = useRef();
 
   console.log("---this post----");
@@ -114,12 +126,13 @@ const Post = () => {
       })
     );
     setText("");
-    setTimeout(() => {
-      boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-    }, 300);
   };
 
-  const isMyPost = () => thisPost[0].writer._id === user._id;
+  useEffect(() => {
+    boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+  }, [thisPost.comments]);
+
+  const isMyPost = () => thisPost.writer._id === user._id;
   const isMyComment = (commentId) => commentId === user._id;
 
   return (
@@ -152,7 +165,7 @@ const Post = () => {
                   <PrevArrow onClick={(slide) => setCurrentSlide(slide - 1)} />
                 }
               >
-                {thisPost[0].imageUrls.map((img) => (
+                {thisPost.imageUrls?.map((img) => (
                   <Wrapper key={img}>
                     <img
                       style={{
@@ -181,16 +194,16 @@ const Post = () => {
                   borderBottom: "1px solid #f0f0f0",
                 }}
               >
-                <div>{thisPost[0].contents}</div>
+                <div>{thisPost.contents}</div>
                 <div>아이콘영역</div>
               </article>
               <article style={{ padding: "1em 2em" }} ref={boxRef}>
                 <p style={{ textAlign: "right", color: "#a3a3a3" }}>
-                  {thisPost[0].comments.length || 0}개의 댓글이 있습니다.
+                  {thisPost.comments?.length || 0}개의 댓글이 있습니다.
                 </p>
                 <div>
                   <StyledList
-                    dataSource={thisPost[0].comments}
+                    dataSource={thisPost?.comments}
                     renderItem={(item) => (
                       <List.Item key={item._id}>
                         <List.Item.Meta
