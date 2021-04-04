@@ -90,13 +90,13 @@ const Post = () => {
   // );
   const thisPost = useSelector((state) => state.post.thisPost);
 
-  useEffect(() => {
-    dispatch(
-      getPost({
-        id: router.query.id,
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     getPost({
+  //       id: router.query.id,
+  //     })
+  //   );
+  // }, []);
 
   const boxRef = useRef();
 
@@ -275,6 +275,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const token = getCookie("token", context.req);
     if (token !== undefined && token !== null) {
       await context.store.dispatch(userLoading(token));
+      await context.store.dispatch(getPost({ id: context.params.id }));
     }
 
     return {

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Avatar } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { TiMinus } from "react-icons/ti";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
-import { REMOVE_COMMENT_REQUEST } from "../../redux/types";
 import { timeAgo } from "../../utils/timeAgo";
 
 const StyledCommentMeta = styled(Card.Meta)`
@@ -78,10 +77,10 @@ const CardComment = ({ post }) => {
       post,
       comment,
     };
-    dispatch({
-      type: REMOVE_COMMENT_REQUEST,
-      payload: body,
-    });
+    // dispatch({
+    //   type: REMOVE_COMMENT_REQUEST,
+    //   payload: body,
+    // });
   };
 
   return (
@@ -102,7 +101,7 @@ const CardComment = ({ post }) => {
                 <CommentDate>{timeAgo(comment.date)}</CommentDate>
                 {checkMyComment(comment) ? (
                   <TiMinus
-                    onClick={deleteComment(comment)}
+                    onClick={() => deleteComment(comment)}
                     style={{
                       fontSize: "1.5rem",
                       marginLeft: "3rem",

@@ -194,15 +194,11 @@ export const postSlice = createSlice({
       console.log("----FULLFILL", payload);
       const targetPost = state.posts.filter(
         (post) => post._id === payload.data.post
-      );
+      )[0];
       console.log("targetPost is ", targetPost);
-      setTimeout(() => {
-        console.log(targetPost.comments);
-      }, 1000);
 
-      targetPost.comments?.push(payload.data); // 메인화면 커멘트 업데이트
+      targetPost?.comments?.push(payload.data); // 메인화면 커멘트 업데이트
       state.thisPost?.comments?.push(payload.data); // 상세피이지 커멘트 업데이트
-
       state.loading = false;
     },
     [addComment.rejected]: (state, action) => {
