@@ -4,7 +4,6 @@ import FriendsBox from "../components/friendsBox";
 import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/searchBar";
 import { LightColorBg } from "../styles/bg";
-import { USER_SEARCH_REQUEST } from "../redux/types";
 import { searchUser } from "../redux/UserSlice";
 
 const Find = () => {

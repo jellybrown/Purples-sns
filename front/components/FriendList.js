@@ -4,7 +4,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { FOLLOW_REQUEST, UNFOLLOW_REQUEST } from "../redux/types";
+
 import { follow, unFollow } from "../redux/UserSlice";
 
 const dynamicSort = (property) => {
