@@ -6,9 +6,8 @@ import { Menu, message } from "antd";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import useMediaQuery from "../../utils/useMediaQuery";
-import { LOGOUT_REQUEST } from "../../redux/types";
-import Router from "next/router";
 import Link from "next/link";
+import { logout } from "../../redux/AuthSlice";
 
 const StyledMenu = styled(Menu)`
   box-shadow: none !important;
@@ -30,9 +29,7 @@ const UserMenu = () => {
   const dispatch = useDispatch();
 
   const handleLogoutClick = (e) => {
-    dispatch({
-      type: LOGOUT_REQUEST,
-    });
+    dispatch(logout());
     message.info("로그아웃에 성공하였습니다.", 1);
   };
 
