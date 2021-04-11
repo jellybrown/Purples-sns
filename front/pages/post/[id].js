@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { List, Col, Row, Avatar, Button } from "antd";
+import { Image, List, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -211,7 +211,7 @@ const Post = () => {
                       <List.Item key={item._id}>
                         <List.Item.Meta
                           title={<span>{item.writerName}</span>}
-                          avatar={<Avatar icon={<AiOutlineUser />} />}
+                          avatar={<Avatar src={item.writer.profileImageUrl} />}
                         />
                         <div className="comment__item">
                           <div className="comment__content">
