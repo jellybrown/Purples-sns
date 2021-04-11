@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import Logo from "../Logo";
 import Link from "next/link";
@@ -7,6 +7,7 @@ import { Switch, Button } from "antd";
 import styled from "styled-components";
 import FilterMenu from "./FilterMenu";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -29,6 +30,9 @@ const PostfilterWrapper = styled.div`
 `;
 
 const MainHeader = () => {
+  const router = useRouter();
+  const isMainSection = () => router.pathname === "/";
+  console.log(isMainSection());
   const [secondMenuY, setSecondMenuY] = useState(false);
   const { postFilter } = useSelector((state) => state.post);
 
@@ -78,22 +82,28 @@ const MainHeader = () => {
             />
           </a>
         </Link>
-        <Switch
-          defaultChecked={false}
-          style={{
-            fontSize: "1.5rem",
-            position: "absolute",
-            left: "calc(6% + 35px)",
-            top: "50%",
-            transform: "translateY(-50%)",
-          }}
-          size="small"
-          onClick={onClickSlide}
-        />
+        {isMainSection() && (
+          <Switch
+            defaultChecked={false}
+            style={{
+              fontSize: "1.5rem",
+              position: "absolute",
+              left: "calc(6% + 35px)",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+            size="small"
+            onClick={onClickSlide}
+          />
+        )}
+
         <Logo style={{ fontSize: "1.8em" }} />
         <RightMenu />
       </div>
-      <FilterMenu secondMenu={secondMenuY} postFilter={postFilter} />
+      {isMainSection() && (
+        <FilterMenu secondMenu={secondMenuY} postFilter={postFilter} />
+      )}
+      )
     </div>
   );
 };
