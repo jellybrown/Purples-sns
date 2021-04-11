@@ -52,7 +52,8 @@ const ImageStyle = styled.img`
 
 const PostForm = () => {
   const dispatch = useDispatch();
-  const { _id, name, token } = useSelector((state) => state.auth.user);
+  const authData = useSelector((state) => state.auth);
+  // const { _id, name, token } = useSelector((state) => state.auth.user);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -90,18 +91,22 @@ const PostForm = () => {
     }
     console.log("postForm.handleOk() photo => ", userPhoto);
 
-    const body = {
-      contents: userText,
-      images: userPhoto,
-      writer: _id,
-      userName: name,
-      token,
-    };
-    console.log("postForm.handleOk() body => ", body);
+    if (authData) {
 
-    dispatch(addPost(body));
+      let { _id, name, token } = authData;
+      const body = {
+        contents: userText,
+        images: userPhoto,
+        writer: _id,
+        userName: name,
+        token,
+      };
+      console.log("postForm.handleOk() body => ", body);
 
-    setIsModalVisible(false);
+      dispatch(addPost(body));
+
+      setIsModalVisible(false);
+    }
   };
 
   const handleCancel = () => {

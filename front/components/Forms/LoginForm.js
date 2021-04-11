@@ -7,7 +7,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import { StyledAtag } from "../../styles/aTag";
 import { useDispatch } from "react-redux";
-import { LOG_IN_REQUEST } from "../../redux/types";
 import { loginUser } from "../../redux/AuthSlice";
 
 const InputWrapper = styled.div`

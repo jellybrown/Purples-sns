@@ -80,17 +80,15 @@ export const authSlice = createSlice({
   reducers: {
     // logout
     logout: (state) => {
-      state.loading = true;
+      // state.loading = true;
       removeCookie("token");
       state.token = null;
       state.user = null;
       state.userId = null;
       state.userRole = null;
       state.isAuthenticated = false;
-      setTimeout(() => {
-        state.loading = false;
-      }, 1000);
-    },
+      Router.push("/login");
+    }
   },
   extraReducers: {
     // updateUser
@@ -212,4 +210,5 @@ export const getCookieFromServer = (key, req) => {
   return rawCookie.split("=")[1];
 };
 
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
