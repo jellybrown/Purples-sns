@@ -21,7 +21,8 @@
 
 <br>
 
-- 2021.01.01 ~ 진행중 (front 1인, back 1인)
+- 2021.01.01 ~ 04.12 (front 1인, back 1인)
+- 1차 완성
 
 <br>
 
@@ -33,7 +34,7 @@
 
 - next.js
 
-- Redux, Redux-saga --> Redux-toolkit 으로 변경중
+- Redux, Redux-saga --> Redux-toolkit 으로 변경
 
 - axios
 
@@ -71,8 +72,6 @@
 
 - react-hook-form 라이브러리를 이용하여 유효성 검사를 적용했습니다.
 
-<br>
-
 ```js
 // SignupForm 컴포넌트
 
@@ -108,16 +107,14 @@
 
 <br>
 
-### 3. Redux, Redux-saga를 이용한 비동기 작업
+### 3. 기존 코드 Redux-toolkit으로 변경
 
 <br>
 
-- post작성, 회원가입, 로그인 등 비동기 통신을 위해 redux와 redux-saga를 적용했습니다. (redux-toolkit으로 변경중입니다. 03/18)
-
-<br>
+- 기존에 작성된 Redux, Redux-saga 코드를 Redux-toolkit으로 변경했습니다.
 
 ```js
-// postReducer
+// postReducer (삭제)
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -144,10 +141,8 @@ const postReducer = (state = initialState, action) => {
       };
 ```
 
-<br>
-
 ```js
-// postSaga
+// postSaga (삭제)
 
 const addPostAPI = (payload) => {
   return axios.post("api/post", payload);
@@ -179,6 +174,36 @@ export default function* postSaga() {
 }
 ```
 
+```js
+// PostSlice (변경)
+
+export const postSlice = createSlice({
+  name: "post",
+  initialState,
+  reducers: {
+    changePostFilter: (state, { payload }) => {
+      state.posts = []; // 필터가 바뀌었기 때문에 기존 포스트 초기화.
+      state.postFilter = payload;
+    },
+  },
+  extraReducers: {
+     ...
+    // addPost
+    [addPost.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [addPost.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.posts.push(payload.data);
+    },
+    [addPost.rejected]: (state, action) => {
+      state.loading = false;
+      console.log("addPost rejected 💣", action);
+    },
+  }
+   ...
+```
+
 <br>
 
 ### 4. 반응형 디자인 구현
@@ -186,8 +211,6 @@ export default function* postSaga() {
 <br>
 
 - react-resposive를 이용해 PC와 모바일 버전의 여백과 컴포넌트 렌더링 여부를 조정했습니다.
-
-<br>
 
 ```js
 // MainHome 컴포넌트
@@ -217,6 +240,65 @@ const MainHome = () => {
 
 <br>
 
+- 디자인 라이브러리에서 제공하는 컴포넌트를 이용하여 반응형 디자인을 적용했습니다.
+
+```js
+return (
+  // ...
+  <Row>
+    <Col xs={24} md={11} xxl={10}>
+      ...
+    </Col>
+    <Col xs={24} md={13} xxl={14} style={{ background: "white" }}>
+      ...
+    </Col>
+  </Row>
+);
+```
+
+<br>
+
+### 5. 서버사이드 렌더링 적용
+
+<br>
+
+- 상세페이지에서 미리 페이지 정보를 가져올 수 있게 dispatch했습니다.
+
+```js
+// pages > post > [id].js
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const token = getCookie("token", context.req);
+    if (token !== undefined && token !== null) {
+      await context.store.dispatch(userLoading(token));
+      await context.store.dispatch(getPost({ id: context.params.id }));
+    }
+    ...
+  }
+  ...
+```
+
+- <br>
+
+<br>
+
+### 6. 오류, 개선사항 노트 작성
+
+<br>
+
+- 프로젝트를 진행하며 오류나 개선사항에 대해 말로 하기보다는 분류해서 같이 볼 수 있다면 좋겠다는 생각이 들어
+  노션에 정리하여 공유하며 문제를 해결하려 했습니다.
+
+<br>
+
+<img src="/purple-note-1.png" width="400">
+<img src="/purple-note-1.png" width="400">
+
+<br>
+
+<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">노트 구경하러 가기</a>
+
 <br>
 
 ---
@@ -231,7 +313,7 @@ const MainHome = () => {
 
 <br>
 
-<img src="https://github.com/jellybrown/Purples-sns/blob/main/sns-post.gif" width="700">
+<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-post.gif" width="700">
 
 <br>
 
@@ -239,7 +321,7 @@ const MainHome = () => {
 
 <br>
 
-<img src="https://github.com/jellybrown/Purples-sns/blob/main/sns-signup.gif" width="700">
+<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-signup.gif" width="700">
 
 <br>
 
@@ -247,7 +329,7 @@ const MainHome = () => {
 
 <br>
 
-<img src="https://github.com/jellybrown/Purples-sns/blob/main/sns-mobile.gif" width="500">
+<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-mobile.gif" width="500">
 
 <br>
 
@@ -284,6 +366,12 @@ const MainHome = () => {
 실제 서비스처럼 만들고 싶다는 마음에 시작했는데, 생각하지 않았던 곳에서 에러가 종종 발생했습니다.<br>
 터미널에서 에러를 읽는 것은 어렵지 않았지만, <br>
 모르는 것들을 영어로 검색 해야하는데 장문의 문장들은 이해하기 힘들었습니다.<br>
-앞으로 API문서와 블로그 읽기를 위해 꾸준히 영어공부를 할 생각입니다.
+앞으로 API문서와 블로그 읽기를 위해 꾸준히 영어공부를 할 생각입니다. <br>
+지금은 유데미와 유투브 등으로 틈틈이 개발관련 강의를 듣고있습니다.
 
 <br>
+
+### 4. 실제 서비스로서의 가치?
+
+구현은 했지만 아직 많은 부분에서 업그레이드 해야함이 느껴집니다. <br>
+디자인도, 코드도, 기능도 차근차근 업그레이드 할 예정입니다.

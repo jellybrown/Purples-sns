@@ -85,18 +85,7 @@ const Wrapper = styled.div`
 
 const Post = () => {
   const router = useRouter();
-  // const thisPost = useSelector((state) => state.post.posts).filter(
-  //   (post) => post._id === id
-  // );
   const thisPost = useSelector((state) => state.post.thisPost);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     getPost({
-  //       id: router.query.id,
-  //     })
-  //   );
-  // }, []);
 
   const boxRef = useRef();
 
@@ -271,7 +260,6 @@ const Post = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    console.log("getserversideProps-------");
     const token = getCookie("token", context.req);
     if (token !== undefined && token !== null) {
       await context.store.dispatch(userLoading(token));
