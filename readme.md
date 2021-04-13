@@ -292,8 +292,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 <br>
 
-<img src="/purple-note-1.png" width="400">
-<img src="/purple-note-1.png" width="400">
+<img src="/purple-note-1.png" width="450">
+<img src="/purple-note-2.png" width="450">
 
 <br>
 
@@ -330,6 +330,14 @@ export const getServerSideProps = wrapper.getServerSideProps(
 <br>
 
 <img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-mobile.gif" width="500">
+
+<br>
+
+- 검색, 상세 페이지
+
+<br>
+
+<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-detail.gif" width="700">
 
 <br>
 
