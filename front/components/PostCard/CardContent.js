@@ -8,6 +8,7 @@ import { BiTrash, BiPencil } from "react-icons/bi";
 import { timeAgo } from "../../utils/timeAgo";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -39,6 +40,7 @@ const ContentWrapper = styled.div`
     font-size: 0.9rem;
     padding-top: 1.3em;
     padding-left: 1em;
+    cursor: pointer;
   }
 `;
 
@@ -54,6 +56,7 @@ const CardContent = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
   const contentRef = useRef();
+  const router = useRouter();
 
   const onToggleComment = useCallback(() => {
     setCommented((prev) => !prev);
@@ -126,7 +129,12 @@ const CardContent = ({ post }) => {
         <div>
           <span className="writer-name">{writerName}</span>
           <span className="pub-date">{timeAgo(date)}</span>
-          <div className="text">{contents}</div>
+          <div
+            className="text"
+            onClick={() => router.push(`/post/${post._id}`)}
+          >
+            {contents}
+          </div>
         </div>
       )}
     </ContentWrapper>

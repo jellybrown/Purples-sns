@@ -30,7 +30,7 @@ const CommentsWrapper = styled.div`
   .comment-item {
     display: flex;
     align-items: center;
-    margin-bottom: 0.8em;
+    padding-bottom: 0.8em;
     cursor: pointer;
   }
   .comment-text {
