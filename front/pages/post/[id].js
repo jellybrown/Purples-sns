@@ -171,7 +171,7 @@ const Post = () => {
     boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [thisPost.comments]);
 
-  const isMyPost = () => thisPost.writer._id === user._id;
+  const isMyPost = () => thisPost.writer?._id === user._id;
   const isMyComment = (commentId) => commentId === user._id;
 
   return (
@@ -223,10 +223,10 @@ const Post = () => {
                   height: isDesktopOrLaptop ? "300px" : "250px",
                 }}
               >
-                <p className="writer">{thisPost.writer.name}</p>
+                <p className="writer">{thisPost.writer?.name}</p>
                 <p>{thisPost.contents}</p>
                 <div className="icon__wrapper">
-                  {isMyPost() ? (
+                  {thisPost && isMyPost() ? (
                     <Dropdown overlay={"삭제?"} placement="topCenter" arrow>
                       <FiMoreHorizontal
                         style={{ marginLeft: "0.5em", cursor: "pointer" }}
