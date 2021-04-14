@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Image, List, Col, Row, Avatar, Button } from "antd";
+import { Image, List, Col, Row, Avatar, Button, Dropdown } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
 import { getPost } from "../../redux/PostSlice";
+import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -25,8 +27,13 @@ const DetailPage = styled.section`
   width: 100%;
   transform: translateY(-50%);
   padding-top: 60px;
-
-  .contents {
+  .image__slider {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    position: relative;
+  }
+  .contents__wrapper {
     height: 500px;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
@@ -35,6 +42,11 @@ const DetailPage = styled.section`
       display: none; /* Chrome, Safari, Opera*/
     }
   }
+  .content {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 2em;
+  }
+
   .slick-dots {
     color: rgba(0, 0, 0, 0.3);
     li.slick-active {
@@ -44,9 +56,44 @@ const DetailPage = styled.section`
   .ant-btn {
     padding: 0;
   }
+  .image__wrapper {
+    overflow: hidden;
+    position: relative;
+    height: 500px;
+  }
+  .image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 600px;
+  }
+  .content {
+    position: relative;
+  }
+  .writer {
+    text-align: right;
+    font-weight: 500;
+  }
+  .icon__wrapper {
+    z-index: 2;
+    position: absolute;
+    right: 1em;
+    bottom: 0.5em;
+    font-size: 1.4rem;
+  }
+  .icon-item {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
+  .comments {
+    padding: 1em 2em;
+  }
 `;
 
-const StyledList = styled(List)`
+const CommentList = styled(List)`
   .ant-list-item-meta-title {
     margin-bottom: 0;
   }
@@ -57,36 +104,34 @@ const StyledList = styled(List)`
   .ant-list-item-meta-content {
     width: auto;
   }
-  .comment__item {
+  .ant-list-item {
+    border-bottom: none !important;
+  }
+  .comment-item {
     flex: 1;
     display: flex;
   }
-  .comment__content {
+  .comment-content {
     color: #303030;
     padding-left: 10px;
     flex: 1;
   }
-  .comment__delete {
+  .comment-date {
+    font-size: 0.8em;
+    color: #a3a3a3;
+    margin-left: 8px;
+  }
+  .comment-delete {
     font-size: 0.8em;
     color: #ccc;
     border: none;
     background: none;
   }
-  .ant-list-item {
-    border-bottom: none !important;
-  }
-`;
-
-const Wrapper = styled.div`
-  overflow: hidden;
-  position: relative;
-  height: 500px;
 `;
 
 const Post = () => {
-  const router = useRouter();
   const thisPost = useSelector((state) => state.post.thisPost);
-
+  const [liked, setLiked] = useState(false);
   const boxRef = useRef();
 
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
@@ -97,13 +142,15 @@ const Post = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const onToggleLike = useCallback(() => {
+    setLiked((prev) => !prev);
+  });
+
   const onChange = (e) => {
     setText(e.target.value);
   };
 
   const onAddComment = () => {
-    console.log("---ON ADD------");
-    console.log(thisPost);
     dispatch(
       addComment({
         contents: text,
@@ -115,10 +162,10 @@ const Post = () => {
     setText("");
   };
 
-  useEffect(() => {
-    console.log("---this post----");
-    console.log(thisPost);
-  }, [thisPost]);
+  const onDeleteComment = (commentId) => {
+    console.log(commentId);
+    // 삭제 api 만들기
+  };
 
   useEffect(() => {
     boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
@@ -134,13 +181,10 @@ const Post = () => {
         <Row>
           <Col xs={24} md={11} xxl={10}>
             <section
+              className="image__slider"
               style={{
-                width: "100%",
                 paddingTop: isDesktopOrLaptop ? 0 : "250px",
                 height: isDesktopOrLaptop ? "500px" : "700px",
-                background: "white",
-                overflow: "hidden",
-                position: "relative",
               }}
             >
               <Slick
@@ -158,43 +202,52 @@ const Post = () => {
                 }
               >
                 {thisPost.imageUrls?.map((img) => (
-                  <Wrapper key={img}>
+                  <div className="image__wrapper" key={img}>
                     <img
-                      style={{
-                        position: "absolute",
-                        left: "50%",
-                        top: "50%",
-                        transform: "translate(-50%,-50%)",
-                        minHeight: "100%",
-                        minWidth: "100%",
-                        maxHeight: isDesktopOrLaptop ? "600px" : "500px",
-                        maxWidth: "600px",
-                      }}
+                      className="image"
                       src={img}
+                      style={{
+                        maxHeight: isDesktopOrLaptop ? "600px" : "500px",
+                      }}
                     />
-                  </Wrapper>
+                  </div>
                 ))}
               </Slick>
             </section>
           </Col>
           <Col xs={24} md={13} xxl={14} style={{ background: "white" }}>
-            <section className="contents">
+            <section className="contents__wrapper">
               <article
+                className="content"
                 style={{
-                  padding: "2em",
                   height: isDesktopOrLaptop ? "300px" : "250px",
-                  borderBottom: "1px solid #f0f0f0",
                 }}
               >
-                <div>{thisPost.contents}</div>
-                <div>아이콘영역</div>
+                <p className="writer">{thisPost.writer.name}</p>
+                <p>{thisPost.contents}</p>
+                <div className="icon__wrapper">
+                  {isMyPost() ? (
+                    <Dropdown overlay={"삭제?"} placement="topCenter" arrow>
+                      <FiMoreHorizontal
+                        style={{ marginLeft: "0.5em", cursor: "pointer" }}
+                      />
+                    </Dropdown>
+                  ) : null}
+                  <span className="icon-item">
+                    {liked ? (
+                      <FaHeart onClick={onToggleLike} />
+                    ) : (
+                      <FiHeart onClick={onToggleLike} />
+                    )}
+                  </span>
+                </div>
               </article>
-              <article style={{ padding: "1em 2em" }} ref={boxRef}>
+              <article className="comments" ref={boxRef}>
                 <p style={{ textAlign: "right", color: "#a3a3a3" }}>
                   {thisPost.comments?.length || 0}개의 댓글이 있습니다.
                 </p>
                 <div>
-                  <StyledList
+                  <CommentList
                     dataSource={thisPost?.comments}
                     renderItem={(item) => (
                       <List.Item key={item._id}>
@@ -202,28 +255,27 @@ const Post = () => {
                           title={<span>{item.writerName}</span>}
                           avatar={<Avatar src={item.writer.profileImageUrl} />}
                         />
-                        <div className="comment__item">
-                          <div className="comment__content">
+                        <div className="comment-item">
+                          <div className="comment-content">
                             <span style={{ fontSize: "0.9em" }}>
                               {item.contents}
                             </span>
-                            <span
-                              style={{
-                                fontSize: "0.8em",
-                                color: "#a3a3a3",
-                                marginLeft: "8px",
-                              }}
-                            >
+                            <span className="comment-date">
                               {timeAgo(item.date)}
                             </span>
                           </div>
                           {isMyComment(item.writer._id) ? (
-                            <button className="comment__delete">삭제</button>
+                            <button
+                              className="comment-delete"
+                              onClick={() => onDeleteComment(item._id)}
+                            >
+                              삭제
+                            </button>
                           ) : null}
                         </div>
                       </List.Item>
                     )}
-                  ></StyledList>
+                  ></CommentList>
                   <div
                     style={{
                       display: "flex",
@@ -242,7 +294,7 @@ const Post = () => {
                         flex: "1",
                       }}
                     />
-                    <div style={{}}>
+                    <div>
                       <Button type="link" onClick={onAddComment}>
                         입력
                       </Button>
