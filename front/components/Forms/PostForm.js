@@ -52,8 +52,7 @@ const ImageStyle = styled.img`
 
 const PostForm = () => {
   const dispatch = useDispatch();
-  const authData = useSelector((state) => state.auth);
-  // const { _id, name, token } = useSelector((state) => state.auth.user);
+  const authData = useSelector((state) => state.auth.user);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
