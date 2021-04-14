@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Image, List, Col, Row, Avatar, Button, Dropdown } from "antd";
+import { Image, List, Col, Row, Avatar, Button, Dropdown, Menu } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -19,6 +19,7 @@ import { getCookie, userLoading } from "../../redux/AuthSlice";
 import { getPost } from "../../redux/PostSlice";
 import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
+import { BiPencil, BiTrash } from "react-icons/bi";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -174,6 +175,35 @@ const Post = () => {
   const isMyPost = () => thisPost.writer?._id === user._id;
   const isMyComment = (commentId) => commentId === user._id;
 
+  const menu = (
+    <Menu
+      style={{
+        textAlign: "center",
+        borderRadius: "40px",
+        overflow: "hidden",
+      }}
+    >
+      <Menu.Item style={{ display: "inline-block" }}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ padding: "0.8rem 0.5rem 0.8rem 1.2rem" }}
+        >
+          <BiPencil style={{ fontSize: "1.5rem" }} />
+        </a>
+      </Menu.Item>
+      <Menu.Item style={{ display: "inline-block" }}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "tomato", padding: "0.8rem 1.2rem 0.8rem 0.5rem " }}
+        >
+          <BiTrash style={{ fontSize: "1.5rem" }} />
+        </a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <LightColorBg>
       <MainHeader />
@@ -227,7 +257,7 @@ const Post = () => {
                 <p>{thisPost.contents}</p>
                 <div className="icon__wrapper">
                   {thisPost && isMyPost() ? (
-                    <Dropdown overlay={"삭제?"} placement="topCenter" arrow>
+                    <Dropdown overlay={menu} placement="topCenter" arrow>
                       <FiMoreHorizontal
                         style={{ marginLeft: "0.5em", cursor: "pointer" }}
                       />
