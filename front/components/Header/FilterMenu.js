@@ -3,8 +3,8 @@ import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "antd";
-import { CHANGE_POST_FILTER_REQUEST, CLEAR_POST_REQUEST } from "../../redux/types";
 import { changePostFilter } from "../../redux/PostSlice";
+import useMediaQuery from "../../utils/useMediaQuery";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -21,11 +21,16 @@ const PostfilterWrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  .ant-btn > span {
+    font-family: Yellowtail;
+    font-size: 1.2rem;
+  }
 `;
 
 const FilterMenu = ({ secondMenu, postFilter }) => {
   const filterPostMenu = useRef();
   const dispatch = useDispatch();
+  const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
   useEffect(() => {
     if (secondMenu) {
@@ -34,7 +39,6 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
     } else {
       filterPostMenu.current.style.transition = "0.5s";
       filterPostMenu.current.style.transform = "translateY(0)";
-      
     }
   }, [secondMenu]);
 
@@ -63,7 +67,8 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
             onClick={() => onClickMenu(menu)}
             type="link"
             style={{
-              width: "30%",
+              width: isDesktopOrLaptop ? "20%" : "30%",
+
               color: menu.active ? "black" : "gray",
               fontWeight: menu.active ? "bold" : "normal",
             }}

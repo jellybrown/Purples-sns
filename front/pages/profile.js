@@ -10,31 +10,61 @@ import { Input as AntInput, Avatar } from "antd";
 import { SettingFilled } from "@ant-design/icons";
 import { updateUser } from "../redux/AuthSlice";
 
-const InputWrapper = styled.div`
-  position: relative;
-  padding: 7px 0;
-  margin: 7px 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+const Title = styled.h1`
+  text-align: center;
+  font-family: Yellowtail;
+  font-size: 2rem;
+  padding: 2.5rem 0 1rem;
 `;
-
-const Name = styled.label`
-  display: inline-block;
-  font-size: 1.3em;
-  font-weight: bold;
-`;
-
-const BasicLabel = styled.label`
-  font-size: 1.3em;
-  padding: 0 10px;
-  width: 100%;
-`;
-
-const InputLabel = styled.label`
-  min-width: 100px;
-  flex: 1 1 auto;
-  font-size: 1.5em;
+const ProfileForm = styled.form`
+  padding-top: 2em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+  .item__wrapper {
+    position: relative;
+    padding: 7px 0;
+    margin: 7px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .profile__image {
+    margin: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+  }
+  .change__letter {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+  }
+  .title__lable {
+    min-width: 100px;
+    flex: 1 1 auto;
+    font-size: 1.3em;
+  }
+  .user__email {
+    font-size: 1.1em;
+    padding: 0 10px;
+    width: 100%;
+  }
+  .save-button {
+    color: #000;
+    margin-top: 100px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50;
+    border-color: #cfcfcf;
+    transition: 0.5s;
+    &:hover {
+      background: #152f4e;
+      color: #fff;
+    }
+  }
 `;
 
 const Profile = () => {
@@ -104,36 +134,18 @@ const Profile = () => {
 
   return (
     <Layout>
-      <form
-        style={{
-          paddingTop: "4em",
-          margin: "0 auto",
-          width: "40%",
-          minWidth: "300px",
-          maxWidth: "400px",
-        }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <InputWrapper>
+      <Title>My Profile</Title>
+      <ProfileForm onSubmit={handleSubmit(onSubmit)}>
+        <div className="item__wrapper">
           <Avatar
-            size={320}
-            style={{
-              margin: "0",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
+            className="profile__image"
+            size={220}
             src={previewProfileImage}
-          />
-          <Button
-            color="black"
-            shape="circle"
-            size="large"
-            icon={<SettingFilled style={{ fontSize: "23px" }} />}
-            style={{
-              marginTop: "180px",
-            }}
             onClick={handleSelectImage}
           />
+          <span className="change__letter" onClick={handleSelectImage}>
+            사진 변경
+          </span>
           <input
             style={{ display: "none" }}
             type="file"
@@ -141,43 +153,31 @@ const Profile = () => {
             onChange={onChangeImage}
             accept="image/jpeg, image/png"
           />
-        </InputWrapper>
+        </div>
         <div
           style={{
             display: "flex",
             margin: "0 0 80px",
           }}
-        >
-          <Name style={{ margin: "0 auto" }}>{name}</Name>
+        ></div>
+        <div className="item__wrapper">
+          <label className="title__lable">아이디</label>
+          <label className="user__email">{email}</label>
         </div>
-        <InputWrapper>
-          <InputLabel>아이디</InputLabel>
-          <BasicLabel>{email}</BasicLabel>
-        </InputWrapper>
-        <InputWrapper>
-          <InputLabel>이름</InputLabel>
+        <div className="item__wrapper">
+          <label className="title__lable">이름</label>
           <AntInput
             name="name"
             id="name"
             size="large"
-            style={{ width: "100%", height: "50px", fontSize: "1.3em" }}
+            style={{ width: "100%", height: "50px", fontSize: "1.1em" }}
             placeholder={"이름"}
             value={form.name}
             onChange={onChangeForm}
           />
-        </InputWrapper>
-        <Input
-          isBtn
-          value="저장"
-          type="submit"
-          style={{
-            marginTop: "100px",
-            background: "#152F4E",
-            borderRadius: 50,
-            borderColor: "#152F4E",
-          }}
-        />
-      </form>
+        </div>
+        <Input className="save-button" isBtn value="저장" type="submit" />
+      </ProfileForm>
     </Layout>
   );
 };
