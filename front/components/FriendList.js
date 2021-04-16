@@ -4,7 +4,6 @@ import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-
 import { follow, unFollow } from "../redux/UserSlice";
 
 const dynamicSort = (property) => {
@@ -24,8 +23,9 @@ const dynamicSort = (property) => {
 };
 
 const ProfileImage = styled.img`
-  width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
-  height: 60px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
 `;
 
 const Wrapper = styled.span`
@@ -50,13 +50,6 @@ const DeleteOrAdd = ({ userInfo }) => {
       token,
     };
     dispatch(follow(payload));
-    // dispatch({
-    //   type: FOLLOW_REQUEST,
-    //   payload: {
-    //     followUserEmail: userInfo.email,
-    //     token,
-    //   },
-    // });
   };
 
   const handleRemoveFollow = () => {
@@ -66,13 +59,6 @@ const DeleteOrAdd = ({ userInfo }) => {
       token,
     };
     dispatch(unFollow(payload));
-    // dispatch({
-    //   type: UNFOLLOW_REQUEST,
-    //   payload: {
-    //     unfollowUserEmail: userInfo.email,
-    //     token,
-    //   },
-    // });
   };
 
   return (
@@ -107,7 +93,7 @@ const FriendList = () => {
               ) : (
                 <FaUserCircle style={{ fontSize: "3rem" }} />
               )}
-              <span style={{ flex: "1", paddingLeft: "1em" }}>
+              <span style={{ flex: "1", paddingLeft: "2em" }}>
                 {friend.name}
               </span>
               <DeleteOrAdd userInfo={friend} />
