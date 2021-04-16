@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { Image, List, Col, Row, Avatar, Button, Dropdown, Menu } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,11 +8,9 @@ import MainHeader from "../../components/Header/MainHeader";
 import { LightColorBg } from "../../styles/bg";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { NextArrow, PrevArrow } from "../../styles/slickArrow";
-import { AiOutlineUser } from "react-icons/ai";
 import { timeAgo } from "../../utils/timeAgo";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getAllPost } from "../../redux/PostSlice";
-import { useRouter } from "next/router";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
 import { getPost } from "../../redux/PostSlice";
@@ -33,6 +30,7 @@ const DetailPage = styled.section`
     background: white;
     overflow: hidden;
     position: relative;
+    margin-top: 60px;
   }
   .contents__wrapper {
     height: 500px;
@@ -60,7 +58,7 @@ const DetailPage = styled.section`
   .image__wrapper {
     overflow: hidden;
     position: relative;
-    height: 500px;
+    height: 455px;
   }
   .image {
     position: absolute;
@@ -133,7 +131,9 @@ const CommentList = styled(List)`
 const Post = () => {
   const thisPost = useSelector((state) => state.post.thisPost);
   const [liked, setLiked] = useState(false);
+  const [enteredFirst, setEnteredFirst] = useState(true); // 첫 페이지 접속시 scroll X
   const boxRef = useRef();
+  const sliderRef = useRef();
 
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
@@ -152,6 +152,7 @@ const Post = () => {
   };
 
   const onAddComment = () => {
+    setEnteredFirst(false);
     dispatch(
       addComment({
         contents: text,
@@ -169,7 +170,11 @@ const Post = () => {
   };
 
   useEffect(() => {
-    boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+    if (enteredFirst) {
+      sliderRef.current.scrollIntoView({ block: "start" });
+    } else {
+      boxRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+    }
   }, [thisPost.comments]);
 
   const isMyPost = () => thisPost.writer?._id === user._id;
@@ -209,11 +214,11 @@ const Post = () => {
       <MainHeader />
       <DetailPage>
         <Row>
-          <Col xs={24} md={11} xxl={10}>
+          <Col xs={24} md={11} xxl={10} ref={sliderRef}>
             <section
               className="image__slider"
               style={{
-                paddingTop: isDesktopOrLaptop ? 0 : "250px",
+                paddingTop: isDesktopOrLaptop ? 0 : "260px",
                 height: isDesktopOrLaptop ? "500px" : "700px",
               }}
             >
@@ -350,8 +355,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     return {
       props: context.store.getState(),
-      //  props: context.store.getState().auth,
-      //props: context.store.getState().post,
     };
   }
 );
