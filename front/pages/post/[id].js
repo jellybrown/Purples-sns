@@ -30,7 +30,7 @@ const DetailPage = styled.section`
     background: white;
     overflow: hidden;
     position: relative;
-    margin-top: 60px;
+    padding-top: 60px;
   }
   .contents__wrapper {
     height: 500px;
@@ -58,7 +58,7 @@ const DetailPage = styled.section`
   .image__wrapper {
     overflow: hidden;
     position: relative;
-    height: 455px;
+    height: 500px;
   }
   .image {
     position: absolute;
