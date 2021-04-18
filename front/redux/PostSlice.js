@@ -143,6 +143,7 @@ export const postSlice = createSlice({
       // payload는 객체 형태로 받고있다. 2021/03/18
       state.loading = false;
       state.posts.push(...payload.data.postFindResult);
+      state.postCount = payload.data.postCount;
     },
     [loadPost.rejected]: (state, action) => {
       state.loading = false;
