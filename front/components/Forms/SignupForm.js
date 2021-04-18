@@ -7,7 +7,7 @@ import { useRef } from "react";
 import Input from "../../styles/input";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { REGISTER_REQUEST } from "../../redux/types";
+import { registerUser } from "../../redux/AuthSlice";
 import Link from "next/link";
 import { StyledAtag } from "../../styles/aTag";
 import { message } from "antd";
@@ -34,10 +34,7 @@ const SignupForm = () => {
   const onSubmit = (data) => {
     const { email, name, password } = data;
     const newUser = { name, email, password };
-    dispatch({
-      type: REGISTER_REQUEST,
-      payload: newUser,
-    });
+    dispatch(registerUser(newUser));
   };
 
   useEffect(() => {

@@ -36,15 +36,9 @@ export const updateUser = createAsyncThunk("auth/updateUser", async (payload) =>
 });
 
 // register user
-export const registerUser = createAsyncThunk(
-  "auth/registerUser",
-  async (token) => {
-    if (token) {
-      config.headers["x-auth-token"] = token;
-    }
+export const registerUser = createAsyncThunk("auth/registerUser", async (payload) => {
     return axios.post("api/user", payload);
-  }
-);
+});
 
 // login user
 export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
