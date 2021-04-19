@@ -9,6 +9,7 @@ import { timeAgo } from "../../utils/timeAgo";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import MoreModal from "../Modal/MoreModal";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -55,6 +56,7 @@ const CardContent = ({ post }) => {
   const isMine = () => _id === currentUser;
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
+  const [opendModal, setOpendModal] = useState(false);
   const contentRef = useRef();
   const router = useRouter();
 
@@ -66,45 +68,10 @@ const CardContent = ({ post }) => {
     setLiked((prev) => !prev);
   });
 
-  const menu = (
-    <Menu
-      style={{
-        textAlign: "center",
-        borderRadius: "40px",
-        overflow: "hidden",
-      }}
-    >
-      <Menu.Item style={{ display: "inline-block" }}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ padding: "0.8rem 0.5rem 0.8rem 1.2rem" }}
-        >
-          <BiPencil style={{ fontSize: "1.5rem" }} />
-        </a>
-      </Menu.Item>
-      <Menu.Item style={{ display: "inline-block" }}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "tomato", padding: "0.8rem 1.2rem 0.8rem 0.5rem " }}
-        >
-          <BiTrash style={{ fontSize: "1.5rem" }} />
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <ContentWrapper ref={contentRef}>
       <div className="icon__wrapper">
-        {isMine() ? (
-          <Dropdown overlay={menu} placement="topCenter" arrow>
-            <FiMoreHorizontal
-              style={{ marginLeft: "0.5em", cursor: "pointer" }}
-            />
-          </Dropdown>
-        ) : null}
+        <MoreModal isMine={isMine} writerName={writerName} />
 
         <span className="icon-item">
           {commented ? (
