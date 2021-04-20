@@ -9,7 +9,7 @@ import { timeAgo } from "../../utils/timeAgo";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import MoreModal from "../Modal/MoreModal";
+import CardMoreModal from "../Modal/CardMoreModal";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -71,7 +71,11 @@ const CardContent = ({ post }) => {
   return (
     <ContentWrapper ref={contentRef}>
       <div className="icon__wrapper">
-        <MoreModal isMine={isMine} writerName={writerName} />
+        <CardMoreModal
+          isMine={isMine}
+          writerName={writerName}
+          postId={post._id}
+        />
 
         <span className="icon-item">
           {commented ? (

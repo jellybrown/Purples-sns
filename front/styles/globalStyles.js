@@ -35,6 +35,11 @@ const GlobalStyles = createGlobalStyle`
   .ant-card-body {
     padding: 10px 20px !important;
   }
+  .more__modal.detail {
+    .ant-modal-content {
+      height:250px;
+    }
+  }
   .more__modal {
     width: 250px !important;
     

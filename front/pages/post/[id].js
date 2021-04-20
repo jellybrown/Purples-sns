@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Image, List, Col, Row, Avatar, Button, Dropdown, Menu } from "antd";
+import { Image, List, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -14,9 +14,9 @@ import { addComment, getAllPost } from "../../redux/PostSlice";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
 import { getPost } from "../../redux/PostSlice";
-import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
+import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
-import { BiPencil, BiTrash } from "react-icons/bi";
+import DetailMoreModal from "../../components/Modal/DetailMoreModal";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -180,35 +180,6 @@ const Post = () => {
   const isMyPost = () => thisPost.writer?._id === user._id;
   const isMyComment = (commentId) => commentId === user._id;
 
-  const menu = (
-    <Menu
-      style={{
-        textAlign: "center",
-        borderRadius: "40px",
-        overflow: "hidden",
-      }}
-    >
-      <Menu.Item style={{ display: "inline-block" }}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ padding: "0.8rem 0.5rem 0.8rem 1.2rem" }}
-        >
-          <BiPencil style={{ fontSize: "1.5rem" }} />
-        </a>
-      </Menu.Item>
-      <Menu.Item style={{ display: "inline-block" }}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: "tomato", padding: "0.8rem 1.2rem 0.8rem 0.5rem " }}
-        >
-          <BiTrash style={{ fontSize: "1.5rem" }} />
-        </a>
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
     <LightColorBg>
       <MainHeader />
@@ -261,13 +232,7 @@ const Post = () => {
                 <p className="writer">{thisPost.writer?.name}</p>
                 <p>{thisPost.contents}</p>
                 <div className="icon__wrapper">
-                  {thisPost && isMyPost() ? (
-                    <Dropdown overlay={menu} placement="topCenter" arrow>
-                      <FiMoreHorizontal
-                        style={{ marginLeft: "0.5em", cursor: "pointer" }}
-                      />
-                    </Dropdown>
-                  ) : null}
+                  {thisPost && isMyPost() ? <DetailMoreModal /> : null}
                   <span className="icon-item">
                     {liked ? (
                       <FaHeart onClick={onToggleLike} />
