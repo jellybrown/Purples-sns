@@ -30,7 +30,7 @@ const MoreModal = ({ isMine, writerName, postId }) => {
         <FiMoreHorizontal className="more__icon" onClick={showModal} />
       </span>
       <Modal
-        className="more__modal"
+        className="custom__modal"
         footer={null}
         visible={isModalVisible}
         onCancel={handleCancel}

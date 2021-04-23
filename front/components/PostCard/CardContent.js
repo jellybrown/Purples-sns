@@ -1,15 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
-import { FiHeart, FiMoreHorizontal } from "react-icons/fi";
+import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
-import { Dropdown, Menu } from "antd";
-import { BiTrash, BiPencil } from "react-icons/bi";
 import { timeAgo } from "../../utils/timeAgo";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import CardMoreModal from "../Modal/CardMoreModal";
+import FollowModal from "../Modal/FollowModal";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -51,7 +50,7 @@ const CardContent = ({ post }) => {
     date,
     writer: { _id },
   } = post;
-  const { name: writerName } = post.writer;
+  const { name: writerName, profileImageUrl } = post.writer;
   const currentUser = useSelector((state) => state.auth.userId); // useSelector로 내 게시글인지 가져오기
   const isMine = () => _id === currentUser;
   const [liked, setLiked] = useState(false);
@@ -98,7 +97,11 @@ const CardContent = ({ post }) => {
         </>
       ) : (
         <div>
-          <span className="writer-name">{writerName}</span>
+          <FollowModal
+            userId={_id}
+            userName={writerName}
+            userImg={profileImageUrl}
+          />
           <span className="pub-date">{timeAgo(date)}</span>
           <div
             className="text"

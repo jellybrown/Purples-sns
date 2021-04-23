@@ -1,22 +1,23 @@
-import { Modal } from "antd";
-import { useRouter } from "next/router";
+import { Modal, Avatar } from "antd";
 import React, { useState } from "react";
-import { FiMoreHorizontal } from "react-icons/fi";
+import { FaRegKissWinkHeart, FaRegSadCry } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const ModalWrapper = styled.div`
   display: inline-block;
-  .more__icon {
-    margin-left: 0.5em;
-    cursor: pointer;
+  cursor: pointer;
+  .user__name {
+    margin-left: 0.8em;
+    font-weight: 500;
   }
 `;
 
-// userId,name 전달받기
-const FollowModal = () => {
+const FollowModal = ({ userId, userName, userImg }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const currentUser = useSelector((state) => state.auth.userId);
   const showModal = () => {
+    if (currentUser === userId) return;
     setIsModalVisible(true);
   };
 
@@ -24,21 +25,29 @@ const FollowModal = () => {
     setIsModalVisible(false);
   };
 
+  const followState = false;
+
   return (
     <ModalWrapper>
-      <span>
-        <span className="more__icon" onClick={showModal}>
-          유123진
-        </span>
-      </span>
+      <div onClick={showModal}>
+        <Avatar src={userImg} size={30} />
+        <span className="user__name">{userName}</span>
+      </div>
       <Modal
-        className="more__modal detail"
+        className="custom__modal detail"
         footer={null}
         visible={isModalVisible}
         onCancel={handleCancel}
       >
-        <p className="title">이미 팔로우한 유저입니다.</p>
-        <span className="delete">팔로우 취소하기</span>
+        <p className="follow__state">
+          {followState ? "이미 팔로우한 유저입니다." : "이 유저를..."}
+        </p>
+        <span className="icon">
+          {followState ? <FaRegSadCry /> : <FaRegKissWinkHeart />}
+        </span>
+        <span className="action__desc">
+          {followState ? "팔로우 취소하기" : "팔로우 하기"}
+        </span>
         <button className="more__close" onClick={handleCancel}>
           닫기
         </button>
