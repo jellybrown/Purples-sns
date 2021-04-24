@@ -40,35 +40,39 @@ const GlobalStyles = createGlobalStyle`
       height:250px;
     }
   }
-  .custom__modal {
-    width: 250px !important;
+  .ant-modal-wrap {
     
+  }
+  .custom__modal {
+    width: 270px !important; 
     .anticon svg {
-    display:none
+    display: none;
     }
     .ant-modal-content {
-      width:250px;
-      height:300px;
-      text-align:center
+      width: 270px;
+      height: 300px;
+      text-align: center;
     }
-    .ant-modal-content, .ant-modal-header {
-      border-radius: 20px ;
+    .ant-modal-content, 
+    .ant-modal-header {
+      border-radius: 20px;
     }
     p {
       padding: 1em 0 1.5em 0;
-      margin:0;
-    } span {
+      margin: 0;
+    } 
+    span {
       padding: 1.5em 0;
-      display:block;
+      display: block;
     }
     hr {
-      border:none;
-      border-bottom:1px solid #dfdfdf;
+      border: none;
+      border-bottom: 1px solid #dfdfdf;
       width: 80%;
-      margin:0 auto;
+      margin: 0 auto;
     }
     .delete {
-      color:#a9a9a9;
+      color: #a9a9a9;
       cursor: pointer;
     }
     .info {
@@ -78,17 +82,52 @@ const GlobalStyles = createGlobalStyle`
       cursor: pointer;
     }
     .more__close {
-      margin-top:1em;
+      margin-top: 1em;
       background-color: #f4f4f4;
-      width:87%;
+      width: 87%;
       padding: 1em 0;
-      border-radius:20px;
+      border-radius: 20px;
       outline:none;
       cursor: pointer;
     }
   }
-
+  .custom__modal.follow {
+    p, span {
+      padding: 0;
+    }
+    .ant-modal-body {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content:center;
+    }
+    .ant-modal-content {
+      height: 200px;
+    }
+    .action__desc {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top:5px;
+    }
+    .follow__state {
+      color: #A9A9A9;
+    }
+    .icon {
+      font-size: 1.3rem;
+      margin-right: 10px;
+      display:flex;
+      align-items:center;
+    }
+    .action__text {
+      text-decoration: underline;
+      font-size:1rem;
+    }
+    .more__close {
+      margin-top:30px;
+    }
+  }
 `;
 
 export default GlobalStyles;
-//transform: scale(0);

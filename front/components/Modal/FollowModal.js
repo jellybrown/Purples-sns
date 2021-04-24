@@ -1,5 +1,5 @@
 import { Modal, Avatar } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -13,9 +13,10 @@ const ModalWrapper = styled.div`
   }
 `;
 
-const FollowModal = ({ userId, userName, userImg }) => {
+const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const currentUser = useSelector((state) => state.auth.userId);
+
   const showModal = () => {
     if (currentUser === userId) return;
     setIsModalVisible(true);
@@ -25,8 +26,6 @@ const FollowModal = ({ userId, userName, userImg }) => {
     setIsModalVisible(false);
   };
 
-  const followState = false;
-
   return (
     <ModalWrapper>
       <div onClick={showModal}>
@@ -34,20 +33,22 @@ const FollowModal = ({ userId, userName, userImg }) => {
         <span className="user__name">{userName}</span>
       </div>
       <Modal
-        className="custom__modal detail"
+        className="custom__modal follow"
         footer={null}
         visible={isModalVisible}
         onCancel={handleCancel}
       >
         <p className="follow__state">
-          {followState ? "이미 팔로우한 유저입니다." : "이 유저를..."}
+          {isFollowing ? "이미 팔로우한 유저입니다." : "이 유저를..."}
         </p>
-        <span className="icon">
-          {followState ? <FaRegSadCry /> : <FaRegKissWinkHeart />}
-        </span>
-        <span className="action__desc">
-          {followState ? "팔로우 취소하기" : "팔로우 하기"}
-        </span>
+        <div className="action__desc">
+          <span className="icon">
+            {isFollowing ? <FaRegSadCry /> : <FaRegKissWinkHeart />}
+          </span>
+          <span className="action__text">
+            {isFollowing ? "팔로우 취소하기" : "팔로우 하기"}
+          </span>
+        </div>
         <button className="more__close" onClick={handleCancel}>
           닫기
         </button>

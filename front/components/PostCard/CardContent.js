@@ -52,6 +52,7 @@ const CardContent = ({ post }) => {
   } = post;
   const { name: writerName, profileImageUrl } = post.writer;
   const currentUser = useSelector((state) => state.auth.userId); // useSelector로 내 게시글인지 가져오기
+  const currentFollows = useSelector((state) => state.auth.user.follows);
   const isMine = () => _id === currentUser;
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
@@ -66,6 +67,11 @@ const CardContent = ({ post }) => {
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
   });
+  const isFollowing = () => {
+    if (currentFollows.length === 0) return false;
+    //  if (currentFollows.length === 1) return currentFollows[0].follow === _id;
+    return currentFollows.some((follows) => follows.follow === _id);
+  };
 
   return (
     <ContentWrapper ref={contentRef}>
@@ -101,6 +107,7 @@ const CardContent = ({ post }) => {
             userId={_id}
             userName={writerName}
             userImg={profileImageUrl}
+            isFollowing={isFollowing()}
           />
           <span className="pub-date">{timeAgo(date)}</span>
           <div
