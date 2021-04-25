@@ -74,7 +74,6 @@ export const userSlice = createSlice({
     [follow.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.users = [
-        // 이 코드가 filter를 쓰는 이유가 무엇..? 2021/03/19
         ...state.users.filter((user) => user._id !== payload.data._id),
         payload.data,
       ];
@@ -90,7 +89,6 @@ export const userSlice = createSlice({
     [unFollow.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.users = [
-        // 이 코드가 filter를 쓰는 이유가 무엇..? 2021/03/19
         ...state.users.filter((user) => user._id !== payload.data._id),
         payload.data,
       ];

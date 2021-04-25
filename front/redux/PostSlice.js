@@ -38,8 +38,7 @@ const initialState = {
 export const loadPost = createAsyncThunk(
   "post/loadPost",
   async ({ payload }) => {
-    // 아마 오류날듯?
-    return axios.get("/api/post/skip", { params: payload }); // params를 어디서 쓰는지 모르겠음
+    return axios.get("/api/post/skip", { params: payload });
   }
 );
 
@@ -86,7 +85,7 @@ export const addPost = createAsyncThunk("post/addPost", async (payload) => {
   form.append("writer", payload.writer);
   form.append("token", payload.token);
 
-  return axios.post("/api/post", form, config); // form, config 객체로 묶어야하는지 모르겠음
+  return axios.post("/api/post", form, config);
 });
 
 // Remove post
@@ -156,7 +155,6 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [loadPost.fulfilled]: (state, { payload }) => {
-      // payload는 객체 형태로 받고있다. 2021/03/18
       state.loading = false;
       state.posts.push(...payload.data.postFindResult);
     },
@@ -169,7 +167,6 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [loadPost.fulfilled]: (state, { payload }) => {
-      // payload는 객체 형태로 받고있다. 2021/03/18
       state.loading = false;
       state.posts.push(...payload.data.postFindResult);
       state.postCount = payload.data.postCount;
@@ -184,7 +181,7 @@ export const postSlice = createSlice({
     },
     [searchPost.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.searchBy = payload; // 이렇게 굳이 두개로 나눠서 받아야 되는건가?. 2021/03/18
+      state.searchBy = payload;
       state.searchResult = payload;
     },
     [searchPost.rejected]: (state, action) => {
@@ -208,12 +205,8 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [removePost.fulfilled]: (state, { payload }) => {
-      //삭제하는 게시물 정보 payload로 받아오기. 2021/03/18
       state.loading = false;
-      console.log("payload는...", payload);
-
       state.posts = state.posts.filter((post) => post._id !== payload.data.id);
-      console.log(state.posts);
     },
     [removePost.rejected]: (state, action) => {
       state.loading = false;
@@ -269,6 +262,3 @@ export const postSlice = createSlice({
 
 export const { changePostFilter } = postSlice.actions;
 export default postSlice.reducer;
-
-// remove comment, clear post 추가해야함
-// clear post랑 remove post랑 두개가 무슨차이인지 모르겠다. 2021/03/18

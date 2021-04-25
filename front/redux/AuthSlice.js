@@ -16,29 +16,39 @@ const initialState = {
 };
 
 // update user
-export const updateUser = createAsyncThunk("auth/updateUser", async (payload) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  if (payload.token) {
-    config.headers["x-auth-token"] = payload.token;
-  }
-  let form = new FormData();
-  form.append("image", payload.profileImage);
-  form.append("prevUserName", payload.prevUserName);
-  form.append("userName", payload.userName);
-  form.append("userId", payload.userId);
-  form.append("token", payload.token);
+export const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (payload) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    if (payload.token) {
+      config.headers["x-auth-token"] = payload.token;
+    }
+    let form = new FormData();
+    form.append("image", payload.profileImage);
+    form.append("prevUserName", payload.prevUserName);
+    form.append("userName", payload.userName);
+    form.append("userId", payload.userId);
+    form.append("token", payload.token);
 
-  return axios.post(`/api/user/${payload.prevUserName}/profile`, form, config);
-});
+    return axios.post(
+      `/api/user/${payload.prevUserName}/profile`,
+      form,
+      config
+    );
+  }
+);
 
 // register user
-export const registerUser = createAsyncThunk("auth/registerUser", async (payload) => {
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (payload) => {
     return axios.post("api/user", payload);
-});
+  }
+);
 
 // login user
 export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
@@ -47,15 +57,13 @@ export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
       "Content-Type": "application/json",
     },
   };
-  return axios.post("api/auth", payload, config); // 객체로 묶어야할수도
+  return axios.post("api/auth", payload, config);
 });
 
-// user loading --> 이름 바꿔야하지 않을까? 알아보기 힘든거같은..?. 2021/03/19
+// user loading
 export const userLoading = createAsyncThunk(
   "auth/userLoading",
   async (token) => {
-    console.log("--------- t o k e n -----");
-    console.log(token);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +90,7 @@ export const authSlice = createSlice({
       state.userRole = null;
       state.isAuthenticated = false;
       Router.push("/login");
-    }
+    },
   },
   extraReducers: {
     // updateUser
@@ -104,7 +112,6 @@ export const authSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
-
       setCookie("token", payload.data.token);
       Router.push("/login");
       state.isAuthenticated = true;
@@ -123,8 +130,6 @@ export const authSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      console.log("-----------");
-      console.log(payload);
       setCookie("token", payload.data.token);
       Router.push("/");
       state.isAuthenticated = true;
@@ -144,7 +149,7 @@ export const authSlice = createSlice({
     [userLoading.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.isAuthenticated = true;
-      state.userId = payload.data._id; // 왜 여기는 언더바 ? login/register에는 그냥 id인데.. 2021/03/19
+      state.userId = payload.data._id;
       state.userName = payload.data.name;
       state.userRole = payload.data.role;
       state.user = payload.data;
