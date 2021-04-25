@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Image, List, Col, Row, Avatar, Button } from "antd";
+import { List, Col, Row, Avatar, Button } from "antd";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -10,7 +10,7 @@ import useMediaQuery from "../../utils/useMediaQuery";
 import { NextArrow, PrevArrow } from "../../styles/slickArrow";
 import { timeAgo } from "../../utils/timeAgo";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, getAllPost } from "../../redux/PostSlice";
+import { addComment, removeComment } from "../../redux/PostSlice";
 import { wrapper } from "../../redux/store";
 import { getCookie, userLoading } from "../../redux/AuthSlice";
 import { getPost } from "../../redux/PostSlice";
@@ -130,8 +130,10 @@ const CommentList = styled(List)`
 
 const Post = () => {
   const thisPost = useSelector((state) => state.post.thisPost);
+  const { token } = useSelector((state) => state.auth.user);
   const [liked, setLiked] = useState(false);
   const [enteredFirst, setEnteredFirst] = useState(true); // 첫 페이지 접속시 scroll X
+
   const boxRef = useRef();
   const sliderRef = useRef();
 
@@ -164,9 +166,13 @@ const Post = () => {
     setText("");
   };
 
-  const onDeleteComment = (commentId) => {
-    console.log(commentId);
-    // 삭제 api 만들기
+  const deleteComment = (commentId) => {
+    const body = {
+      post: thisPost._id,
+      id: commentId,
+      token,
+    };
+    dispatch(removeComment(body));
   };
 
   useEffect(() => {
@@ -267,7 +273,7 @@ const Post = () => {
                           {isMyComment(item.writer._id) ? (
                             <button
                               className="comment-delete"
-                              onClick={() => onDeleteComment(item._id)}
+                              onClick={() => deleteComment(item._id)}
                             >
                               삭제
                             </button>

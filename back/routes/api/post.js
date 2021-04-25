@@ -266,12 +266,17 @@ router.post("/:id/comments", async (req, res, next) => {
 });
 
 /*
-  @route    DELETE   api/post/:id/comments
+  @route    DELETE   api/post/:post/comments/:id
   @desc     Delete a comment (댓글 삭제)
   @access   Public
  */
-router.delete("/:id/comments", async (req, res, next) => {
+router.delete("/:post/comments/:id", auth, async (req, res, next) => {
   await Comment.deleteMany({ _id: req.params.id }); // Comment Document를 삭제한다.
+  await Post.findByIdAndUpdate(req.param.post, {
+    $pull: {
+      comments: req.params.post,
+    },
+  });
   // User Document에서 Comment 정보를 삭제한다.
   await User.findByIdAndUpdate(req.user.id, {
     $pull: {
@@ -280,7 +285,7 @@ router.delete("/:id/comments", async (req, res, next) => {
   });
 
   // 성공 정보를 응답한다. (JSON)
-  return res.json({ success: true });
+  return res.json({ success: true, id: req.params.id });
 });
 
 /*

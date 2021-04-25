@@ -115,6 +115,25 @@ export const addComment = createAsyncThunk(
   }
 );
 
+// Remove comment
+export const removeComment = createAsyncThunk(
+  "post/removeComment",
+  async (payload) => {
+    let config = {};
+    if (payload.token) {
+      config = {
+        headers: {
+          "x-auth-token": payload.token,
+        },
+      };
+    }
+    return axios.delete(
+      `/api/post/${payload.post}/comments/${payload.id}`,
+      config
+    );
+  }
+);
+
 // Get a post
 export const getPost = createAsyncThunk("post/getPost", async (payload) => {
   return axios.get(`/api/post/${payload.id}`);
@@ -219,6 +238,21 @@ export const postSlice = createSlice({
       state.loading = false;
       console.log("addComment rejected 💣", action);
     },
+    //removeComment
+    [removeComment.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [removeComment.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.thisPost.comments = state.thisPost.comments.filter(
+        (comment) => comment._id !== payload.data.id
+      );
+    },
+    [removeComment.rejected]: (state, action) => {
+      state.loading = false;
+      console.log("removeComment rejected 💣", action);
+    },
+    // getPost
     [getPost.pending]: (state, action) => {
       state.loading = true;
     },
