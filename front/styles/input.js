@@ -6,7 +6,7 @@ const StyledInput = styled.input`
   padding: 1em 3.5em;
   margin: 15px 0;
   border: 1px solid #fff;
-  border-radius: 25px;
+  border-radius: 50px !important;
   font-size: 1rem;
   outline: none;
   color: ${({ isBtn }) => (isBtn ? `#fff` : `rgba(255, 255, 255, 0.5)`)};

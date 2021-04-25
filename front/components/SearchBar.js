@@ -33,7 +33,6 @@ const IconWrapper = styled.div`
 
 const SearchBar = ({ setKeyword, ...props }) => {
   const onChange = (e) => {
-    // console.log(e.target.value);
     setKeyword(e.target.value);
   };
 

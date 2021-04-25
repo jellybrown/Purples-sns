@@ -3,7 +3,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import Logo from "../Logo";
 import Link from "next/link";
 import RightMenu from "./RightMenu";
-import { Switch, Button } from "antd";
+import { Switch } from "antd";
 import styled from "styled-components";
 import FilterMenu from "./FilterMenu";
 import { useSelector } from "react-redux";

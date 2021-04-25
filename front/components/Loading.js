@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSpring, useTransition, animated } from "react-spring";
+import { useTransition, animated } from "react-spring";
 import { styled } from "styled-components";
-// [
-//     ({ style }) => <animated.div style={{ ...style }} text="a">a</animated.div>,
-//     ({ style }) => <animated.div style={{ ...style }}>b</animated.div>,
-//     ({ style }) => <animated.div style={{ ...style }}>c</animated.div>,
-//   ]
 
 const Loading = () => {
   const [items, setItems] = useState([

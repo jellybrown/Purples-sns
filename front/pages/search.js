@@ -4,9 +4,11 @@ import SearchBar from "../components/SearchBar";
 import { LightColorBg } from "../styles/bg";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, List } from "antd";
-import { getAllPost, searchPost } from "../redux/PostSlice";
+import { searchPost } from "../redux/PostSlice";
 import styled from "styled-components";
 import Router from "next/router";
+import { wrapper } from "../redux/store";
+import { getCookie, userLoading } from "../redux/AuthSlice";
 
 const SearchLists = styled.div`
   display: flex;
@@ -92,3 +94,16 @@ const Search = () => {
 };
 
 export default Search;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const token = getCookie("token", context.req);
+    if (token !== undefined && token !== null) {
+      await context.store.dispatch(userLoading(token));
+    }
+
+    return {
+      props: context.store.getState().auth,
+    };
+  }
+);

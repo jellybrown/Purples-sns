@@ -5,6 +5,8 @@ import MainHeader from "../components/Header/MainHeader";
 import SearchBar from "../components/searchBar";
 import { LightColorBg } from "../styles/bg";
 import { searchUser } from "../redux/UserSlice";
+import { wrapper } from "../redux/store";
+import { getCookie, userLoading } from "../redux/AuthSlice";
 
 const Find = () => {
   const dispatch = useDispatch();
@@ -13,8 +15,6 @@ const Find = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    console.log("-----Find-----");
-    console.log({ keyword, token });
     dispatch(searchUser({ keyword, token }));
   }, [dispatch, keyword]);
 
@@ -32,5 +32,18 @@ const Find = () => {
     </LightColorBg>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const token = getCookie("token", context.req);
+    if (token !== undefined && token !== null) {
+      await context.store.dispatch(userLoading(token));
+    }
+
+    return {
+      props: context.store.getState().auth,
+    };
+  }
+);
 
 export default Find;

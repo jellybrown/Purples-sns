@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 const ProfileImage = styled.div`
-  width: 60px; // 이미지 동그랗게 or antd Avatar 해도될듯
+  width: 60px;
   height: 60px;
 `;
 

@@ -3,12 +3,12 @@ import Layout from "../styles/layout";
 import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Upload, Button, message } from "antd";
+import { message } from "antd";
 import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
-import { SettingFilled } from "@ant-design/icons";
-import { updateUser } from "../redux/AuthSlice";
+import { getCookie, updateUser, userLoading } from "../redux/AuthSlice";
+import { wrapper } from "../redux/store";
 
 const Title = styled.h1`
   text-align: center;
@@ -181,39 +181,16 @@ const Profile = () => {
     </Layout>
   );
 };
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    const token = getCookie("token", context.req);
+    if (token !== undefined && token !== null) {
+      await context.store.dispatch(userLoading(token));
+    }
 
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   async (context) => {
-//     const cookie = context.req ? context.req.headers.cookie : "";
-//     axios.defaults.headers.Cookie = "";
-//     if (context.req && cookie) {
-//       axios.defaults.headers.Cookie = cookie;
-//     }
-//     context.store.dispatch({
-//       type: LOAD_MY_INFO_REQUEST,
-//     });
-//     context.store.dispatch({
-//       type: LOAD_POSTS_REQUEST,
-//     });
-//     context.store.dispatch(END);
-//     await context.store.sagaTask.toPromise();
-//   }
-// );
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-//   async (context) => {
-//     // Get the user's session based on the request
-//     console.log("hello yujin", context.store.getState().auth);
-//     const isAuthenticated = context.store.getState().auth;
-//     if (!isAuthenticated) {
-//       return {
-//         redirect: {
-//           destination: "/login",
-//           permanent: false,
-//         },
-//       };
-//     }
-//   }
-// );
-
+    return {
+      props: context.store.getState().auth,
+    };
+  }
+);
 export default Profile;

@@ -35,6 +35,9 @@ const GlobalStyles = createGlobalStyle`
   .ant-card-body {
     padding: 10px 20px !important;
   }
+  .custom__input {
+    border-radius:50px !important;
+  }
   .custom__modal.detail {
     .ant-modal-content {
       height:250px;
