@@ -123,6 +123,7 @@ const GlobalStyles = createGlobalStyle`
     .action__text {
       text-decoration: underline;
       font-size:1rem;
+      cursor: pointer;
     }
     .more__close {
       margin-top:30px;

@@ -163,8 +163,8 @@ router.post("/", auth, uploadS3.array("image[]", 5), async (req, res, next) => {
       contents,
       imageUrls,
       writer,
-      date: moment().format("YYYY-MM-DD HH:mm:ss")
-    }); 
+      date: moment().format("YYYY-MM-DD HH:mm:ss"),
+    });
 
     // MongoDB 사용자 Document 정보에 글쓴이의 작성 post id 추가
     await User.findByIdAndUpdate(req.user.id, {
@@ -300,7 +300,7 @@ router.delete("/:id", auth, async (req, res) => {
   });
 
   // 성공 정보를 응답한다. (JSON)
-  return res.json({ success: true });
+  return res.json({ success: true, id: req.params.id });
 });
 
 /*

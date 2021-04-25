@@ -93,7 +93,17 @@ export const addPost = createAsyncThunk("post/addPost", async (payload) => {
 export const removePost = createAsyncThunk(
   "post/removePost",
   async (payload) => {
-    return axios.delete("/api/post", payload);
+    let config = {};
+    if (payload.token) {
+      config = {
+        headers: {
+          "x-auth-token": payload.token,
+        },
+      };
+    }
+    console.log("payload is ", payload);
+
+    return axios.delete(`/api/post/${payload.id}`, config);
   }
 );
 
@@ -181,7 +191,10 @@ export const postSlice = createSlice({
     [removePost.fulfilled]: (state, { payload }) => {
       //삭제하는 게시물 정보 payload로 받아오기. 2021/03/18
       state.loading = false;
-      state.posts = state.posts.filter((post) => post.id !== payload.data.id);
+      console.log("payload는...", payload);
+
+      state.posts = state.posts.filter((post) => post._id !== payload.data.id);
+      console.log(state.posts);
     },
     [removePost.rejected]: (state, action) => {
       state.loading = false;

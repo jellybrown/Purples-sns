@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { follow, unFollow } from "../../redux/UserSlice";
 
 const ModalWrapper = styled.div`
   display: inline-block;
@@ -26,6 +27,13 @@ const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
     setIsModalVisible(false);
   };
 
+  const unFollow = () => {
+    console.log("unfollow");
+  };
+
+  const follow = () => {
+    console.log("follow");
+  };
   return (
     <ModalWrapper>
       <div onClick={showModal}>
@@ -45,9 +53,16 @@ const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
           <span className="icon">
             {isFollowing ? <FaRegSadCry /> : <FaRegKissWinkHeart />}
           </span>
-          <span className="action__text">
-            {isFollowing ? "팔로우 취소하기" : "팔로우 하기"}
-          </span>
+
+          {isFollowing ? (
+            <span className="action__text" onClick={() => unFollow()}>
+              팔로우 취소하기
+            </span>
+          ) : (
+            <span className="action__text" onClick={() => follow()}>
+              팔로우 하기
+            </span>
+          )}
         </div>
         <button className="more__close" onClick={handleCancel}>
           닫기

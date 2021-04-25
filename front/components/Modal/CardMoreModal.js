@@ -2,7 +2,9 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { removePost } from "../../redux/PostSlice";
 
 const ModalWrapper = styled.div`
   display: inline-block;
@@ -14,6 +16,8 @@ const ModalWrapper = styled.div`
 
 const MoreModal = ({ isMine, writerName, postId }) => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth.user);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -22,6 +26,15 @@ const MoreModal = ({ isMine, writerName, postId }) => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const deletePost = (id) => {
+    const body = {
+      token,
+      id,
+    };
+    dispatch(removePost(body));
+    handleCancel();
   };
 
   return (
@@ -39,7 +52,9 @@ const MoreModal = ({ isMine, writerName, postId }) => {
         <hr />
 
         {isMine() ? (
-          <span className="delete">삭제</span>
+          <span className="delete" onClick={() => deletePost(postId)}>
+            삭제
+          </span>
         ) : (
           <span className="info">{writerName}님의 글</span>
         )}
