@@ -91,6 +91,18 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       Router.push("/login");
     },
+    decreaseFollowCount: (state, { payload }) => {
+      state.user.followCount -= 1;
+      console.log("payload is ", payload);
+      state.user.follows = state.user.follows.filter(
+        (followItem) => followItem.follow.email !== payload
+      );
+    },
+    increaseFollowCount: (state, { payload }) => {
+      state.user.followCount += 1;
+      console.log("inc", payload);
+      // state.user.follows.push(payload);
+    },
   },
   extraReducers: {
     // updateUser
@@ -209,5 +221,9 @@ export const getCookieFromServer = (key, req) => {
   return rawCookie.split("=")[1];
 };
 
-export const { logout } = authSlice.actions;
+export const {
+  logout,
+  decreaseFollowCount,
+  increaseFollowCount,
+} = authSlice.actions;
 export default authSlice.reducer;

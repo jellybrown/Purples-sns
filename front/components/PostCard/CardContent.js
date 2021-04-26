@@ -48,7 +48,7 @@ const CardContent = ({ post }) => {
   const {
     contents,
     date,
-    writer: { _id },
+    writer: { _id, email },
   } = post;
   const { name: writerName, profileImageUrl } = post.writer;
   const currentUser = useSelector((state) => state.auth.userId); // useSelector로 내 게시글인지 가져오기
@@ -70,7 +70,7 @@ const CardContent = ({ post }) => {
   const isFollowing = () => {
     if (currentFollows.length === 0) return false;
     //  if (currentFollows.length === 1) return currentFollows[0].follow === _id;
-    return currentFollows.some((follows) => follows.follow === _id);
+    return currentFollows.some((follows) => follows.follow._id === _id);
   };
 
   return (
@@ -105,6 +105,7 @@ const CardContent = ({ post }) => {
         <div>
           <FollowModal
             userId={_id}
+            userEmail={email}
             userName={writerName}
             userImg={profileImageUrl}
             isFollowing={isFollowing()}

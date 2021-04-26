@@ -82,7 +82,10 @@ router.get("/user", auth, async (req, res) => {
     const followers = await Follow.find({ follow: req.user.id }).populate(
       "follow"
     );
-    const follows = await Follow.find({ user: req.user.id }).populate("user");
+    const follows = await Follow.find({ user: req.user.id }).populate([
+      "user",
+      "follow",
+    ]);
 
     console.log("user data", user);
     console.log("follower/follow count: ", followerCount, ", ", followCount);

@@ -83,7 +83,7 @@ router.get("/skip", async (req, res) => {
       // Request Parameter로 받은 skip 수만큼 skip 후,
       // Post 정보를 읽어온다. (6개 제한)
       postFindResult = await Post.find()
-        .populate("writer", ["name", "profileImageUrl"])
+        .populate("writer", ["name", "profileImageUrl", "email"])
         .populate("comments")
         .populate({
           path: "comments",

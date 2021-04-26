@@ -1,8 +1,12 @@
 import { Modal, Avatar } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import {
+  decreaseFollowCount,
+  increaseFollowCount,
+} from "../../redux/AuthSlice";
 import { follow, unFollow } from "../../redux/UserSlice";
 
 const ModalWrapper = styled.div`
@@ -14,9 +18,11 @@ const ModalWrapper = styled.div`
   }
 `;
 
-const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
+const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const currentUser = useSelector((state) => state.auth.userId);
+  const { token } = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
   const showModal = () => {
     if (currentUser === userId) return;
@@ -27,13 +33,28 @@ const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
     setIsModalVisible(false);
   };
 
-  const unFollow = () => {
-    console.log("unfollow");
+  const handleAddFollow = () => {
+    console.log(userEmail);
+    const payload = {
+      followUserEmail: userEmail,
+      token,
+    };
+    dispatch(follow(payload));
+    dispatch(increaseFollowCount(userEmail));
+    handleCancel();
   };
 
-  const follow = () => {
-    console.log("follow");
+  const handleRemoveFollow = () => {
+    console.log(userEmail);
+    const payload = {
+      unfollowUserEmail: userEmail,
+      token,
+    };
+    dispatch(unFollow(payload));
+    dispatch(decreaseFollowCount(userEmail));
+    handleCancel();
   };
+
   return (
     <ModalWrapper>
       <div onClick={showModal}>
@@ -55,11 +76,11 @@ const FollowModal = ({ userId, userName, userImg, isFollowing }) => {
           </span>
 
           {isFollowing ? (
-            <span className="action__text" onClick={() => unFollow()}>
+            <span className="action__text" onClick={() => handleRemoveFollow()}>
               팔로우 취소하기
             </span>
           ) : (
-            <span className="action__text" onClick={() => follow()}>
+            <span className="action__text" onClick={() => handleAddFollow()}>
               팔로우 하기
             </span>
           )}
