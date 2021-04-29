@@ -3,8 +3,33 @@ import useMediaQuery from "../utils/useMediaQuery";
 import { Button } from "antd";
 import { BsPencil } from "react-icons/bs";
 import Layout from "../styles/layout";
-import PostCard from "./PostCard/PostCard";
 import PostForm from "./Forms/PostForm";
+import styled from "styled-components";
+import PostCards from "./PostCard/PostCards";
+
+const MainHomeWrapper = styled.div`
+  position: relative;
+  .pc__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: calc(10% + 320px);
+    padding-left: 10%;
+  }
+  .user__profile {
+    position: fixed;
+    left: 10%;
+    top: 7rem;
+  }
+  .mobile__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 0px;
+    padding-left: 0px;
+  }
+`;
 
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
@@ -12,45 +37,27 @@ const MainHome = () => {
 
   return (
     <Layout>
-      <div style={{ position: "relative" }}>
+      <MainHomeWrapper>
         {isDesktopOrLaptop && (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: "50px",
-                marginLeft: "calc(10% + 320px)",
-
-                paddingLeft: "10%",
-              }}
-            >
+            <div className="pc__wrapper">
               <PostForm />
-              <PostCard /> {/* PostCards 컴포넌트 안에 돌리기 */}
+              <PostCards />
             </div>
-            <div style={{ position: "fixed", left: "10%", top: "7rem" }}>
+            <div className="user__profile">
               <MainProfile />
             </div>
           </>
         )}
         {isTabletOrMobileDevice && (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                marginTop: "50px",
-                marginLeft: "0px",
-                paddingLeft: "0px",
-              }}
-            >
+            <div className="mobile__wrapper">
               <PostForm />
-              <PostCard />
+              <PostCards />
             </div>
           </>
         )}
-      </div>
+      </MainHomeWrapper>
       <Button
         style={{
           width: "3.8rem",

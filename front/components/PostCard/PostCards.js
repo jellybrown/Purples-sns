@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spin } from "antd";
 import { loadPost } from "../../redux/PostSlice";
 
-const PostCard = () => {
+const PostCards = () => {
   const { posts, loading, postCount, postFilter } = useSelector(
     (state) => state.post
   );
@@ -116,4 +116,4 @@ const PostCard = () => {
   );
 };
 
-export default PostCard;
+export default PostCards;

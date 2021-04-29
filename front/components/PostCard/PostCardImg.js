@@ -6,6 +6,21 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   overflow: hidden;
+  height: calc(54vh - 80px);
+  position: relative;
+  .image {
+    min-height: 400px;
+    height: auto;
+    max-height: 480px;
+    min-width: 100%;
+    width: auto;
+    max-width: 150%;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 const PostCardImg = ({ images }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -21,17 +36,7 @@ const PostCardImg = ({ images }) => {
     >
       {images.map((img) => (
         <Wrapper key={img}>
-          <img
-            src={img}
-            style={{
-              minHeight: "auto",
-              maxHeight: "calc(54vh - 80px)",
-              minWidth: "100%",
-              width: "auto",
-              maxWidth: "150%",
-              margin: "0 auto",
-            }}
-          />
+          <img src={img} className="image" />
         </Wrapper>
       ))}
     </Slick>
