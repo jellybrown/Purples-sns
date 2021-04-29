@@ -22,13 +22,27 @@ const ErrorMessage = styled.p`
   color: rgba(255, 255, 255, 0.8);
 `;
 
+const SignupWrapper = styled.form`
+  padding-top: 4em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+  .signup__icon {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1em;
+  }
+`;
+
 const SignupForm = () => {
   const dispatch = useDispatch();
   const { successMsg, errorMsg } = useSelector((state) => state.auth);
-
   const password = useRef();
   const { register, handleSubmit, watch, errors } = useForm();
-
   password.current = watch("password");
 
   const onSubmit = (data) => {
@@ -47,27 +61,9 @@ const SignupForm = () => {
   }, [successMsg, errorMsg]);
 
   return (
-    <form
-      style={{
-        paddingTop: "4em",
-        margin: "0 auto",
-        width: "40%",
-        minWidth: "300px",
-        maxWidth: "400px",
-      }}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <InputWrapper>
-        <FiMail
-          style={{
-            fontSize: "1.4rem",
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            color: "rgba(255,255,255,0.8)",
-            marginLeft: "1em",
-          }}
-        />
+    <SignupWrapper onSubmit={handleSubmit(onSubmit)}>
+      <div className="input__wrapper">
+        <FiMail className="signup__icon" />
         <Input
           name="email"
           type="email"
@@ -78,7 +74,7 @@ const SignupForm = () => {
             maxLength: 30,
           })}
         />
-      </InputWrapper>
+      </div>
       {errors.email?.type === "required" && (
         <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
       )}
@@ -89,16 +85,7 @@ const SignupForm = () => {
         <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
       )}
       <InputWrapper>
-        <BsFillPersonFill
-          style={{
-            fontSize: "1.4rem",
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            color: "rgba(255,255,255,0.8)",
-            marginLeft: "1em",
-          }}
-        />
+        <BsFillPersonFill className="signup__icon" />
         <Input
           name="name"
           placeholder="Name..."
@@ -115,16 +102,7 @@ const SignupForm = () => {
         <ErrorMessage>닉네임은 2자이상 입력해주세요.</ErrorMessage>
       )}
       <InputWrapper>
-        <HiLockClosed
-          style={{
-            fontSize: "1.4rem",
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            color: "rgba(255,255,255,0.8)",
-            marginLeft: "1em",
-          }}
-        />
+        <HiLockClosed className="signup__icon" />
         <Input
           name="password"
           type="password"
@@ -139,16 +117,7 @@ const SignupForm = () => {
         <ErrorMessage>비밀번호는 6자이상 입력해주세요.</ErrorMessage>
       )}
       <InputWrapper>
-        <HiLockClosed
-          style={{
-            fontSize: "1.4rem",
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            color: "rgba(255,255,255,0.8)",
-            marginLeft: "1em",
-          }}
-        />
+        <HiLockClosed className="signup__icon" />
         <Input
           name="confirm_password"
           type="password"
@@ -179,7 +148,7 @@ const SignupForm = () => {
       <Link href="/login">
         <StyledAtag>이미 회원입니다.</StyledAtag>
       </Link>
-    </form>
+    </SignupWrapper>
   );
 };
 
