@@ -58,24 +58,6 @@ const MainHome = () => {
           </>
         )}
       </MainHomeWrapper>
-      <Button
-        style={{
-          width: "3.8rem",
-          height: "3.8rem",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "50%",
-          position: "fixed",
-          right: "25px",
-          bottom: "25px",
-          boxShadow: "3px 3px 10px rgba(0,0,0,0.1)",
-          background: "#aab2e3",
-          border: "none",
-        }}
-      >
-        <BsPencil style={{ fontSize: "2rem", color: "#fff" }} />
-      </Button>
     </Layout>
   );
 };

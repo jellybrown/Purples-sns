@@ -8,7 +8,6 @@ import styled from "styled-components";
 const StyledNext = styled(GrFormNext)`
   display: block;
   opacity: 0.3;
-  background: rgba(255, 255, 255, 0.2);
   font-size: 40px;
   position: absolute;
   top: 50%;
@@ -21,7 +20,6 @@ const StyledNext = styled(GrFormNext)`
 const StyledPrev = styled(GrFormPrevious)`
   display: block;
   opacity: 0.3;
-  background: rgba(255, 255, 255, 0.2);
   font-size: 40px;
   position: absolute;
   top: 50%;

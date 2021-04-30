@@ -1,31 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Input, Modal } from "antd";
-import { AiOutlinePlus } from "react-icons/ai";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { addPost } from "../../redux/PostSlice";
+import { BsPencil } from "react-icons/bs";
 
 const PostFormWrapper = styled.div`
-  max-width: 500px;
-  width: 93%;
-  display: flex;
-  justify-content: center;
-  border-radius: 25px;
-  overflow: hidden;
-
-  .write__button {
-    max-width: 500px;
-    width: 100%;
-    cursor: pointer;
-    margin-bottom: 25px;
+  .write-btn {
+    width: 3.8rem;
+    height: 3.8rem;
     display: flex;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
-    color: #333;
-    border-radius: 20px;
-    opacity: 0.7;
-    font-size: 0.8rem;
+    border-radius: 50%;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    background: #aab2e3;
+    border: none;
+    z-index: 5;
   }
 `;
 
@@ -91,7 +86,6 @@ const PostForm = () => {
     console.log("postForm.handleOk() photo => ", userPhoto);
 
     if (authData) {
-
       let { _id, name, token } = authData;
       const body = {
         contents: userText,
@@ -147,9 +141,8 @@ const PostForm = () => {
 
   return (
     <PostFormWrapper>
-      <Button className="write__button" onClick={showModal}>
-        <AiOutlinePlus style={{ fontSize: "1.2rem", marginRight: "0.7em" }} />
-        게시글 작성...
+      <Button className="write-btn" onClick={showModal}>
+        <BsPencil style={{ fontSize: "2rem", color: "#fff" }} />
       </Button>
       <Modal
         title="게시글 작성"

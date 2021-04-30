@@ -28,7 +28,10 @@ const GlobalStyles = createGlobalStyle`
   p,span {
     font-family: 'Noto Sans KR', sans-serif;
   }
-  
+  .ant-btn.write-btn:hover,
+  .ant-btn.write-btn:focus {
+    background:#aab2e3;
+  }
   .slick-dots {
     margin-bottom: 40px !important;
   }
