@@ -1,6 +1,7 @@
 import React from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { FcMenu } from "react-icons/fc";
+import { HiOutlineMenu } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 import { Button, Dropdown } from "antd";
@@ -16,11 +17,22 @@ const PCMenuWrapper = styled.div`
   right: 6%;
   top: 50%;
   transform: translateY(-50%);
-  .right-menu__icon {
-    display: flex;
+  .icon__wrapper {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: none;
+    margin: 0 5px;
+  }
+  .icon__wrapper.mobile {
+    height: 25px;
+  }
+
+  a {
+    color: rgba(0, 0, 0, 0.8);
+    &:hover {
+      color: rgba(0, 0, 0, 1);
+    }
   }
 `;
 
@@ -47,25 +59,27 @@ const RightMenu = () => {
       {isDesktopOrLaptop && (
         <PCMenuWrapper>
           <Link href="/find">
-            <a>
-              <Button
+            <a className="icon__wrapper">
+              <BsFillPersonPlusFill style={{ fontSize: "23px" }} />
+              {/* <Button
                 color="black"
                 shape="circle"
                 size="large"
                 icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
                 className="right-menu__icon"
-              />
+              /> */}
             </a>
           </Link>
           <Link href="/search">
-            <a>
-              <Button
+            <a className="icon__wrapper">
+              <BiSearch style={{ fontSize: "23px" }} />
+              {/* <Button
                 color="black"
                 shape="circle"
                 size="large"
                 icon={<BiSearch style={{ fontSize: "23px" }} />}
                 className="right-menu__icon"
-              />
+              /> */}
             </a>
           </Link>
           <Dropdown
@@ -73,13 +87,16 @@ const RightMenu = () => {
             trigger="click"
             placement="bottomCenter"
           >
-            <Button
+            <a className="icon__wrapper">
+              <FaUserCircle style={{ fontSize: "23px" }} />
+              {/* <Button
               color="black"
               shape="circle"
               size="large"
               icon={<FaUserCircle style={{ fontSize: "23px" }} />}
               className="right-menu__icon"
-            />
+            /> */}
+            </a>
           </Dropdown>
         </PCMenuWrapper>
       )}
@@ -90,13 +107,18 @@ const RightMenu = () => {
             trigger="click"
             placement="bottomCenter"
           >
-            <Button
+            <a className="icon__wrapper mobile">
+              <HiOutlineMenu
+                style={{ fontSize: "23px", color: "rgba(0,0,0,0.8)" }}
+              />
+              {/* <Button
               color="black"
               shape="circle"
               size="large"
               icon={<FcMenu style={{ fontSize: "23px" }} />}
               className="right-menu__icon"
-            />
+            /> */}
+            </a>
           </Dropdown>
         </MobileWrapper>
       )}

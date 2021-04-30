@@ -28,10 +28,14 @@ const HeaderWrapper = styled.header`
   }
   .home__icon {
     font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.8);
     position: absolute;
     left: 4%;
     top: 50%;
     transform: translateY(-50%);
+  }
+  .ant-switch-checked {
+    background-color: #aab2e3;
   }
   .filter__icon {
     font-size: 1.5rem;
@@ -39,6 +43,9 @@ const HeaderWrapper = styled.header`
     left: calc(6% + 35px);
     top: 50%;
     transform: translateY(-50%);
+  }
+  .ant-dropdown-trigger {
+    height: 30px;
   }
 `;
 

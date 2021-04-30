@@ -30,8 +30,15 @@ const GlobalStyles = createGlobalStyle`
   }
   .ant-btn.write-btn:hover,
   .ant-btn.write-btn:focus {
-    background:#aab2e3;
+    background: #aab2e3;
   }
+  .ant-menu-item a:hover {
+    color:rgba(0, 0, 0, 0.85) !important;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #fff !important;
+  }
+ 
   .slick-dots {
     margin-bottom: 40px !important;
   }
@@ -43,7 +50,7 @@ const GlobalStyles = createGlobalStyle`
   }
   .custom__modal.detail {
     .ant-modal-content {
-      height:250px;
+      height: 250px;
     }
   }
   .ant-modal-wrap {
@@ -115,7 +122,7 @@ const GlobalStyles = createGlobalStyle`
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-top:5px;
+      margin-top: 5px;
     }
     .follow__state {
       color: #A9A9A9;
@@ -128,11 +135,11 @@ const GlobalStyles = createGlobalStyle`
     }
     .action__text {
       text-decoration: underline;
-      font-size:1rem;
+      font-size: 1rem;
       cursor: pointer;
     }
     .more__close {
-      margin-top:30px;
+      margin-top: 30px;
     }
   }
 `;
