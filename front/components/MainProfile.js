@@ -3,28 +3,26 @@ import { Card } from "antd";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   width: 60px;
   height: 60px;
+  border-radius: 50%;
 `;
 
 const UserInfo = () => {
-  const authUser = useSelector((state) => state.auth.user);
-  const user = {
-    profileImage: false,
-  };
+  const { name, profileImageUrl } = useSelector((state) => state.auth.user);
 
   return (
     <div style={{ display: " flex", alignItems: "center", padding: "1em" }}>
-      {user.profileImage ? (
-        <ProfileImage />
+      {profileImageUrl ? (
+        <ProfileImage src={profileImageUrl} />
       ) : (
         <FaUserCircle style={{ fontSize: "4rem" }} />
       )}
       <div style={{ marginLeft: "20px" }}>
-        <span style={{ fontSize: "1rem" }}>{authUser && authUser.name}</span>
+        <span style={{ fontSize: "1rem" }}>{name}</span>
         <p style={{ fontSize: "0.8rem", fontWeight: "300" }}>
-          {authUser && authUser.name}님, 반가워요!
+          {name}님, 반가워요!
         </p>
       </div>
     </div>
