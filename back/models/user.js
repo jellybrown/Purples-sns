@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   },
   profileImageUrl: {
     type: String,
-    default: "https://source.unsplash.com/random/200x200",
+    // default: "https://source.unsplash.com/random/200x200",
   },
   password: {
     type: String,
