@@ -38,7 +38,6 @@ const GlobalStyles = createGlobalStyle`
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: #fff !important;
   }
- 
   .slick-dots {
     margin-bottom: 40px !important;
   }
@@ -53,9 +52,8 @@ const GlobalStyles = createGlobalStyle`
       height: 250px;
     }
   }
-  .ant-modal-wrap {
-    
-  }
+
+ 
   .custom__modal {
     width: 270px !important; 
     .anticon svg {

@@ -151,6 +151,12 @@ const PostForm = () => {
         okText="게시"
         onCancel={handleCancel}
         cancelText="취소"
+        okButtonProps={{
+          style: {
+            background: "rgb(125 136 202)",
+            borderColor: "rgb(125 136 202)",
+          },
+        }}
       >
         <Input.TextArea
           value={userText}
