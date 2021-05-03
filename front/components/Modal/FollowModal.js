@@ -1,13 +1,15 @@
 import { Modal, Avatar } from "antd";
 import React, { useEffect, useState } from "react";
-import { FaRegKissWinkHeart, FaRegSadCry } from "react-icons/fa";
+import { FaRegKissWinkHeart, FaRegSadCry, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
   decreaseFollowCount,
   increaseFollowCount,
+  userLoading,
 } from "../../redux/AuthSlice";
 import { follow, unFollow } from "../../redux/UserSlice";
+import { timeAgo } from "../../utils/timeAgo";
 
 const ModalWrapper = styled.div`
   display: inline-block;
@@ -18,7 +20,14 @@ const ModalWrapper = styled.div`
   }
 `;
 
-const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
+const FollowModal = ({
+  userId,
+  userEmail,
+  userName,
+  userImg,
+  writeDate,
+  isFollowing,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const currentUser = useSelector((state) => state.auth.userId);
   const { token } = useSelector((state) => state.auth.user);
@@ -40,7 +49,7 @@ const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
       token,
     };
     dispatch(follow(payload));
-    dispatch(increaseFollowCount(userEmail));
+    dispatch(userLoading(token));
     handleCancel();
   };
 
@@ -51,15 +60,32 @@ const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
       token,
     };
     dispatch(unFollow(payload));
-    dispatch(decreaseFollowCount(userEmail));
+    dispatch(userLoading(token));
     handleCancel();
   };
 
   return (
     <ModalWrapper>
-      <div onClick={showModal}>
-        <Avatar src={userImg} size={30} />
+      <div
+        onClick={showModal}
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {userImg ? (
+          <Avatar src={userImg} size={30} />
+        ) : (
+          <FaUserCircle
+            style={{
+              fontSize: "2rem",
+              lineHeight: "30px",
+              height: "30px",
+            }}
+          />
+        )}
         <span className="user__name">{userName}</span>
+        <span className="pub-date">{timeAgo(writeDate)}</span>
       </div>
       <Modal
         className="custom__modal follow"

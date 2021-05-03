@@ -3,7 +3,6 @@ import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
 import CardComment from "./CardComment";
-import { timeAgo } from "../../utils/timeAgo";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useRouter } from "next/router";
@@ -108,9 +107,9 @@ const CardContent = ({ post }) => {
             userEmail={email}
             userName={writerName}
             userImg={profileImageUrl}
+            writeDate={date}
             isFollowing={isFollowing()}
           />
-          <span className="pub-date">{timeAgo(date)}</span>
           <div
             className="text"
             onClick={() => router.push(`/post/${post._id}`)}
