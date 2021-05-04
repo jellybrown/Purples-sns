@@ -1,13 +1,9 @@
 import { Modal, Avatar } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import {
-  decreaseFollowCount,
-  increaseFollowCount,
-  userLoading,
-} from "../../redux/AuthSlice";
+import { userLoading } from "../../redux/AuthSlice";
 import { follow, unFollow } from "../../redux/UserSlice";
 import { timeAgo } from "../../utils/timeAgo";
 

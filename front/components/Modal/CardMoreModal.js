@@ -5,6 +5,7 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { removePost } from "../../redux/PostSlice";
+import PropTypes from "prop-types";
 
 const ModalWrapper = styled.div`
   display: inline-block;
@@ -71,6 +72,12 @@ const MoreModal = ({ isMine, writerName, postId }) => {
       </Modal>
     </ModalWrapper>
   );
+};
+
+MoreModal.propTypes = {
+  isMine: PropTypes.func.isRequired,
+  writerName: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
 };
 
 export default MoreModal;

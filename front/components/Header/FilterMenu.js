@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Button } from "antd";
 import { changePostFilter } from "../../redux/PostSlice";
 import useMediaQuery from "../../utils/useMediaQuery";
+import PropTypes from "prop-types";
 
 const PostfilterWrapper = styled.div`
   position: absolute;
@@ -75,6 +76,11 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
       </div>
     </PostfilterWrapper>
   );
+};
+
+FilterMenu.propTypes = {
+  secondMenu: PropTypes.bool.isRequired,
+  postFilter: PropTypes.array.isRequired,
 };
 
 export default FilterMenu;

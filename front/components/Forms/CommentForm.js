@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addComment } from "../../redux/PostSlice";
+import PropTypes from "prop-types";
 
 const CommentInputWrapper = styled.div`
   display: flex;
@@ -60,6 +61,10 @@ const CommentForm = ({ post }) => {
       </div>
     </CommentInputWrapper>
   );
+};
+
+CommentForm.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
 export default CommentForm;

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeComment } from "../../redux/PostSlice";
 import { timeAgo } from "../../utils/timeAgo";
+import PropTypes from "prop-types";
 
 const CommentsWrapper = styled(List)`
   .ant-list-item-meta-title {
@@ -80,5 +81,10 @@ const CommentList = memo(({ thisPost, user }) => {
     ></CommentsWrapper>
   );
 });
+
+CommentList.propTypes = {
+  thisPost: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+};
 
 export default CommentList;

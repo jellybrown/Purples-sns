@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import useMediaQuery from "../../utils/useMediaQuery";
+import PropTypes from "prop-types";
 
 const Wrapper = styled.div`
   overflow: hidden;
@@ -49,6 +50,10 @@ const PostCardImg = ({ images }) => {
       ))}
     </Slick>
   );
+};
+
+PostCardImg.propTypes = {
+  images: PropTypes.array.isRequired,
 };
 
 export default PostCardImg;

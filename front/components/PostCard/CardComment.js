@@ -5,6 +5,7 @@ import { timeAgo } from "../../utils/timeAgo";
 import { useRouter } from "next/router";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { useCallback } from "react";
+import PropTypes from "prop-types";
 
 const CommentsWrapper = styled.div`
   position: absolute;
@@ -106,6 +107,10 @@ const CardComment = ({ post }) => {
       <CommentForm post={post} />
     </CommentsWrapper>
   );
+};
+
+CardComment.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
 export default CardComment;

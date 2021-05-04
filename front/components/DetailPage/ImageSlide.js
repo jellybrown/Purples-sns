@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { NextArrow, PrevArrow } from "../../styles/slickArrow";
 import useMediaQuery from "../../utils/useMediaQuery";
+import PropTypes from "prop-types";
 
 const SlideWrapper = styled.section`
   width: 100%;
@@ -69,5 +70,9 @@ const ImageSlide = memo(({ imageUrls }) => {
     </SlideWrapper>
   );
 });
+
+ImageSlide.propTypes = {
+  imageUrls: PropTypes.array.isRequired,
+};
 
 export default ImageSlide;
