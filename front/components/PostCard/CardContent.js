@@ -16,6 +16,7 @@ const ContentWrapper = styled.div`
   height: 50%;
   max-height: 800px;
   overflow: hidden;
+
   .icon__wrapper {
     z-index: 2;
     position: absolute;

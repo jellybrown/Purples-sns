@@ -1,7 +1,28 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import { addComment } from "../../redux/PostSlice";
+
+const CommentInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  .card-comment__input {
+    position: absolute;
+    bottom: 15px;
+    padding-top: 10px;
+    margin-left: 5px;
+    border: none;
+    outline: none;
+    width: 90%;
+  }
+  .btn__wrapper {
+    position: absolute;
+    bottom: 10px;
+    right: -5px;
+  }
+`;
 
 const CommentForm = ({ post }) => {
   const [text, setText] = useState("");
@@ -13,42 +34,31 @@ const CommentForm = ({ post }) => {
   };
 
   const onAddComment = () => {
-    dispatch(addComment({
-      contents: text,
-      userId: user._id,
-      userName: user.name,
-      id: post._id,
-    }));
+    dispatch(
+      addComment({
+        contents: text,
+        userId: user._id,
+        userName: user.name,
+        id: post._id,
+      })
+    );
     setText("");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <CommentInputWrapper>
       <input
         onChange={onChange}
         value={text}
         placeholder="댓글 입력..."
-        style={{
-          position: "absolute",
-          bottom: "15px",
-          paddingTop: "10px",
-          marginLeft: "5px",
-          border: "none",
-          outline: "none",
-          width: "90%",
-        }}
+        className="card-comment__input"
       />
-      <div style={{ position: "absolute", bottom: "10px", right: "-5px" }}>
+      <div className="btn__wrapper">
         <Button type="link" onClick={onAddComment}>
           입력
         </Button>
       </div>
-    </div>
+    </CommentInputWrapper>
   );
 };
 

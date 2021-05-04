@@ -1,7 +1,5 @@
 import MainProfile from "./MainProfile";
 import useMediaQuery from "../utils/useMediaQuery";
-import { Button } from "antd";
-import { BsPencil } from "react-icons/bs";
 import Layout from "../styles/layout";
 import PostForm from "./Forms/PostForm";
 import styled from "styled-components";
@@ -9,6 +7,7 @@ import PostCards from "./PostCard/PostCards";
 
 const MainHomeWrapper = styled.div`
   position: relative;
+
   .pc__wrapper {
     display: flex;
     flex-direction: column;

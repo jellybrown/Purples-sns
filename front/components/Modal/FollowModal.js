@@ -34,7 +34,6 @@ const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
   };
 
   const handleAddFollow = () => {
-    console.log(userEmail);
     const payload = {
       followUserEmail: userEmail,
       token,
@@ -45,7 +44,6 @@ const FollowModal = ({ userId, userEmail, userName, userImg, isFollowing }) => {
   };
 
   const handleRemoveFollow = () => {
-    console.log(userEmail);
     const payload = {
       unfollowUserEmail: userEmail,
       token,

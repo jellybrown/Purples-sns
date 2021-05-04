@@ -83,8 +83,6 @@ const PostForm = () => {
       message.info("이미지를 하나 이상 등록해주세요.", 1);
       return;
     }
-    console.log("postForm.handleOk() photo => ", userPhoto);
-
     if (authData) {
       let { _id, name, token } = authData;
       const body = {
@@ -94,10 +92,7 @@ const PostForm = () => {
         userName: name,
         token,
       };
-      console.log("postForm.handleOk() body => ", body);
-
       dispatch(addPost(body));
-
       setIsModalVisible(false);
     }
   };
@@ -130,7 +125,7 @@ const PostForm = () => {
         setPreviewImageUrl(Object.assign([], data));
       };
     }
-    console.log(data);
+
     setUserPhoto(fileList);
   };
 

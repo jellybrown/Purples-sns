@@ -9,9 +9,9 @@ const Wrapper = styled.div`
   overflow: hidden;
   height: calc(54vh - 80px);
   position: relative;
+
   .image {
     height: auto;
-
     min-width: 100%;
     width: auto;
     max-width: 150%;

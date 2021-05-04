@@ -4,6 +4,7 @@ const StyledLogo = styled.div`
   font-family: "Yellowtail";
   font-size: ${({ isForm }) => (isForm ? `3rem` : `1.2rem`)};
   color: ${({ isForm }) => (isForm ? `white` : `black`)};
+  cursor: default;
 `;
 
 const Logo = ({ ...props }) => {

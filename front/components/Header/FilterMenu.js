@@ -48,14 +48,10 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
         ...menu,
         active: false,
       };
-
       if (menu.id === currentMenu.id) updatedItem.active = true;
-
       return updatedItem;
     });
-
     dispatch(changePostFilter(updatedMenu));
-    console.log(updatedMenu);
   };
 
   return (

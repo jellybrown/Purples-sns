@@ -1,24 +1,33 @@
 import Link from "next/link";
+import styled from "styled-components";
 import { StyledAtag } from "../styles/aTag";
 import { GradientBg } from "../styles/bg";
 import Button from "../styles/button";
 import Logo from "./Logo";
 
+const LoginWrapper = styled.div`
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+  margin: 0 auto;
+
+  .logo__wrapper {
+    text-align: center;
+    padding-top: 8em;
+  }
+  .login-btns {
+    padding-top: 4em;
+  }
+`;
+
 const MainLogin = () => {
   return (
     <GradientBg>
-      <div
-        style={{
-          width: "40%",
-          minWidth: "300px",
-          maxWidth: "400px",
-          margin: "0 auto",
-        }}
-      >
-        <div style={{ textAlign: "center", paddingTop: "8em" }}>
+      <LoginWrapper>
+        <div className="logo__wrapper">
           <Logo isForm />
         </div>
-        <div style={{ paddingTop: "4em" }}>
+        <div className="login-btns">
           <Link href="/login">
             <a>
               <Button transparent>로그인</Button>
@@ -30,7 +39,7 @@ const MainLogin = () => {
           <Button>kakao로 로그인</Button>
           <Button>google로 로그인</Button>
         </div>
-      </div>
+      </LoginWrapper>
     </GradientBg>
   );
 };

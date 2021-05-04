@@ -35,8 +35,11 @@ export default class MyDocument extends Document {
             name="keywords"
             content="sns,purples,instagram,twitter,인스타그램,트위터,친구,사진첩"
           />
-          <meta name="description" content="" />
-          <meta name="author" content="" />
+          <meta
+            name="description"
+            content="당신의 일상을 친구와 공유하세요 :) - Purples"
+          />
+          <meta name="author" content="Kimyujin, Parkjeongjin" />
           <meta property="og:type" content="web aplication" />
           <meta property="og:title" content="Purples" />
           <meta

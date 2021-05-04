@@ -1,34 +1,13 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { RiDeleteBack2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { follow, unFollow } from "../redux/UserSlice";
+import { dynamicSort } from "../utils/dynamicSort";
 
-const dynamicSort = (property) => {
-  let sortOrder = 1;
-  if (property[0] === "-") {
-    sortOrder = -1;
-    property = property.substr(1);
-  }
-  return function (a, b) {
-    /* next line works with strings and numbers,
-     * and you may want to customize it to your needs
-     */
-    let result =
-      a[property] > b[property] ? -1 : a[property] < b[property] ? 1 : 0;
-    return result * sortOrder;
-  };
-};
-
-const ProfileImage = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-`;
-
-const Wrapper = styled.span`
+const IconWrapper = styled.span`
   font-size: 1.5rem;
   cursor: pointer;
   transition: 0.3s;
@@ -43,66 +22,73 @@ const DeleteOrAdd = ({ userInfo }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
 
-  const handleAddFollow = () => {
-    console.log(userInfo);
+  const handleAddFollow = useCallback(() => {
     const payload = {
       followUserEmail: userInfo.email,
       token,
     };
     dispatch(follow(payload));
-  };
+  }, [userInfo, token]);
 
-  const handleRemoveFollow = () => {
-    console.log(userInfo);
+  const handleRemoveFollow = useCallback(() => {
     const payload = {
       unfollowUserEmail: userInfo.email,
       token,
     };
     dispatch(unFollow(payload));
-  };
+  }, [userInfo, token]);
 
   return (
-    <Wrapper>
+    <IconWrapper>
       {isSearchPage && !userInfo.isFollowing ? (
         <IoIosAddCircle onClick={handleAddFollow} />
       ) : (
         <RiDeleteBack2Line onClick={handleRemoveFollow} />
       )}
-    </Wrapper>
+    </IconWrapper>
   );
 };
+
+const FriendListWrapper = styled.ul`
+  .friend-item {
+    display: flex;
+    align-items: center;
+    padding: 1em 0;
+  }
+  .profile__image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+  .user__name {
+    flex: 1;
+    padding-left: 2em;
+  }
+`;
 
 const FriendList = () => {
   const user = useSelector((state) => state.user);
 
   return (
-    <ul>
+    <FriendListWrapper>
       {user && user.users.length > 0 ? (
         Object.values(user.users)
           .sort(dynamicSort("name"))
           .map((friend) => (
-            <li
-              style={{
-                display: "flex",
-                alignItems: "center",
-                padding: "1em 0",
-              }}
-            >
+            <li className="friend-item">
               {friend.profileImageUrl ? (
-                <ProfileImage src={friend.profileImageUrl} />
+                <img className="profile__image" src={friend.profileImageUrl} />
               ) : (
                 <FaUserCircle style={{ fontSize: "3rem" }} />
               )}
-              <span style={{ flex: "1", paddingLeft: "2em" }}>
-                {friend.name}
-              </span>
+              <span className="user__name">{friend.name}</span>
               <DeleteOrAdd userInfo={friend} />
             </li>
           ))
       ) : (
         <div>친구가 없습니다.</div>
       )}
-    </ul>
+    </FriendListWrapper>
   );
 };
 export default FriendList;

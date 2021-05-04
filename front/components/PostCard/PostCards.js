@@ -6,6 +6,7 @@ import PostCardImg from "./PostCardImg";
 import { useDispatch, useSelector } from "react-redux";
 import { Spin } from "antd";
 import { loadPost } from "../../redux/PostSlice";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const PostCards = () => {
   const { posts, loading, postCount, postFilter } = useSelector(
@@ -18,6 +19,10 @@ const PostCards = () => {
     const activeFilter = postFilter.filter((menu) => menu.active);
     return activeFilter[0].name;
   };
+
+  const antIcon = (
+    <LoadingOutlined style={{ fontSize: 30, color: "#aab2e3" }} spin />
+  );
 
   // post filter가 변경됐을 때의 콜백
   useEffect(() => {
@@ -98,7 +103,9 @@ const PostCards = () => {
           <CardContent post={post} />
         </Card>
       ))}
-      <div ref={lastPostElementRef}>{loading && <Spin size="large" />}</div>
+      <div ref={lastPostElementRef}>
+        {loading && <Spin indicator={antIcon} />}
+      </div>
       {loading ? (
         ""
       ) : endMsg ? (
@@ -108,6 +115,7 @@ const PostCards = () => {
             type="info"
             style={{
               maxWidth: "500px",
+              width: "93%",
               fontFamily: "Noto Sans KR",
               fontSize: "12px",
             }}

@@ -17,6 +17,7 @@ const PCMenuWrapper = styled.div`
   right: 6%;
   top: 50%;
   transform: translateY(-50%);
+
   .icon__wrapper {
     display: inline-flex;
     align-items: center;
@@ -27,7 +28,6 @@ const PCMenuWrapper = styled.div`
   .icon__wrapper.mobile {
     height: 25px;
   }
-
   a {
     color: rgba(0, 0, 0, 0.8);
     &:hover {
@@ -43,6 +43,7 @@ const MobileWrapper = styled.div`
   right: 4%;
   top: 50%;
   transform: translateY(-50%);
+
   .right-menu__icon {
     display: flex;
     align-items: center;
@@ -61,25 +62,11 @@ const RightMenu = () => {
           <Link href="/find">
             <a className="icon__wrapper">
               <BsFillPersonPlusFill style={{ fontSize: "23px" }} />
-              {/* <Button
-                color="black"
-                shape="circle"
-                size="large"
-                icon={<BsFillPersonPlusFill style={{ fontSize: "23px" }} />}
-                className="right-menu__icon"
-              /> */}
             </a>
           </Link>
           <Link href="/search">
             <a className="icon__wrapper">
               <BiSearch style={{ fontSize: "23px" }} />
-              {/* <Button
-                color="black"
-                shape="circle"
-                size="large"
-                icon={<BiSearch style={{ fontSize: "23px" }} />}
-                className="right-menu__icon"
-              /> */}
             </a>
           </Link>
           <Dropdown
@@ -89,13 +76,6 @@ const RightMenu = () => {
           >
             <a className="icon__wrapper">
               <FaUserCircle style={{ fontSize: "23px" }} />
-              {/* <Button
-              color="black"
-              shape="circle"
-              size="large"
-              icon={<FaUserCircle style={{ fontSize: "23px" }} />}
-              className="right-menu__icon"
-            /> */}
             </a>
           </Dropdown>
         </PCMenuWrapper>
@@ -111,13 +91,6 @@ const RightMenu = () => {
               <HiOutlineMenu
                 style={{ fontSize: "23px", color: "rgba(0,0,0,0.8)" }}
               />
-              {/* <Button
-              color="black"
-              shape="circle"
-              size="large"
-              icon={<FcMenu style={{ fontSize: "23px" }} />}
-              className="right-menu__icon"
-            /> */}
             </a>
           </Dropdown>
         </MobileWrapper>

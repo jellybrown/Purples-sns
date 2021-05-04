@@ -40,7 +40,6 @@ const Search = () => {
   const { data: searchedPost } = useSelector(
     (state) => state.post.searchResult
   );
-  let posts;
 
   useEffect(() => {
     keyword && dispatch(searchPost({ keyword, token }));

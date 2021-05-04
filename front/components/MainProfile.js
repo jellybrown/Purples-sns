@@ -1,33 +1,69 @@
+import { useSelector } from "react-redux";
 import { FaUserCircle } from "react-icons/fa";
 import { Card } from "antd";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 
-const ProfileImage = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+const UserInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1em;
+
+  .main-profile__img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+  .main-profile__info {
+    margin-left: 20px;
+    span {
+      font-size: 1rem;
+    }
+    p {
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+  }
 `;
 
 const UserInfo = () => {
   const { name, profileImageUrl } = useSelector((state) => state.auth.user);
 
   return (
-    <div style={{ display: " flex", alignItems: "center", padding: "1em" }}>
+    <UserInfoWrapper>
       {profileImageUrl ? (
-        <ProfileImage src={profileImageUrl} />
+        <img className="main-profile__img" src={profileImageUrl} />
       ) : (
         <FaUserCircle style={{ fontSize: "4rem" }} />
       )}
-      <div style={{ marginLeft: "20px" }}>
-        <span style={{ fontSize: "1rem" }}>{name}</span>
-        <p style={{ fontSize: "0.8rem", fontWeight: "300" }}>
-          {name}님, 반가워요!
-        </p>
+      <div className="main-profile__info">
+        <span>{name}</span>
+        <p>{name}님, 반가워요!</p>
       </div>
-    </div>
+    </UserInfoWrapper>
   );
 };
+
+const ProfileInfo = styled.div`
+  display: flex;
+  text-align: center;
+  padding: 20px 0;
+
+  .followers,
+  .followings {
+    flex-basis: 50%;
+  }
+  .followers__title,
+  .followings__title {
+    font-family: "Yellowtail";
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  .followers__count,
+  .followings__count {
+    font-family: "Yellowtail";
+    font-size: 3rem;
+  }
+`;
 
 const MainProfile = () => {
   const authUser = useSelector((state) => state.auth.user);
@@ -38,34 +74,20 @@ const MainProfile = () => {
       bordered={true}
       style={{ width: 320, borderRadius: "30px" }}
     >
-      <div
-        style={{
-          display: "flex",
-          textAlign: "center",
-          padding: "20px 0",
-        }}
-      >
-        <div style={{ flexBasis: "50%" }}>
-          <p
-            style={{ fontFamily: "Yellowtail", fontSize: "1.3rem", margin: 0 }}
-          >
-            Followers
-          </p>
-          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>
+      <ProfileInfo>
+        <div className="followers">
+          <p className="followers__title">Followers</p>
+          <span className="followers__count">
             {authUser && authUser.followerCount}
           </span>
         </div>
-        <div style={{ flexBasis: "50%" }}>
-          <p
-            style={{ fontFamily: "Yellowtail", fontSize: "1.3rem", margin: 0 }}
-          >
-            Followings
-          </p>
-          <span style={{ fontFamily: "Yellowtail", fontSize: "3rem" }}>
+        <div className="followings">
+          <p className="followings__title">Followings</p>
+          <span className="followings__count">
             {authUser && authUser.followCount}
           </span>
         </div>
-      </div>
+      </ProfileInfo>
     </Card>
   );
 };
