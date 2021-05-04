@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -21,13 +21,13 @@ const MoreModal = ({ isMine, writerName, postId }) => {
   const { token } = useSelector((state) => state.auth.user);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => {
+  const showModal = useCallback(() => {
     setIsModalVisible(true);
-  };
+  }, []);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsModalVisible(false);
-  };
+  }, []);
 
   const deletePost = (id) => {
     const body = {

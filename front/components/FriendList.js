@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
@@ -22,21 +22,21 @@ const DeleteOrAdd = ({ userInfo }) => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
 
-  const handleAddFollow = useCallback(() => {
+  const handleAddFollow = () => {
     const payload = {
       followUserEmail: userInfo.email,
       token,
     };
     dispatch(follow(payload));
-  }, [userInfo, token]);
+  };
 
-  const handleRemoveFollow = useCallback(() => {
+  const handleRemoveFollow = () => {
     const payload = {
       unfollowUserEmail: userInfo.email,
       token,
     };
     dispatch(unFollow(payload));
-  }, [userInfo, token]);
+  };
 
   return (
     <IconWrapper>

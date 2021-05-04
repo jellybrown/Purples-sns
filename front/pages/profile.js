@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Layout from "../styles/layout";
 import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,7 +75,7 @@ const Profile = () => {
   useEffect(() => {
     !isAuthenticated && Router.push("/login");
   }, []);
-  // 로딩페이지 만들기
+
   const { _id, name, token, profileImageUrl, email } =
     isAuthenticated && useSelector((state) => state.auth.user);
 
@@ -107,9 +107,9 @@ const Profile = () => {
     });
   };
 
-  const handleSelectImage = () => {
+  const handleSelectImage = useCallback(() => {
     fileRef.current.click();
-  };
+  }, []);
 
   useEffect(() => {
     setProfilePreviewImage(profileImageUrl);

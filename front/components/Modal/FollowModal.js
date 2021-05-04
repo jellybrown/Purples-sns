@@ -1,5 +1,5 @@
 import { Modal, Avatar } from "antd";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -34,9 +34,9 @@ const FollowModal = ({
     setIsModalVisible(true);
   };
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsModalVisible(false);
-  };
+  }, []);
 
   const handleAddFollow = () => {
     const payload = {

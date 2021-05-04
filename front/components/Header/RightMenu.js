@@ -1,10 +1,9 @@
 import React from "react";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-import { FcMenu } from "react-icons/fc";
 import { HiOutlineMenu } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
-import { Button, Dropdown } from "antd";
+import { Dropdown } from "antd";
 import Link from "next/link";
 import UserMenu from "./UserMenu";
 import useMediaQuery from "../../utils/useMediaQuery";

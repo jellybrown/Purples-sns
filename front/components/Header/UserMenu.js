@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
@@ -28,10 +28,10 @@ const UserMenu = () => {
 
   const dispatch = useDispatch();
 
-  const handleLogoutClick = (e) => {
+  const handleLogoutClick = useCallback(() => {
     dispatch(logout());
     message.info("로그아웃에 성공하였습니다.", 1);
-  };
+  ,[]);
 
   const loggedIn = true;
 

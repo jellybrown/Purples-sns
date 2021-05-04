@@ -9,8 +9,24 @@ import { StyledAtag } from "../../styles/aTag";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/AuthSlice";
 
-const InputWrapper = styled.div`
-  position: relative;
+const LoginWrapper = styled.form`
+  padding-top: 4em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+
+  .input__wrapper {
+    position: relative;
+  }
+  .login__icon {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1em;
+  }
 `;
 
 const ErrorMessage = styled.p`
@@ -26,35 +42,13 @@ const LoginForm = () => {
   const onSubmit = (data) => {
     const userInfo = { email: data.email, password: data.password };
     dispatch(loginUser(userInfo));
-    // dispatch({
-    //   type: LOG_IN_REQUEST,
-    //   payload: loginUser,
-    // });
   };
 
   return (
     <>
-      <form
-        style={{
-          paddingTop: "4em",
-          margin: "0 auto",
-          width: "40%",
-          minWidth: "300px",
-          maxWidth: "400px",
-        }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <InputWrapper>
-          <FiMail
-            style={{
-              fontSize: "1.4rem",
-              position: "absolute",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "rgba(255,255,255,0.8)",
-              marginLeft: "1em",
-            }}
-          />
+      <LoginWrapper onSubmit={handleSubmit(onSubmit)}>
+        <div className="input__wrapper">
+          <FiMail className="login__icon" />
           <Input
             name="email"
             type="email"
@@ -65,7 +59,7 @@ const LoginForm = () => {
               maxLength: 30,
             })}
           />
-        </InputWrapper>
+        </div>
         {errors.email?.type === "required" && (
           <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
         )}
@@ -76,24 +70,15 @@ const LoginForm = () => {
           <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
         )}
 
-        <InputWrapper>
-          <HiLockClosed
-            style={{
-              fontSize: "1.4rem",
-              position: "absolute",
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "rgba(255,255,255,0.8)",
-              marginLeft: "1em",
-            }}
-          />
+        <div className="input__wrapper">
+          <HiLockClosed className="login__icon" />
           <Input
             name="password"
             type="password"
             placeholder="Password..."
             ref={register({ required: true, minLength: 6 })}
           />
-        </InputWrapper>
+        </div>
         {errors.password?.type === "required" && (
           <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
         )}
@@ -110,7 +95,7 @@ const LoginForm = () => {
         <Link href="/signup">
           <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
         </Link>
-      </form>
+      </LoginWrapper>
     </>
   );
 };

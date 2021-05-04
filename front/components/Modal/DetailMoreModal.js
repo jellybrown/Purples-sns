@@ -1,6 +1,5 @@
 import { Modal } from "antd";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import styled from "styled-components";
 
@@ -15,13 +14,13 @@ const ModalWrapper = styled.div`
 const DetailMoreModal = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const showModal = () => {
+  const showModal = useCallback(() => {
     setIsModalVisible(true);
-  };
+  }, []);
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsModalVisible(false);
-  };
+  }, []);
 
   return (
     <ModalWrapper>

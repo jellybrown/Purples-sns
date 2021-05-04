@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addComment } from "../../redux/PostSlice";

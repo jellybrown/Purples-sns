@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import PropTypes from "prop-types";
 import Head from "next/head";
@@ -32,31 +32,6 @@ const App = ({ Component, pageProps }) => {
     </>
   );
 };
-
-// const fetchAndWait = (store, param) =>
-//   new Promise((resolve) => {
-//     store.dispatch({
-//       type: USER_LOADING_REQUEST,
-//       payload: param,
-//     });
-//     const unsubscribe = store.subscribe(() => {
-//       const state = store.getState();
-//       unsubscribe();
-//       return resolve(state);
-//     });
-//   });
-
-// App.getInitialProps = async ({ Component, ctx }) => {
-//   const token = getCookie("token", ctx.req);
-//   let updatedStore;
-
-//   if (token !== undefined && token !== null) {
-//     updatedStore = await fetchAndWait(ctx.store, token);
-//     console.log(updatedStore);
-//   }
-//   const pageProps = updatedStore ? updatedStore.auth : {};
-//   return { pageProps };
-// };
 
 App.propTypes = {
   Component: PropTypes.elementType.isRequired,

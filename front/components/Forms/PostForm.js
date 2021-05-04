@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Input, Modal } from "antd";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,9 +72,9 @@ const PostForm = () => {
     setUserText(e.target.value);
   };
 
-  const showModal = () => {
+  const showModal = useCallback(() => {
     setIsModalVisible(true);
-  };
+  }, []);
 
   // 글 작성시 text,photo 정보를 dispatch하고, 모달을 닫는 함수 (handleOk)
   const handleOk = () => {
@@ -97,13 +97,13 @@ const PostForm = () => {
     }
   };
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsModalVisible(false);
-  };
+  }, []);
 
-  const onPhotoUpload = () => {
+  const onPhotoUpload = useCallback(() => {
     fileRef.current.click();
-  };
+  }, []);
 
   // data: 프리뷰할때 미리보기 될 사진 배열
   // fileList: 실제로 서버에 올라가는 사진 배열
@@ -114,7 +114,6 @@ const PostForm = () => {
 
   const previewAndUpdatePhoto = (fileList) => {
     // fileList = e.target.files;
-
     for (let i = 0; i < fileList.length; i++) {
       let reader = new FileReader();
       reader.readAsDataURL(fileList[i]);
@@ -125,7 +124,6 @@ const PostForm = () => {
         setPreviewImageUrl(Object.assign([], data));
       };
     }
-
     setUserPhoto(fileList);
   };
 

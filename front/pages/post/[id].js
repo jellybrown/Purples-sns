@@ -98,11 +98,11 @@ const Post = () => {
 
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
-  });
+  }, []);
 
-  const onChange = useCallback((e) => {
+  const onChange = (e) => {
     setText(e.target.value);
-  });
+  };
 
   const onAddComment = () => {
     setEnteredFirst(false);
@@ -125,10 +125,7 @@ const Post = () => {
     }
   }, [thisPost.comments]);
 
-  const isMyPost = useCallback(() => thisPost.writer?._id === user._id, [
-    thisPost,
-    user,
-  ]);
+  const isMyPost = () => thisPost.writer?._id === user._id;
 
   return (
     <LightColorBg>

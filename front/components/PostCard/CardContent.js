@@ -63,15 +63,16 @@ const CardContent = ({ post }) => {
 
   const onToggleComment = useCallback(() => {
     setCommented((prev) => !prev);
-  });
+  }, []);
 
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
-  });
-  const isFollowing = useCallback(() => {
+  }, []);
+
+  const isFollowing = () => {
     if (currentFollows.length === 0) return false;
     return currentFollows.some((follows) => follows.follow._id === _id);
-  }, [currentFollows]);
+  };
 
   return (
     <ContentWrapper ref={contentRef}>
@@ -81,7 +82,6 @@ const CardContent = ({ post }) => {
           writerName={writerName}
           postId={post._id}
         />
-
         <span className="icon-item">
           {commented ? (
             <RiChat2Fill onClick={onToggleComment} />
