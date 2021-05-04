@@ -134,7 +134,8 @@ router.post(
       result.name = userName;
 
       // 프로필 이미지 변경을 위해 파일이 함께 넘어왔을 경우에만 MongoDB Document 내 URL 값 설정
-      if (req.file !== null) {
+      console.log("error", req.file);
+      if (req.file !== null && req.file !== undefined) {
         result.profileImageUrl = req.file.location;
       }
 

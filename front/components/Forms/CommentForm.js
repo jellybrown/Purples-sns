@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addComment } from "../../redux/PostSlice";
@@ -25,7 +25,7 @@ const CommentInputWrapper = styled.div`
   }
 `;
 
-const CommentForm = ({ post }) => {
+const CommentForm = ({ post, scrollRef }) => {
   const [text, setText] = useState("");
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -34,8 +34,8 @@ const CommentForm = ({ post }) => {
     setText(e.target.value);
   };
 
-  const onAddComment = () => {
-    dispatch(
+  const onAddComment = async () => {
+    await dispatch(
       addComment({
         contents: text,
         userId: user._id,
@@ -44,6 +44,13 @@ const CommentForm = ({ post }) => {
       })
     );
     setText("");
+
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
   };
 
   return (

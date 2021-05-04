@@ -1,10 +1,11 @@
+import React, { useCallback, useRef } from "react";
 import { Card, Avatar } from "antd";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
 import { timeAgo } from "../../utils/timeAgo";
 import { useRouter } from "next/router";
 import useMediaQuery from "../../utils/useMediaQuery";
-import { useCallback } from "react";
+import { FaUserCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 const CommentsWrapper = styled.div`
@@ -61,6 +62,7 @@ const CommentMeta = styled(Card.Meta)`
 const CardComment = ({ post }) => {
   const { comments } = post;
   const router = useRouter();
+  const scrollRef = useRef(null);
 
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
@@ -92,7 +94,20 @@ const CardComment = ({ post }) => {
               <li className="comment-item">
                 <CommentMeta
                   avatar={
-                    <Avatar size="small" src={comment.writer.profileImageUrl} />
+                    comment.writer.profileImageUrl ? (
+                      <Avatar
+                        size="small"
+                        src={comment.writer.profileImageUrl}
+                      />
+                    ) : (
+                      <FaUserCircle
+                        style={{
+                          display: "block",
+                          width: "auto",
+                          height: "24px",
+                        }}
+                      />
+                    )
                   }
                   title={comment.writer.name}
                 />
@@ -103,8 +118,9 @@ const CardComment = ({ post }) => {
               </li>
             );
           })}
+        <div ref={scrollRef}></div>
       </ul>
-      <CommentForm post={post} />
+      <CommentForm post={post} scrollRef={scrollRef} />
     </CommentsWrapper>
   );
 };
