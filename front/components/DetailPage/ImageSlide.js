@@ -12,6 +12,7 @@ const SlideWrapper = styled.section`
   overflow: hidden;
   position: relative;
   padding-top: 60px;
+
   .image__wrapper {
     overflow: hidden;
     position: relative;

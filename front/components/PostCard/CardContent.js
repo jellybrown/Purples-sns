@@ -57,7 +57,6 @@ const CardContent = ({ post }) => {
   const isMine = () => _id === currentUser;
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [opendModal, setOpendModal] = useState(false);
   const contentRef = useRef();
   const router = useRouter();
 
@@ -68,11 +67,10 @@ const CardContent = ({ post }) => {
   const onToggleLike = useCallback(() => {
     setLiked((prev) => !prev);
   });
-  const isFollowing = () => {
+  const isFollowing = useCallback(() => {
     if (currentFollows.length === 0) return false;
-    //  if (currentFollows.length === 1) return currentFollows[0].follow === _id;
     return currentFollows.some((follows) => follows.follow._id === _id);
-  };
+  }, [currentFollows]);
 
   return (
     <ContentWrapper ref={contentRef}>
