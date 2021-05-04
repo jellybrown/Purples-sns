@@ -1,11 +1,12 @@
+import React, { useCallback, useRef } from "react";
 import { Card, Avatar } from "antd";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
 import { timeAgo } from "../../utils/timeAgo";
 import { useRouter } from "next/router";
 import useMediaQuery from "../../utils/useMediaQuery";
-import React, { useCallback, useRef } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const CommentsWrapper = styled.div`
   position: absolute;
@@ -122,6 +123,10 @@ const CardComment = ({ post }) => {
       <CommentForm post={post} scrollRef={scrollRef} />
     </CommentsWrapper>
   );
+};
+
+CardComment.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
 export default CardComment;

@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import CardMoreModal from "../Modal/CardMoreModal";
 import FollowModal from "../Modal/FollowModal";
+import PropTypes from "prop-types";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -120,6 +121,10 @@ const CardContent = ({ post }) => {
       )}
     </ContentWrapper>
   );
+};
+
+CardContent.propTypes = {
+  post: PropTypes.object.isRequired,
 };
 
 export default CardContent;

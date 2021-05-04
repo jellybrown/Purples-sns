@@ -22,6 +22,7 @@ const ProfileForm = styled.form`
   width: 40%;
   min-width: 300px;
   max-width: 400px;
+
   .item__wrapper {
     position: relative;
     padding: 7px 0;
