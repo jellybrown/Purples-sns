@@ -89,7 +89,7 @@ export const authSlice = createSlice({
       state.userId = null;
       state.userRole = null;
       state.isAuthenticated = false;
-      Router.push("/login");
+      Router.reload();
     },
     decreaseFollowCount: (state, { payload }) => {
       state.user.followCount -= 1;
