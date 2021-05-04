@@ -37,10 +37,11 @@ const ContentWrapper = styled.div`
     color: #a3a3a3;
   }
   .text {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     padding-top: 1.3em;
     padding-left: 1em;
     cursor: pointer;
+    font-family: "Noto Sans KR", sans-serif;
   }
 `;
 

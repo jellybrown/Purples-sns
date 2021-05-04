@@ -12,6 +12,7 @@ const CommentsWrapper = styled.div`
   width: 100%;
   min-height: 200px;
   max-height: 800px;
+
   .comment-count {
     font-size: 0.85rem;
     margin-bottom: 1.3em;
@@ -30,12 +31,14 @@ const CommentsWrapper = styled.div`
   .comment-item {
     display: flex;
     align-items: center;
+    padding-top: 3px;
     padding-bottom: 0.8em;
     cursor: pointer;
+    font-family: "Noto Sans KR", sans-serif;
   }
   .comment-text {
     margin-left: 1em;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
   .comment-date {
     margin-left: 20px;
@@ -49,13 +52,18 @@ const CommentMeta = styled(Card.Meta)`
   align-items: center;
   overflow: visible;
   .ant-card-meta-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 `;
 
 const CardComment = ({ post }) => {
   const { comments } = post;
   const router = useRouter();
+
+  const changeOverComment = (content) => {
+    if (content.length < 7) return content;
+    return content.split("").slice(0, 6).join("") + " ···";
+  };
 
   return (
     <CommentsWrapper>
@@ -74,7 +82,9 @@ const CardComment = ({ post }) => {
                   }
                   title={comment.writer.name}
                 />
-                <span className="comment-text">{comment.contents}</span>
+                <span className="comment-text">
+                  {changeOverComment(comment.contents)}
+                </span>
                 <span className="comment-date">{timeAgo(comment.date)}</span>
               </li>
             );

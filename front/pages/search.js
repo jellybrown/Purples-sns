@@ -23,7 +23,6 @@ const SearchLists = styled.div`
     border: 1px solid #cfcfcf;
     cursor: pointer;
   }
-
   img {
     height: 130%;
     min-height: 100%;
@@ -42,10 +41,6 @@ const Search = () => {
     (state) => state.post.searchResult
   );
   let posts;
-
-  // useEffect(() => {
-  //   dispatch(getAllPost());
-  // }, []);
 
   useEffect(() => {
     keyword && dispatch(searchPost({ keyword, token }));

@@ -106,7 +106,11 @@ const PostCards = () => {
           <Alert
             message="마지막 포스트입니다."
             type="info"
-            style={{ maxWidth: "500px" }}
+            style={{
+              maxWidth: "500px",
+              fontFamily: "Noto Sans KR",
+              fontSize: "12px",
+            }}
           />
         </div>
       ) : (

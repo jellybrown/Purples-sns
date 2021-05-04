@@ -129,7 +129,7 @@ const Profile = () => {
     console.log(body);
 
     dispatch(updateUser(body));
-    message.info("수정 입력", 1);
+    // message.info("수정 입력", 1);
   };
 
   return (

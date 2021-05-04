@@ -138,7 +138,6 @@ const Post = () => {
   const sliderRef = useRef();
 
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
-  const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [text, setText] = useState("");

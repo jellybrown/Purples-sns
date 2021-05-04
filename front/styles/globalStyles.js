@@ -35,8 +35,18 @@ const GlobalStyles = createGlobalStyle`
   .ant-menu-item a:hover {
     color:rgba(0, 0, 0, 0.85) !important;
   }
+  .ant-menu-item-selected a, 
+  .ant-menu-item-selected a:hover,
+  .ant-menu-item-active {
+    color:rgba(0, 0, 0, 0.85) !important;
+  }
   .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: #fff !important;
+  }
+  .ant-alert.ant-alert-info {
+    background-color:rgba(255,255,255,0.3);
+    border:1px solid #aab2e3;
+    border-radius:17px;
   }
   .slick-dots {
     margin-bottom: 40px !important;
@@ -52,8 +62,6 @@ const GlobalStyles = createGlobalStyle`
       height: 250px;
     }
   }
-
- 
   .custom__modal {
     width: 270px !important; 
     .anticon svg {

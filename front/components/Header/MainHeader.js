@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import Logo from "../Logo";
 import Link from "next/link";
@@ -49,7 +49,7 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-const MainHeader = () => {
+const MainHeader = memo(() => {
   const router = useRouter();
   const isMainSection = () => router.pathname === "/";
   const [secondMenuY, setSecondMenuY] = useState(false);
@@ -85,6 +85,5 @@ const MainHeader = () => {
       )
     </HeaderWrapper>
   );
-};
-
+});
 export default MainHeader;
