@@ -28,6 +28,10 @@ const SignupWrapper = styled.form`
   width: 40%;
   min-width: 300px;
   max-width: 400px;
+
+  .input__wrapper {
+    position: relative;
+  }
   .signup__icon {
     font-size: 1.4rem;
     position: absolute;
@@ -84,7 +88,7 @@ const SignupForm = () => {
       {errors.email?.type === "maxLength" && (
         <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
       )}
-      <InputWrapper>
+      <div className="input__wrapper">
         <BsFillPersonFill className="signup__icon" />
         <Input
           name="name"
@@ -94,14 +98,14 @@ const SignupForm = () => {
             minLength: 2,
           })}
         />
-      </InputWrapper>
+      </div>
       {errors.name?.type === "required" && (
         <ErrorMessage>닉네임을 입력해주세요.</ErrorMessage>
       )}
       {errors.name?.type === "minLength" && (
         <ErrorMessage>닉네임은 2자이상 입력해주세요.</ErrorMessage>
       )}
-      <InputWrapper>
+      <div className="input__wrapper">
         <HiLockClosed className="signup__icon" />
         <Input
           name="password"
@@ -109,14 +113,14 @@ const SignupForm = () => {
           placeholder="Password..."
           ref={register({ required: true, minLength: 6 })}
         />
-      </InputWrapper>
+      </div>
       {errors.password?.type === "required" && (
         <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
       )}
       {errors.password?.type === "minLength" && (
         <ErrorMessage>비밀번호는 6자이상 입력해주세요.</ErrorMessage>
       )}
-      <InputWrapper>
+      <div className="input__wrapper">
         <HiLockClosed className="signup__icon" />
         <Input
           name="confirm_password"
@@ -128,7 +132,7 @@ const SignupForm = () => {
             validate: (value) => value === password.current,
           })}
         />
-      </InputWrapper>
+      </div>
       {errors.confirm_password?.type === "required" && (
         <ErrorMessage>비밀번호 확인이 필요합니다.</ErrorMessage>
       )}
