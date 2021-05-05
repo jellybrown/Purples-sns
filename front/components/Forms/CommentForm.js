@@ -72,6 +72,7 @@ const CommentForm = ({ post, scrollRef }) => {
 
 CommentForm.propTypes = {
   post: PropTypes.object.isRequired,
+  scrollRef: PropTypes.object.isRequired,
 };
 
 export default CommentForm;

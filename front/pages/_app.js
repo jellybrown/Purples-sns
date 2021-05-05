@@ -24,7 +24,7 @@ const App = ({ Component, pageProps }) => {
     <>
       <Head>
         <title>Purples</title>
-        <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/static/purples-c.png" />
       </Head>
       <GlobalStyles />
       <Component {...pageProps} />
