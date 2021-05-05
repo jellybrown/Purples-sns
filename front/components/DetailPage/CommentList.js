@@ -5,10 +5,14 @@ import styled from "styled-components";
 import { removeComment } from "../../redux/PostSlice";
 import { timeAgo } from "../../utils/timeAgo";
 import PropTypes from "prop-types";
+import { FaUserCircle } from "react-icons/fa";
 
 const CommentsWrapper = styled(List)`
   .ant-list-item-meta-title {
     margin-bottom: 0;
+  }
+  .ant-list-item-meta-avatar {
+    height: 32px;
   }
   .ant-list-item-meta {
     align-items: center;
@@ -60,7 +64,13 @@ const CommentList = memo(({ thisPost, user }) => {
         <List.Item key={item._id}>
           <List.Item.Meta
             title={<span>{item.writerName}</span>}
-            avatar={<Avatar src={item.writer.profileImageUrl} />}
+            avatar={
+              item.writer.profileImageUrl ? (
+                <Avatar src={item.writer.profileImageUrl} />
+              ) : (
+                <FaUserCircle style={{ fontSize: "32px" }} />
+              )
+            }
           />
           <div className="comment-item">
             <div className="comment-content">

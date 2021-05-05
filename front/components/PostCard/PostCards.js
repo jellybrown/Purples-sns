@@ -115,6 +115,7 @@ const PostCards = () => {
             type="info"
             style={{
               maxWidth: "500px",
+              minWidth: "140px",
               width: "93%",
               fontFamily: "Noto Sans KR",
               fontSize: "12px",

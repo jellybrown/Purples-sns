@@ -31,7 +31,7 @@ const UserMenu = () => {
   const handleLogoutClick = useCallback(() => {
     dispatch(logout());
     message.info("로그아웃에 성공하였습니다.", 1);
-  ,[]);
+  });
 
   const loggedIn = true;
 
