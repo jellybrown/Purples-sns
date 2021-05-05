@@ -15,7 +15,6 @@ const router = express.Router();
 // @desc    로그인 API
 // @access  public
 router.post("/", (req, res) => {
-  console.log("login 시도");
   const { email, password } = req.body;
 
   // email이나 password 값이 넘어오지 않았을 경우 400 error response 응답 처리.
@@ -68,7 +67,6 @@ router.post("/logout", (req, res) => {
 // @access  public
 router.get("/user", auth, async (req, res) => {
   try {
-    console.log("----- auth POST api ---");
     // middleware auth를 통해 설정된 req.user.id에 대해 MongoDB 검색
     // lean() method를 통해 결과 값을 변경할 수 있도록 함.
     let user = await User.findById(req.user.id).select("-password").lean();
@@ -86,21 +84,14 @@ router.get("/user", auth, async (req, res) => {
       "user",
       "follow",
     ]);
-
-    console.log("user data", user);
-    console.log("follower/follow count: ", followerCount, ", ", followCount);
-
     // user object에 follow, follower, token 정보를 담는다.
     user.followCount = followCount;
     user.followerCount = followerCount;
     user.follows = follows;
     user.followers = followers;
     user.token = req.header("x-auth-token");
-
-    console.log("resultUser", user);
     res.json(user);
   } catch (e) {
-    console.log(e);
     res.status(400).json({ msg: e.message });
   }
 });

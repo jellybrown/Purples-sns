@@ -91,18 +91,6 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       Router.reload();
     },
-    decreaseFollowCount: (state, { payload }) => {
-      state.user.followCount -= 1;
-      console.log("payload is ", payload);
-      state.user.follows = state.user.follows.filter(
-        (followItem) => followItem.follow.email !== payload
-      );
-    },
-    increaseFollowCount: (state, { payload }) => {
-      state.user.followCount += 1;
-      console.log("inc", payload);
-      // state.user.follows.push(payload);
-    },
   },
   extraReducers: {
     // updateUser
@@ -180,7 +168,6 @@ export const authSlice = createSlice({
  */
 // -> 클래스로 묶기
 export const setCookie = (key, value) => {
-  console.log(value);
   if (process.browser) {
     cookie.set(key, value, {
       expires: 1,

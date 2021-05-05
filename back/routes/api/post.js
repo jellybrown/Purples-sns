@@ -76,8 +76,6 @@ router.get("/skip", async (req, res) => {
   try {
     // MongoDB의 Posts collection 도큐먼트 수
     const postCount = await Post.countDocuments();
-
-    console.log("skip API req.query is ", req.query);
     let postFindResult;
     if (req.query.filter === "All") {
       // Request Parameter로 받은 skip 수만큼 skip 후,
@@ -141,7 +139,6 @@ router.get("/skip", async (req, res) => {
     const result = { postFindResult, postCount };
     res.json(result);
   } catch (e) {
-    console.log(e);
     res.json({ msg: "포스트가 없습니다." });
   }
 });
@@ -154,7 +151,6 @@ router.get("/skip", async (req, res) => {
 router.post("/", auth, uploadS3.array("image[]", 5), async (req, res, next) => {
   try {
     // AWS S3에 업로드한 이미지 파일들의 URL 정보를 출력 확인. (uploadS3 미들웨어를 통해 이미지는 올라간 상태)
-    console.log(req.files.map((v) => v.location));
     const imageUrls = req.files.map((v) => v.location);
     const { contents, writer } = req.body; //request body에서 contents(포스트 내용)과 writer(작성자) 정보를 받아온다.
 
@@ -194,8 +190,6 @@ router.get("/:id", async (req, res, next) => {
         populate: { path: "writer" },
       });
     post.save();
-
-    console.log("Detail Post: ", post);
     return res.json(post); // 찾은 Post Document를 결과값으로 응답.
   } catch (e) {
     console.error(e);
@@ -215,7 +209,6 @@ router.get("/:id/comments", async (req, res) => {
       path: "comments",
     });
     const result = comment.comments;
-    console.log(result, "comment load");
     res.json(result); // 결과값으로 댓글 정보 JSON 응답
   } catch (e) {
     console.log(e);
@@ -361,14 +354,12 @@ router.post("/:id/edit", auth, async (req, res, next) => {
  */
 router.get("/search/:searchTerm", auth, async (req, res, next) => {
   try {
-    console.log(req.params.searchTerm);
     const result = await Post.find({
       contents: {
         $regex: req.params.searchTerm,
         $options: "i",
       },
     }).populate({ path: "posts" });
-    console.log("search post ", result);
     res.send(result);
   } catch (e) {
     console.log(e);

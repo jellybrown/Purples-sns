@@ -14,7 +14,6 @@ router.get("/", auth, async (req, res, next) => {
   try {
     // 요청자가 팔로잉하고 있는 정보 검색.
     const following = await Follow.find({ user: req.user.id });
-    console.log("searchTerm following: ", following);
 
     // 요청자를 제외한 전체 사용자 검색.
     const result = await User.find({ _id: { $ne: req.user.id } })
@@ -46,11 +45,9 @@ router.get("/", auth, async (req, res, next) => {
  */
 router.get("/:searchTerm", auth, async (req, res, next) => {
   // 검색조건 확인용 로그
-  console.log(req.params.searchTerm);
   try {
     // 요청자가 팔로잉하고 있는 정보 검색.
     const following = await Follow.find({ user: req.user.id });
-    console.log("searchTerm following: ", following);
 
     // 요청자를 제외한 전체 사용자 검색. (검색조건으로 넘어온 값에 일치하는 사용자만 검색)
     const result = await User.find({
@@ -72,8 +69,6 @@ router.get("/:searchTerm", auth, async (req, res, next) => {
         }
       }
     }
-    console.log(result, "Search result");
-
     // 결과 정보 응답
     res.send(result);
   } catch (e) {

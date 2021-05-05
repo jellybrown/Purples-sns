@@ -20,7 +20,6 @@ router.get("/getFollowingList", auth, async (req, res) => {
     // 200code(success)와 함께 팔로잉 데이터 응답.
     res.status(200).json(following);
   } catch (e) {
-    console.log(e);
     res.status(400).json({ msg: e.message });
   }
 });
@@ -38,7 +37,6 @@ router.get("/getFollowerList", auth, async (req, res) => {
     // 200code(success)와 함께 팔로워 데이터 응답.
     res.status(200).json(follower);
   } catch (e) {
-    console.log(e);
     res.status(400).json({ msg: e.message });
   }
 });
@@ -61,8 +59,6 @@ router.post("/addFollow", auth, async (req, res) => {
           .status(400)
           .json({ msg: "팔로우할 유저가 존재하지 않습니다." });
 
-      console.log("findUser is ", user);
-
       // 이미 팔로우 하고 있는 사용자인지 확인하기 위해 MongoDB follows collection 체크.
       const findResult = await Follow.findOne({
         user: req.user.id,
@@ -82,7 +78,6 @@ router.post("/addFollow", auth, async (req, res) => {
       return res.status(200).json({ ...user._doc, isFollowing: true });
     });
   } catch (e) {
-    console.log(e);
     res.status(400).json({ msg: e.message });
   }
 });
@@ -116,7 +111,6 @@ router.post("/removeFollow", auth, async (req, res) => {
       return res.status(200).json({ ...user._doc, isFollowing: false });
     });
   } catch (e) {
-    console.log(e);
     res.status(400).json({ msg: e.message });
   }
 });

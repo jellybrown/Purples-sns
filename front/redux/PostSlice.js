@@ -100,8 +100,6 @@ export const removePost = createAsyncThunk(
         },
       };
     }
-    console.log("payload is ", payload);
-
     return axios.delete(`/api/post/${payload.id}`, config);
   }
 );
@@ -217,11 +215,9 @@ export const postSlice = createSlice({
       state.loading = true;
     },
     [addComment.fulfilled]: (state, { payload }) => {
-      console.log("----FULLFILL", payload);
       const targetPost = state.posts.filter(
         (post) => post._id === payload.data.post
       )[0];
-      console.log("targetPost is ", targetPost);
 
       targetPost?.comments?.push(payload.data); // 메인화면 커멘트 업데이트
       state.thisPost?.comments?.push(payload.data); // 상세피이지 커멘트 업데이트

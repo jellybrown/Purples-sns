@@ -127,8 +127,6 @@ const Profile = () => {
       userId: _id,
       token,
     };
-    console.log(body);
-
     dispatch(updateUser(body));
     // message.info("수정 입력", 1);
   };

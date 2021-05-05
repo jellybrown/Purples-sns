@@ -12,11 +12,6 @@ axios.defaults.baseURL = getConfig().publicRuntimeConfig.apiServerUrl;
 // 나중에 기존 index파일 삭제하고, 이 파일 이름 변경해야함 2021.03.19
 export const reducer = (state = {}, action) => {
   if (action.type === HYDRATE) {
-    // console.log("HYDRATE", action);
-    console.log("---------STATE-----");
-    console.log(state);
-    console.log("---------ACTION-----");
-    console.log({ ...action.payload });
     return {
       ...state,
       ...action.payload,

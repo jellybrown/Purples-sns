@@ -46,7 +46,6 @@ const Search = () => {
   }, [dispatch, keyword]);
 
   const onClickPost = (postId) => {
-    console.log(postId);
     Router.push(`/post/${postId}`);
   };
 

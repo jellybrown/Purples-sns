@@ -10,7 +10,6 @@ const initialState = {
 export const searchUser = createAsyncThunk(
   "user/searchUser",
   async (payload) => {
-    console.log(payload);
     const config = {
       headers: {
         "Content-Type": "application/json",
