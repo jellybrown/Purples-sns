@@ -21,7 +21,7 @@ const PostCards = () => {
   };
 
   const antIcon = (
-    <LoadingOutlined style={{ fontSize: 30, color: "#aab2e3" }} spin />
+    <LoadingOutlined style={{ fontSize: 80, color: "#aab2e3" }} spin />
   );
 
   // post filter가 변경됐을 때의 콜백
@@ -104,8 +104,11 @@ const PostCards = () => {
           <CardContent post={post} />
         </Card>
       ))}
-      <div ref={lastPostElementRef}>
-        {loading && <Spin indicator={antIcon} />}
+      <div
+        ref={lastPostElementRef}
+        style={{ textAlign: "center", maxWidth: "500px", padding: "50px 0" }}
+      >
+        {<Spin indicator={antIcon} />}
       </div>
       {loading ? (
         ""
