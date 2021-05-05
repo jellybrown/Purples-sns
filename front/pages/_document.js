@@ -26,12 +26,10 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           {this.props.styleTags}
-
-          <meta name="theme-color" content="#ffffff" />
           <meta charSet="utf-8" />
           <meta
             name="keywords"
-            content="sns,purples,instagram,twitter,인스타그램,트위터,친구,사진첩"
+            content="sns,purples,instagram,twitter,인스타그램,트위터,친구,사진첩,kimyujin,parkjeongjin,김유진,박정진"
           />
           <meta
             name="description"
