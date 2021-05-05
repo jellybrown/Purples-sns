@@ -9,6 +9,7 @@ import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
 import { getCookie, updateUser, userLoading } from "../redux/AuthSlice";
 import { wrapper } from "../redux/store";
+import { FaUserCircle } from "react-icons/fa";
 
 const Title = styled.h1`
   text-align: center;
@@ -128,7 +129,16 @@ const Profile = () => {
       token,
     };
     dispatch(updateUser(body));
-    // message.info("수정 입력", 1);
+    Router.push("/profile");
+  };
+
+  const loadImage = () => {
+    if (profileImageUrl && !previewProfileImage) return profileImageUrl;
+    else if (previewProfileImage) return previewProfileImage;
+    else
+      return (
+        <FaUserCircle style={{ fontSize: "220px", color: "rgba(0,0,0,0.8)" }} />
+      );
   };
 
   return (
@@ -139,7 +149,7 @@ const Profile = () => {
           <Avatar
             className="profile__image"
             size={220}
-            src={previewProfileImage}
+            src={loadImage()}
             onClick={handleSelectImage}
           />
           <span className="change__letter" onClick={handleSelectImage}>
