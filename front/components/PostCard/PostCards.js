@@ -90,6 +90,7 @@ const PostCards = () => {
     <>
       {posts.map((post) => (
         <Card
+          key={post._id}
           style={{
             maxWidth: "500px",
             width: "93%",

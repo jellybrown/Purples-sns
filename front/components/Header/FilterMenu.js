@@ -61,6 +61,7 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
         {postFilter?.map((menu) => (
           <Button
             id={menu.id}
+            key={menu.id}
             onClick={() => onClickMenu(menu)}
             type="link"
             style={{
