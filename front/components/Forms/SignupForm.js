@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FiMail } from "react-icons/fi";
-import { BsFillPersonFill } from "react-icons/Bs";
-import { HiLockClosed } from "react-icons/Hi";
+import { BsFillPersonFill } from "react-icons/bs";
+import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
 import Input from "../../styles/input";

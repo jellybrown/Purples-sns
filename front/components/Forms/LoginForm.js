@@ -1,6 +1,6 @@
 import React from "react";
 import { FiMail } from "react-icons/fi";
-import { HiLockClosed } from "react-icons/Hi";
+import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import Input from "../../styles/input";
 import styled from "styled-components";
