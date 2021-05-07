@@ -14,6 +14,7 @@ const SearchInput = styled.input`
   &::placeholder {
     color: #c7c7c7;
   }
+  -webkit-appearance: none;
 `;
 const IconWrapper = styled.div`
   display: flex;

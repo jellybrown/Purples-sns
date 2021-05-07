@@ -7,6 +7,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spin } from "antd";
 import { loadPost } from "../../redux/PostSlice";
 import { LoadingOutlined } from "@ant-design/icons";
+import styled from "styled-components";
+import useMediaQuery from "../../utils/useMediaQuery";
+
+const CardWrapper = styled.div`
+  width: 100%;
+  .post-card {
+    max-width: 500px;
+    width: 93%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 70px;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+  }
+`;
 
 const PostCards = () => {
   const { posts, loading, postCount, postFilter } = useSelector(
@@ -14,6 +32,7 @@ const PostCards = () => {
   );
   const { userId, follows, followers } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
   const getActiveFilterName = () => {
     const activeFilter = postFilter.filter((menu) => menu.active);
@@ -87,18 +106,12 @@ const PostCards = () => {
   });
 
   return (
-    <>
+    <CardWrapper>
       {posts.map((post) => (
         <Card
+          className="post-card"
+          style={{ margin: !isDesktopOrLaptop && "0 auto 50px" }}
           key={post._id}
-          style={{
-            maxWidth: "500px",
-            width: "93%",
-            borderRadius: "30px",
-            overflow: "hidden",
-            boxShadow: "3px 3px 20px rgba(0,0,0,0.05)",
-            marginBottom: "70px",
-          }}
           cover={<PostCardImg images={post.imageUrls} />}
         >
           <CardContent post={post} />
@@ -129,7 +142,7 @@ const PostCards = () => {
       ) : (
         ""
       )}
-    </>
+    </CardWrapper>
   );
 };
 
