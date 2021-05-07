@@ -28,6 +28,26 @@ const GlobalStyles = createGlobalStyle`
   p,span {
     font-family: 'Noto Sans KR', sans-serif;
   }
+  .ant-modal-confirm-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .ant-modal-confirm-body .ant-modal-confirm-content {
+    margin-top: 0 !important;
+  }
+  .ant-modal-confirm-body-wrapper {
+    padding-bottom: 20px;
+  }
+  .ant-modal-confirm-btns {
+    display: none;
+  }
+  .anticon-check-circle {
+    color: #aab2e3 !important;
+    padding-right: 10px;
+    transform: scale(1.2);
+  }
   .ant-btn.write-btn:hover,
   .ant-btn.write-btn:focus {
     background: #aab2e3;

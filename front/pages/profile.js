@@ -3,7 +3,7 @@ import Layout from "../styles/layout";
 import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { message } from "antd";
+import { Modal } from "antd";
 import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
@@ -120,6 +120,21 @@ const Profile = () => {
     });
   }, []);
 
+  const countDown = () => {
+    let secondsToGo = 1.5;
+    const modal = Modal.success({
+      content: "프로필 수정에 성공했습니다.",
+    });
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(timer);
+      modal.destroy();
+      Router.push("/");
+    }, secondsToGo * 1000);
+  };
+
   const onSubmit = () => {
     const body = {
       profileImage: form.profileImage,
@@ -129,7 +144,7 @@ const Profile = () => {
       token,
     };
     dispatch(updateUser(body));
-    Router.push("/profile");
+    countDown();
   };
 
   const loadImage = () => {
