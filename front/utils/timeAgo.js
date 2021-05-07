@@ -42,7 +42,7 @@ export const timeAgo = (time) => {
     list_choice = 2;
   }
   let i = 0;
-  let format;
+  let format = null;
   while ((format = time_formats[i++]))
     if (seconds < format[0]) {
       if (typeof format[2] == "string") return format[list_choice];
