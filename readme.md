@@ -6,9 +6,9 @@
 
 <br>
 
-- twitter, instagram과 같은 소셜 네트워크 서비스 <br>
+- 소셜 네트워크 서비스 (SNS) <br>
 - 발랄한 느낌 어필을 위해 보라색 그라데이션 이용 <br>
-- 어플리케이션의 이름은 people(s) + purple을 합쳐 purples로 결정<br>
+- 보라색 purple + 사람들 people(s)를 합쳐 purples로 결정<br>
 
 <br>
 
@@ -16,7 +16,7 @@
 
 <br>
 
-- 2021.01.01 ~ 04.30 (front 1인, back 1인), 1차 완성
+- 2021.01.01 ~ 04.30 (front 1인, back 1인) / 1차 완성
 
 <br>
 
@@ -30,15 +30,17 @@
 
 - React
 
-- next.js
+- next
 
-- Redux, Redux-saga --> Redux-toolkit 으로 변경
+- Redux, Redux-saga -> Redux-toolkit
+
+- styled-components
+
+- ant-design, slick, react-reponsive : css 관련
 
 - React-hook-form : 유효성 검사
 
-- React-reponsive : PC/모바일 화면을 다르게 하기위해 이용
-
-- design library (ant-design)
+- React-reponsive : PC/모바일 화면 구분
 
 <br>
 
@@ -46,42 +48,45 @@
 
 <br>
 
-📦 back<br>
-📦 front<br>
-┣ 📂 components<br>
-┃ ┣ 📂 DetailPage<br>
-┃ ┣ 📂 Forms<br>
-┃ ┣ 📂 Header<br>
-┃ ┣ 📂 Modal<br>
-┃ ┣ 📂 PostCard<br>
-┃ ┗ 📜 (...rest components).js<br>
-┣ 📂 pages<br>
-┃ ┣ 📂 post<br>
-┃ ┣ 📜 \_app.js<br>
-┃ ┣ 📜 \_document.js<br>
-┃ ┣ 📜 \_error.js<br>
-┃ ┗ 📜 (...rest pages).js<br>
-┣ 📂 public <br>
-┃ ┗ 📂 static<br>
-┃ . ┗ 📜 icon.png<br>
-┣ 📂 redux<br>
-┃ ┣ 📜 AuthSlice.js<br>
-┃ ┣ 📜 index.js<br>
-┃ ┣ 📜 PostSlice.js<br>
-┃ ┣ 📜 store.js<br>
-┃ ┗ 📜 UserSlice.js<br>
-┣ 📂 styles<br>
-┃ ┣ 📜 aTag.js<br>
-┃ ┣ 📜 bg.js<br>
-┃ ┣ 📜 button.js<br>
-┃ ┣ 📜 globalStyles.js<br>
-┃ ┣ 📜 input.js<br>
-┃ ┣ 📜 layout.js<br>
-┃ ┗ 📜 slickArrow.js<br>
-┣ 📂 utils<br>
-┃ ┣ 📜 dynamicSort.js<br>
-┃ ┣ 📜 timeAgo.js<br>
-┃ ┗ 📜 useMediaQuery.js<br>
+```
+📦 back
+📦 front
+┣ 📂 components
+┃ ┣ 📂 DetailPage
+┃ ┣ 📂 Forms
+┃ ┣ 📂 Header
+┃ ┣ 📂 Modal
+┃ ┣ 📂 PostCard
+┃ ┗ 📜 (...rest components).js
+┣ 📂 pages
+┃ ┣ 📂 post
+┃   ┗ 📜 [id].js
+┃ ┣ 📜 _app.js
+┃ ┣ 📜 _document.js
+┃ ┣ 📜 _error.js
+┃ ┗ 📜 (...rest pages).js
+┣ 📂 public
+┃ ┗ 📂 static
+┃   ┗ 📜 icon.png
+┣ 📂 redux
+┃ ┣ 📜 AuthSlice.js
+┃ ┣ 📜 index.js
+┃ ┣ 📜 PostSlice.js
+┃ ┣ 📜 store.js
+┃ ┗ 📜 UserSlice.js
+┣ 📂 styles
+┃ ┣ 📜 aTag.js
+┃ ┣ 📜 bg.js
+┃ ┣ 📜 button.js
+┃ ┣ 📜 globalStyles.js
+┃ ┣ 📜 input.js
+┃ ┣ 📜 layout.js
+┃ ┗ 📜 slickArrow.js
+┣ 📂 utils
+┃ ┣ 📜 dynamicSort.js
+┃ ┣ 📜 timeAgo.js
+┃ ┗ 📜 useMediaQuery.js
+```
 
 <br>
 
@@ -265,8 +270,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 <br>
 
-- 프로젝트를 진행하며 오류나 개선사항에 대해 말로 하기보다는 분류해서 같이 볼 수 있다면 좋겠다는 생각이 들어
-  노션에 정리하여 공유하며 문제를 해결하려 했습니다.
+- 프로젝트를 진행하며 오류나 개선사항에 대해 같이 볼 수 있다면 좋겠다는 생각이 들어 노션에 정리하여 공유했습니다.
 
 <br>
 
@@ -339,11 +343,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 ### 2. 다른 사람과의 협업
 
-제가 앞으로 보완해야 할 점들을 몸소 깨달았습니다. <br>
+제가 앞으로 보완해야 할 점들을 깨달았습니다. <br>
 아직 부족하지만 공부하며 아래와 같은 점들을 하나씩 실천해나갈 생각입니다.<br>
 
 - 제안하고자 하는 기술에 대한 이해도<br>
-- 프로젝트 사전 세부 계획 (문서화 하기)<br>
+- 프로젝트 세부 계획/ 진행상황 체크 (문서화 하기)<br>
 
 <br>
 
@@ -353,7 +357,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 터미널에서 에러를 읽는 것은 어렵지 않았지만, <br>
 모르는 것들을 영어로 검색 해야하는데 장문의 문장들은 이해하기 힘들었습니다.<br>
 앞으로 API문서와 블로그 읽기를 위해 꾸준히 영어공부를 할 생각입니다. <br>
-지금은 유데미와 유투브 등으로 틈틈이 개발관련 강의를 듣고있습니다.
+지금은 유데미와 유투브 등으로 틈틈이 개발 강의를 듣고있습니다.
 
 <br>
 
