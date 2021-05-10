@@ -1,4 +1,4 @@
-# Purples (진행중인 프로젝트)
+# Purples
 
 <br>
 
@@ -9,11 +9,6 @@
 - twitter, instagram과 같은 소셜 네트워크 서비스 <br>
 - 발랄한 느낌 어필을 위해 보라색 그라데이션 이용 <br>
 - 어플리케이션의 이름은 people(s) + purple을 합쳐 purples로 결정<br>
-- 프로젝트가 완성되면, readme도 같이 수정할 예정<br>
-
-<br>
-
----
 
 <br>
 
@@ -21,8 +16,11 @@
 
 <br>
 
-- 2021.01.01 ~ 04.12 (front 1인, back 1인)
-- 1차 완성
+- 2021.01.01 ~ 04.30 (front 1인, back 1인), 1차 완성
+
+<br>
+
+---
 
 <br>
 
@@ -36,13 +34,54 @@
 
 - Redux, Redux-saga --> Redux-toolkit 으로 변경
 
-- axios
-
 - React-hook-form : 유효성 검사
 
 - React-reponsive : PC/모바일 화면을 다르게 하기위해 이용
 
 - design library (ant-design)
+
+<br>
+
+## ❗️ 폴더 구조
+
+<br>
+
+📦 back<br>
+📦 front<br>
+┣ 📂 components<br>
+┃ ┣ 📂 DetailPage<br>
+┃ ┣ 📂 Forms<br>
+┃ ┣ 📂 Header<br>
+┃ ┣ 📂 Modal<br>
+┃ ┣ 📂 PostCard<br>
+┃ ┗ 📜 (...rest components).js<br>
+┣ 📂 pages<br>
+┃ ┣ 📂 post<br>
+┃ ┣ 📜 \_app.js<br>
+┃ ┣ 📜 \_document.js<br>
+┃ ┣ 📜 \_error.js<br>
+┃ ┗ 📜 (...rest pages).js<br>
+┣ 📂 public <br>
+┃ ┗ 📂 static<br>
+┃ . ┗ 📜 icon.png<br>
+┣ 📂 redux<br>
+┃ ┣ 📜 AuthSlice.js<br>
+┃ ┣ 📜 index.js<br>
+┃ ┣ 📜 PostSlice.js<br>
+┃ ┣ 📜 store.js<br>
+┃ ┗ 📜 UserSlice.js<br>
+┣ 📂 styles<br>
+┃ ┣ 📜 aTag.js<br>
+┃ ┣ 📜 bg.js<br>
+┃ ┣ 📜 button.js<br>
+┃ ┣ 📜 globalStyles.js<br>
+┃ ┣ 📜 input.js<br>
+┃ ┣ 📜 layout.js<br>
+┃ ┗ 📜 slickArrow.js<br>
+┣ 📂 utils<br>
+┃ ┣ 📜 dynamicSort.js<br>
+┃ ┣ 📜 timeAgo.js<br>
+┃ ┗ 📜 useMediaQuery.js<br>
 
 <br>
 
@@ -112,67 +151,6 @@
 <br>
 
 - 기존에 작성된 Redux, Redux-saga 코드를 Redux-toolkit으로 변경했습니다.
-
-```js
-// postReducer (삭제)
-
-const postReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case HYDRATE:
-      return { ...state, ...action.payload };
-    case ADD_POST_REQUEST:
-      return {
-        ...state,
-        addPostLoading: true,
-      };
-    case ADD_POST_SUCCESS:
-      return {
-        ...state,
-        posts: [...posts, action.payload],
-        addPostLoading: false,
-        addPostDone: true,
-      };
-    case ADD_POST_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-        addPostLoading: false,
-        addPostError: true,
-      };
-```
-
-```js
-// postSaga (삭제)
-
-const addPostAPI = (payload) => {
-  return axios.post("api/post", payload);
-};
-
-function* addPost(action) {
-  try {
-    const result = yield call(addPostAPI, action.payload);
-    yield put({
-      type: ADD_POST_SUCCESS,
-      payload: result.data,
-    });
-  } catch (err) {
-    yield put({
-      type: ADD_POST_FAILURE,
-      payload: err.response,
-    });
-  }
-}
-
-function* watchAddPost() {
-  yield takeEvery(ADD_POST_REQUEST, addPost);
-}
-
-// ...
-
-export default function* postSaga() {
-  yield all([fork(watchAddPost)], [fork(watchRemovePost)]);
-}
-```
 
 ```js
 // PostSlice (변경)
