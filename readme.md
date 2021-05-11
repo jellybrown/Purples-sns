@@ -1,5 +1,7 @@
 # Purples
 
+<a href="http://purples.jellybrown.net:8008/" target="_blank">먼저 이용하러 가기</a> (가입이 귀찮으면 맨아래로)
+
 <br>
 
 ## ❗️ 프로젝트 소개
@@ -365,3 +367,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 구현은 했지만 아직 많은 부분에서 업그레이드 해야함이 느껴집니다. <br>
 디자인도, 코드도, 기능도 차근차근 업그레이드 할 예정입니다.
+
+<br>
+
+## ❗️ 링크
+
+<br>
+
+<a href="http://purples.jellybrown.net:8008/" target="_blank">이용하러 가기</a>
+
+가입이 귀찮으면 ID: hey@naver.com / PW: 123123 으로 구경 😎
