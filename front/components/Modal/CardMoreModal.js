@@ -1,11 +1,12 @@
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { removePost } from "../../redux/PostSlice";
 import PropTypes from "prop-types";
+import useModal from "../../hooks/useModal";
 
 const ModalWrapper = styled.div`
   display: inline-block;
@@ -19,15 +20,7 @@ const MoreModal = ({ isMine, writerName, postId }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = useCallback(() => {
-    setIsModalVisible(true);
-  }, []);
-
-  const handleCancel = useCallback(() => {
-    setIsModalVisible(false);
-  }, []);
+  const [modalState, onOpenModal, onCloseModal] = useModal();
 
   const deletePost = (id) => {
     const body = {
@@ -35,19 +28,19 @@ const MoreModal = ({ isMine, writerName, postId }) => {
       id,
     };
     dispatch(removePost(body));
-    handleCancel();
+    onCloseModal();
   };
 
   return (
     <ModalWrapper>
       <span>
-        <FiMoreHorizontal className="more__icon" onClick={showModal} />
+        <FiMoreHorizontal className="more__icon" onClick={onOpenModal} />
       </span>
       <Modal
         className="custom__modal"
         footer={null}
-        visible={isModalVisible}
-        onCancel={handleCancel}
+        visible={modalState}
+        onCancel={onCloseModal}
       >
         <p className="title">이 게시물을..</p>
         <hr />
@@ -66,7 +59,7 @@ const MoreModal = ({ isMine, writerName, postId }) => {
         >
           상세페이지로
         </span>
-        <button className="more__close" onClick={handleCancel}>
+        <button className="more__close" onClick={onCloseModal}>
           닫기
         </button>
       </Modal>
