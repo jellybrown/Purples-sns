@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import CardMoreModal from "../Modal/CardMoreModal";
 import FollowModal from "../Modal/FollowModal";
 import PropTypes from "prop-types";
+import useToggle from "../../hooks/useToggle";
 
 const ContentWrapper = styled.div`
   position: relative;
@@ -55,19 +56,11 @@ const CardContent = ({ post }) => {
   const { name: writerName, profileImageUrl } = post.writer;
   const currentUser = useSelector((state) => state.auth.userId); // useSelector로 내 게시글인지 가져오기
   const currentFollows = useSelector((state) => state.auth.user.follows);
-  const isMine = () => _id === currentUser;
-  const [liked, setLiked] = useState(false);
-  const [commented, setCommented] = useState(false);
+  const [liked, onToggleLike] = useToggle();
+  const [commented, onToggleComment] = useToggle();
   const contentRef = useRef();
   const router = useRouter();
-
-  const onToggleComment = useCallback(() => {
-    setCommented((prev) => !prev);
-  }, []);
-
-  const onToggleLike = useCallback(() => {
-    setLiked((prev) => !prev);
-  }, []);
+  const isMine = () => _id === currentUser;
 
   const isFollowing = () => {
     if (currentFollows.length === 0) return false;
