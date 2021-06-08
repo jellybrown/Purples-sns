@@ -72,8 +72,8 @@ const CardComment = ({ post }) => {
   }, []);
 
   const changePcComment = useCallback((content) => {
-    if (content.length < 15) return content;
-    return content.slice(0, 14) + " ···";
+    if (content.length < 19) return content;
+    return content.slice(0, 18) + " ···";
   }, []);
 
   const checkOverLength = (content) => {
