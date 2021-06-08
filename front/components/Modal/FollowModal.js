@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { FaRegKissWinkHeart, FaRegSadCry, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import useModal from "../../hooks/useModal";
 import { userLoading } from "../../redux/AuthSlice";
 import { follow, unFollow } from "../../redux/UserSlice";
 import { timeAgo } from "../../utils/timeAgo";
@@ -24,19 +25,15 @@ const FollowModal = ({
   writeDate,
   isFollowing,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalState, onOpenModal, onCloseModal] = useModal();
   const currentUser = useSelector((state) => state.auth.userId);
   const { token } = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const showModal = () => {
     if (currentUser === userId) return;
-    setIsModalVisible(true);
+    onOpenModal();
   };
-
-  const handleCancel = useCallback(() => {
-    setIsModalVisible(false);
-  }, []);
 
   const handleAddFollow = () => {
     const payload = {
@@ -45,7 +42,7 @@ const FollowModal = ({
     };
     dispatch(follow(payload));
     dispatch(userLoading(token));
-    handleCancel();
+    onCloseModal();
   };
 
   const handleRemoveFollow = () => {
@@ -55,7 +52,7 @@ const FollowModal = ({
     };
     dispatch(unFollow(payload));
     dispatch(userLoading(token));
-    handleCancel();
+    onCloseModal();
   };
 
   return (
@@ -84,8 +81,8 @@ const FollowModal = ({
       <Modal
         className="custom__modal follow"
         footer={null}
-        visible={isModalVisible}
-        onCancel={handleCancel}
+        visible={modalState}
+        onCancel={onCloseModal}
       >
         <p className="follow__state">
           {isFollowing ? "이미 팔로우한 유저입니다." : "이 유저를..."}
@@ -105,7 +102,7 @@ const FollowModal = ({
             </span>
           )}
         </div>
-        <button className="more__close" onClick={handleCancel}>
+        <button className="more__close" onClick={onCloseModal}>
           닫기
         </button>
       </Modal>

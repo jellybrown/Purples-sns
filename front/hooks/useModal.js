@@ -5,10 +5,10 @@ const useModal = (initialState = false) => {
 
   const openModal = useCallback(() => {
     setModal(true);
-  });
+  }, []);
   const closeModal = useCallback(() => {
     setModal(false);
-  });
+  }, []);
   return [modal, openModal, closeModal];
 };
 
