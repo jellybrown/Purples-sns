@@ -2,11 +2,11 @@ import React, { useCallback, useRef } from "react";
 import { Card, Avatar } from "antd";
 import styled from "styled-components";
 import CommentForm from "../Forms/CommentForm";
-import { timeAgo } from "../../utils/timeAgo";
 import { useRouter } from "next/router";
 import useMediaQuery from "../../utils/useMediaQuery";
 import { FaUserCircle } from "react-icons/fa";
 import PropTypes from "prop-types";
+import { changeDate } from "../../utils/changeDate";
 
 const CommentsWrapper = styled.div`
   position: absolute;
@@ -67,13 +67,13 @@ const CardComment = ({ post }) => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
   const changeMobileComment = useCallback((content) => {
-    if (content.length < 7) return content;
-    return content.slice(0, 6) + " ···";
+    if (content.length < 10) return content;
+    return content.slice(0, 9) + " ...";
   }, []);
 
   const changePcComment = useCallback((content) => {
     if (content.length < 19) return content;
-    return content.slice(0, 18) + " ···";
+    return content.slice(0, 18) + " ...";
   }, []);
 
   const checkOverLength = (content) => {
@@ -114,7 +114,7 @@ const CardComment = ({ post }) => {
                 <span className="comment-text">
                   {checkOverLength(comment.contents)}
                 </span>
-                <span className="comment-date">{timeAgo(comment.date)}</span>
+                <span className="comment-date">{changeDate(comment.date)}</span>
               </li>
             );
           })}

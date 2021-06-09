@@ -3,9 +3,9 @@ import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { removeComment } from "../../redux/PostSlice";
-import { timeAgo } from "../../utils/timeAgo";
 import PropTypes from "prop-types";
 import { FaUserCircle } from "react-icons/fa";
+import { changeDate } from "../../utils/changeDate";
 
 const CommentsWrapper = styled(List)`
   .ant-list-item-meta-title {
@@ -75,7 +75,7 @@ const CommentList = memo(({ thisPost, user }) => {
           <div className="comment-item">
             <div className="comment-content">
               <span style={{ fontSize: "0.9em" }}>{item.contents}</span>
-              <span className="comment-date">{timeAgo(item.date)}</span>
+              <span className="comment-date">{changeDate(item.date)}</span>
             </div>
             {isMyComment(item.writer._id) ? (
               <button

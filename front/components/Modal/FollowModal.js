@@ -1,22 +1,31 @@
 import { Modal, Avatar } from "antd";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { FaRegKissWinkHeart, FaRegSadCry, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useModal from "../../hooks/useModal";
 import { userLoading } from "../../redux/AuthSlice";
 import { follow, unFollow } from "../../redux/UserSlice";
-import { timeAgo } from "../../utils/timeAgo";
+import { changeDate } from "../../utils/changeDate";
 
 const ModalWrapper = styled.div`
   display: inline-block;
   cursor: pointer;
+  .user__info {
+    display: flex;
+    align-items: center;
+  }
   .user__name {
     margin-left: 0.8em;
     font-weight: 500;
   }
+  .pub-date {
+    line-height: 22px;
+  }
 `;
 
+// content의 글쓴이 영역은 modal이기 때문에 FollowModal로 정함.
+// 컴포넌트 이름 바꿔야 할수도?
 const FollowModal = ({
   userId,
   userEmail,
@@ -75,8 +84,10 @@ const FollowModal = ({
             }}
           />
         )}
-        <span className="user__name">{userName}</span>
-        <span className="pub-date">{timeAgo(writeDate)}</span>
+        <div className="user__info">
+          <span className="user__name">{userName}</span>
+          <span className="pub-date">{changeDate(writeDate)}</span>
+        </div>
       </div>
       <Modal
         className="custom__modal follow"
