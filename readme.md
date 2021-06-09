@@ -1,6 +1,6 @@
 # Purples
 
-<a href="http://purples.jellybrown.net:8008/" target="_blank">먼저 이용하러 가기</a> (가입이 귀찮으면 맨아래로)
+<a href="http://purples.jellybrown.net:8008/" target="_blank">👉 먼저 이용하러 가기</a> (가입이 귀찮으면 맨아래로)
 
 <br>
 
@@ -14,11 +14,24 @@
 
 <br>
 
+<br>
+
 ## ❗️ 프로젝트 기간
 
 <br>
 
-- 2021.01.01 ~ 04.30 (front 1인, back 1인) / 1차 완성
+- 2021.01.01 ~ 05.07 (front 1인, back 1인) / 1차 완성, 배포
+- 2021.06.08 ~ 진행중 / 프로젝트 개선
+
+<br>
+
+## ❗️ 프로젝트 노트
+
+<br>
+
+- 프로젝트를 진행하며 노트를 작성중입니다.
+
+<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">📖 노트 구경하러 가기 (노션)</a>
 
 <br>
 
@@ -280,8 +293,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 <img src="/purple-note-2.png" width="450">
 
 <br>
-
-<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">노트 구경하러 가기</a>
 
 <br>
 
