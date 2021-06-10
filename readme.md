@@ -25,16 +25,6 @@
 
 <br>
 
-## ❗️ 프로젝트 노트
-
-<br>
-
-- 프로젝트를 진행하며 노트를 작성중입니다.
-
-<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">📖 노트 구경하러 가기 (노션)</a>
-
-<br>
-
 ---
 
 <br>
@@ -289,10 +279,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 <br>
 
-<img src="/purple-note-1.png" width="450">
-<img src="/purple-note-2.png" width="450">
+<img src="/purple-note-1.png" width="400">
+<img src="/purple-note-2.png" width="400">
 
 <br>
+
+<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">📖 노트 구경하러 가기 (노션)</a>
 
 <br>
 
