@@ -24,7 +24,7 @@ const DetailMoreModal = () => {
         className="custom__modal detail"
         footer={null}
         visible={modalState}
-        onCancel={handleCancel}
+        onCancel={onCloseModal}
       >
         <p className="title">이 게시물을..</p>
         <hr />

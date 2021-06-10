@@ -23,6 +23,10 @@ const DetailPage = styled.section`
   transform: translateY(-50%);
   padding-top: 60px;
 
+  .ant-list-item-meta-avatar {
+    margin-right: 10px;
+  }
+
   .contents__wrapper {
     height: 500px;
     overflow-y: scroll;
@@ -64,7 +68,7 @@ const DetailPage = styled.section`
     cursor: pointer;
   }
   .comments {
-    padding: 1em 2em;
+    padding: 1em;
     p {
       text-align: right;
       color: #a3a3a3;

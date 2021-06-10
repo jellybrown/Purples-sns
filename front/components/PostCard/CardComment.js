@@ -15,6 +15,9 @@ const CommentsWrapper = styled.div`
   width: 100%;
   min-height: 200px;
   max-height: 800px;
+  .ant-card-meta-avatar {
+    padding-right: 11px;
+  }
 
   .comment-count {
     font-size: 0.85rem;
@@ -67,8 +70,8 @@ const CardComment = ({ post }) => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
   const changeMobileComment = useCallback((content) => {
-    if (content.length < 10) return content;
-    return content.slice(0, 9) + " ...";
+    if (content.length < 15) return content;
+    return content.slice(0, 14) + " ...";
   }, []);
 
   const changePcComment = useCallback((content) => {

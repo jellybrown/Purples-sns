@@ -8,6 +8,9 @@ import { FaUserCircle } from "react-icons/fa";
 import { changeDate } from "../../utils/changeDate";
 
 const CommentsWrapper = styled(List)`
+  .ant-list-items {
+    min-height: 150px;
+  }
   .ant-list-item-meta-title {
     margin-bottom: 0;
   }
@@ -40,6 +43,7 @@ const CommentsWrapper = styled(List)`
   }
   .comment-delete {
     font-size: 0.8em;
+    margin-left: 0.6em;
     color: #ccc;
     border: none;
     background: none;

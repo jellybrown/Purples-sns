@@ -22,5 +22,5 @@ const checkToday = (createdAt) => {
 export const changeDate = (date) => {
   const isWriteToday = checkToday(date);
   if (isWriteToday) return dayjs(date).fromNow();
-  else return dayjs(date).format("YYYY.MM.DD HH:mm");
+  else return dayjs(date).format("YYYY.MM.DD");
 };
