@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Layout from "../styles/layout";
-import Input from "../styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Modal } from "antd";
 import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
 import { getCookie, updateUser, userLoading } from "../redux/AuthSlice";
 import { wrapper } from "../redux/store";
 import { FaUserCircle } from "react-icons/fa";
+import ProfileChangeModal from "../components/Modal/ProfileChangeModal";
 
 const Title = styled.h1`
   text-align: center;
@@ -54,18 +53,6 @@ const ProfileForm = styled.form`
     font-size: 1.1em;
     padding: 0 10px;
     width: 100%;
-  }
-  .save-button {
-    color: #000;
-    margin-top: 100px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50;
-    border-color: #cfcfcf;
-    transition: 0.5s;
-    &:hover {
-      background: #152f4e;
-      color: #fff;
-    }
   }
 `;
 
@@ -120,21 +107,6 @@ const Profile = () => {
     });
   }, []);
 
-  const countDown = () => {
-    let secondsToGo = 1.5;
-    const modal = Modal.success({
-      content: "프로필 수정에 성공했습니다.",
-    });
-    const timer = setInterval(() => {
-      secondsToGo -= 1;
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(timer);
-      modal.destroy();
-      Router.push("/");
-    }, secondsToGo * 1000);
-  };
-
   const onSubmit = () => {
     const body = {
       profileImage: form.profileImage,
@@ -144,7 +116,6 @@ const Profile = () => {
       token,
     };
     dispatch(updateUser(body));
-    countDown();
   };
 
   const loadImage = () => {
@@ -200,7 +171,7 @@ const Profile = () => {
             onChange={onChangeForm}
           />
         </div>
-        <Input className="save-button" isBtn value="저장" type="submit" />
+        <ProfileChangeModal />
       </ProfileForm>
     </Layout>
   );
