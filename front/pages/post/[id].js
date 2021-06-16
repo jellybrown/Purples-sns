@@ -14,6 +14,7 @@ import { FaHeart } from "react-icons/fa";
 import DetailMoreModal from "../../components/Modal/DetailMoreModal";
 import ImageSlide from "../../components/DetailPage/ImageSlide";
 import CommentList from "../../components/DetailPage/CommentList";
+import { useRouter } from "next/router";
 
 const DetailPage = styled.section`
   position: absolute;
@@ -89,6 +90,7 @@ const DetailPage = styled.section`
 
 const Post = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const thisPost = useSelector((state) => state.post.thisPost);
   const { user } = useSelector((state) => state.auth);
   const [liked, setLiked] = useState(false);
@@ -122,6 +124,12 @@ const Post = () => {
   };
 
   useEffect(() => {
+    if (!user) {
+      router.push("/");
+    }
+  });
+
+  useEffect(() => {
     if (enteredFirst) {
       sliderRef.current.scrollIntoView({ block: "start" });
     } else {
@@ -129,7 +137,7 @@ const Post = () => {
     }
   }, [thisPost.comments]);
 
-  const isMyPost = () => thisPost.writer?._id === user._id;
+  const isMyPost = () => thisPost.writer?._id === user?._id;
 
   return (
     <LightColorBg>
@@ -194,7 +202,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
       await context.store.dispatch(userLoading(token));
       await context.store.dispatch(getPost({ id: context.params.id }));
     }
-
     return {
       props: context.store.getState(),
     };

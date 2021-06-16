@@ -1,10 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
-import { Menu, message } from "antd";
+import { Menu } from "antd";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useMediaQuery from "../../utils/useMediaQuery";
 import Link from "next/link";
 import { logout } from "../../redux/AuthSlice";
@@ -25,15 +25,12 @@ const StyledMenu = styled(Menu)`
 const UserMenu = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
-
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  const handleLogoutClick = useCallback(() => {
+  const handleLogoutClick = () => {
     dispatch(logout());
-    message.info("로그아웃에 성공하였습니다.", 1);
-  });
-
-  const loggedIn = true;
+  };
 
   return (
     <>
