@@ -21,6 +21,9 @@ const LoginWrapper = styled.div`
 `;
 
 const MainLogin = () => {
+  const alertMessage = () => {
+    window.confirm("준비중인 서비스입니다.");
+  };
   return (
     <GradientBg>
       <LoginWrapper>
@@ -36,8 +39,8 @@ const MainLogin = () => {
           <Link href="/signup">
             <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
           </Link>
-          <Button>kakao로 로그인</Button>
-          <Button>google로 로그인</Button>
+          <Button onClick={alertMessage}>kakao로 로그인</Button>
+          <Button onClick={alertMessage}>google로 로그인</Button>
         </div>
       </LoginWrapper>
     </GradientBg>
