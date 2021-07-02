@@ -1,5 +1,9 @@
 # Purples
 
+<img src="https://github.com/jellybrown/Purples-sns/blob/master/purple-m.png" width="800">
+
+<br>
+
 <a href="http://purples.jellybrown.net:8008/" target="_blank">👉 먼저 이용하러 가기</a> (가입이 귀찮으면 맨아래로)
 
 <br>
@@ -21,7 +25,7 @@
 <br>
 
 - 2021.01.01 ~ 05.07 (front 1인, back 1인) / 1차 완성, 배포
-- 2021.06.08 ~ 진행중 / 프로젝트 개선
+- 2021.06.08 ~ 06.16 / 프로젝트 개선
 
 <br>
 
@@ -33,19 +37,17 @@
 
 <br>
 
-- React
+- React, Next
 
-- next
+- Redux, Redux-saga ➡ Redux-toolkit
 
-- Redux, Redux-saga -> Redux-toolkit
+- React-hook-form (유효성 검사)
 
 - styled-components
 
-- ant-design, slick, react-reponsive : css 관련
+- ant-design, slick (css 라이브러리)
 
-- React-hook-form : 유효성 검사
-
-- React-reponsive : PC/모바일 화면 구분
+- React-reponsive (반응형 구현)
 
 <br>
 
@@ -57,22 +59,20 @@
 📦 back
 📦 front
 ┣ 📂 components
-┃ ┣ 📂 DetailPage
-┃ ┣ 📂 Forms
-┃ ┣ 📂 Header
-┃ ┣ 📂 Modal
-┃ ┣ 📂 PostCard
-┃ ┗ 📜 (...rest components).js
+┃ ┣ 📂 ..
+┃ ┣ 📂 ..
+┃ ┗ 📜 ..
+┣ 📂 hooks
+┃ ┣ 📜 useModal.js
+┃ ┗ 📜 ..
 ┣ 📂 pages
 ┃ ┣ 📂 post
 ┃   ┗ 📜 [id].js
-┃ ┣ 📜 _app.js
-┃ ┣ 📜 _document.js
-┃ ┣ 📜 _error.js
-┃ ┗ 📜 (...rest pages).js
+┃ ┣ 📜 ..
+┃ ┗ 📜 ..
 ┣ 📂 public
 ┃ ┗ 📂 static
-┃   ┗ 📜 icon.png
+┃   ┗ 📜 ..
 ┣ 📂 redux
 ┃ ┣ 📜 AuthSlice.js
 ┃ ┣ 📜 index.js
@@ -80,17 +80,13 @@
 ┃ ┣ 📜 store.js
 ┃ ┗ 📜 UserSlice.js
 ┣ 📂 styles
-┃ ┣ 📜 aTag.js
-┃ ┣ 📜 bg.js
-┃ ┣ 📜 button.js
-┃ ┣ 📜 globalStyles.js
-┃ ┣ 📜 input.js
-┃ ┣ 📜 layout.js
-┃ ┗ 📜 slickArrow.js
+┃ ┣ 📜 ..
+┃ ┣ 📜 ..
+┃ ┗ 📜 ..
 ┣ 📂 utils
 ┃ ┣ 📜 dynamicSort.js
 ┃ ┣ 📜 timeAgo.js
-┃ ┗ 📜 useMediaQuery.js
+┃ ┗ 📜 ..
 ```
 
 <br>
@@ -99,7 +95,12 @@
 
 <br>
 
-## ❗️ 프로젝트 구현 (맡은 기능)
+## ❗️ 프로젝트 구현 내용
+
+<br>
+
+코드가 아닌 화면 기준으로 구현 내용을 보고싶은 경우,
+<a href="https://jellybrown.medium.com/sns-%EA%B0%9C%EB%B0%9C%ED%9B%84%EA%B8%B0-with-react-6a4ba382011" target="_blank">블로그👈</a>로 구경와주세요!
 
 <br>
 
