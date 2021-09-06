@@ -1,6 +1,6 @@
 # Purples
 
-<img src="https://github.com/jellybrown/Purples-sns/blob/master/purple-m.png" width="800">
+<img src="https://drive.google.com/uc?export=view&id=1uWxbLcCNLx8MbfDK0LDnv4jFXzOw1Lzx" width="750"/>
 
 <br>
 
@@ -10,22 +10,24 @@
 
 ## ❗️ 프로젝트 소개
 
-<br>
-
 - 소셜 네트워크 서비스 (SNS) <br>
 - 발랄한 느낌 어필을 위해 보라색 그라데이션 이용 <br>
 - 보라색 purple + 사람들 people(s)를 합쳐 purples로 결정<br>
 
 <br>
 
-<br>
-
 ## ❗️ 프로젝트 기간
-
-<br>
 
 - 2021.01.01 ~ 05.07 (front 1인, back 1인) / 1차 완성, 배포
 - 2021.06.08 ~ 06.16 / 프로젝트 개선
+
+<br>
+
+## ❗️ 프로젝트 사용법
+
+- `git clone https://github.com/jellybrown/Purples-sns.git`
+- `npm install`
+- `npm run start`
 
 <br>
 
@@ -34,8 +36,6 @@
 <br>
 
 ## ❗️ 사용된 기술 & 라이브러리 (프론트 시점)
-
-<br>
 
 - React, Next
 
@@ -52,8 +52,6 @@
 <br>
 
 ## ❗️ 폴더 구조
-
-<br>
 
 ```
 📦 back
@@ -97,199 +95,49 @@
 
 ## ❗️ 프로젝트 구현 내용
 
-<br>
-
-코드가 아닌 화면 기준으로 구현 내용을 보고싶은 경우,
+스크린샷 화면 기준으로 구현 내용을 보고싶은 경우,
 <a href="https://jellybrown.medium.com/sns-%EA%B0%9C%EB%B0%9C%ED%9B%84%EA%B8%B0-with-react-6a4ba382011" target="_blank">블로그👈</a>로 구경와주세요!
 
 <br>
 
 ### 1. 전체 페이지 디자인
 
+- 피그마로 전체 페이지를 기획 및 디자인했습니다.
+
+<img src="https://drive.google.com/uc?export=view&id=1TLG4BFJUmuuMJ6m6pL8XWjLBa0egbN9X" width="500"/>
+
 <br>
-
-- figma를 이용하여 프로젝트 진행전, 진행중 계속 디자인을 진행하였습니다.
-
-<br>
-
-<img src="/figma-sns.png" width="700">
-
 <br>
 
 ### 2. 회원가입, 로그인 form 유효성 검사
 
-<br>
-
 - react-hook-form 라이브러리를 이용하여 유효성 검사를 적용했습니다.
 
-```js
-// SignupForm 컴포넌트
-
-<InputWrapper>
-  <FiMail />
-  <Input
-    name="email"
-    type="email"
-    placeholder="Email..."
-    ref={register({
-      required: true,
-      pattern: /^\S+@\S+$/i,
-      maxLength: 30,
-    })}
-  />
-</InputWrapper>;
-{
-  errors.email?.type === "required" && (
-    <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
-  );
-}
-{
-  errors.email?.type === "pattern" && (
-    <ErrorMessage>이메일 형식이 맞지 않습니다.</ErrorMessage>
-  );
-}
-{
-  errors.email?.type === "maxLength" && (
-    <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
-  );
-}
-```
-
 <br>
 
-### 3. 기존 코드 Redux-toolkit으로 변경
+### 3. Redux, Redux-saga 구현후, Redux-toolkit으로 migration
 
-<br>
-
-- 기존에 작성된 Redux, Redux-saga 코드를 Redux-toolkit으로 변경했습니다.
-
-```js
-// PostSlice (변경)
-
-export const postSlice = createSlice({
-  name: "post",
-  initialState,
-  reducers: {
-    changePostFilter: (state, { payload }) => {
-      state.posts = []; // 필터가 바뀌었기 때문에 기존 포스트 초기화.
-      state.postFilter = payload;
-    },
-  },
-  extraReducers: {
-     ...
-    // addPost
-    [addPost.pending]: (state, action) => {
-      state.loading = true;
-    },
-    [addPost.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.posts.push(payload.data);
-    },
-    [addPost.rejected]: (state, action) => {
-      state.loading = false;
-      console.log("addPost rejected 💣", action);
-    },
-  }
-   ...
-```
+- 기존 Redux-saga 코드를 Redux-toolkit으로 변경했습니다.
 
 <br>
 
 ### 4. 반응형 디자인 구현
 
-<br>
-
 - react-resposive를 이용해 PC와 모바일 버전의 여백과 컴포넌트 렌더링 여부를 조정했습니다.
 
-```js
-// MainHome 컴포넌트
-
-const MainHome = () => {
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-device-width: 1224px)",
-  });
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: "(max-device-width: 1224px)",
-  });
-
-  return (
-    <Layout>
-      <div style={{ position: "relative" }}>
-        {isDesktopOrLaptop && (
-          <>
-          ...
-            )
-        }
-        {isTabletOrMobileDevice && (
-          <>
-          ...
-          )
-        }
-```
-
-<br>
-
-- 디자인 라이브러리에서 제공하는 컴포넌트를 이용하여 반응형 디자인을 적용했습니다.
-
-```js
-return (
-  // ...
-  <Row>
-    <Col xs={24} md={11} xxl={10}>
-      ...
-    </Col>
-    <Col xs={24} md={13} xxl={14} style={{ background: "white" }}>
-      ...
-    </Col>
-  </Row>
-);
-```
+- 디자인 라이브러리(antd)에서 제공하는 컴포넌트를 이용하여 반응형 디자인을 적용했습니다.
 
 <br>
 
 ### 5. 서버사이드 렌더링 적용
 
-<br>
-
 - 상세페이지에서 미리 페이지 정보를 가져올 수 있게 dispatch했습니다.
-
-```js
-// pages > post > [id].js
-
-export const getServerSideProps = wrapper.getServerSideProps(
-  async (context) => {
-    const token = getCookie("token", context.req);
-    if (token !== undefined && token !== null) {
-      await context.store.dispatch(userLoading(token));
-      await context.store.dispatch(getPost({ id: context.params.id }));
-    }
-    ...
-  }
-  ...
-```
-
-- <br>
 
 <br>
 
 ### 6. 오류, 개선사항 노트 작성
 
-<br>
-
 - 프로젝트를 진행하며 오류나 개선사항에 대해 같이 볼 수 있다면 좋겠다는 생각이 들어 노션에 정리하여 공유했습니다.
-
-<br>
-
-<img src="/purple-note-1.png" width="400">
-<img src="/purple-note-2.png" width="400">
-
-<br>
-
-<a href="https://www.notion.so/Purples-686ae618f4ab49c5bae0ed746c0bfd89" target="_blank">📖 노트 구경하러 가기 (노션)</a>
-
-<br>
-
----
 
 <br>
 
@@ -297,35 +145,16 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 <br>
 
-- 메인 페이지
+- PC
+
+<img src="https://drive.google.com/uc?export=view&id=1YD-cMbD69yjZXy6m61G-oBWf_4o3NHm3" width="600"/>
 
 <br>
-
-<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-post.gif" width="700">
-
 <br>
 
-- signup 페이지
+- mobile
 
-<br>
-
-<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-signup.gif" width="700">
-
-<br>
-
-- mobile 버전
-
-<br>
-
-<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-mobile.gif" width="500">
-
-<br>
-
-- 검색, 상세 페이지
-
-<br>
-
-<img src="https://github.com/jellybrown/Purples-sns/blob/master/sns-detail.gif" width="700">
+<img src="https://drive.google.com/uc?export=view&id=1bageVcCxJGJjLpzTL2-SX58q_A-9TnYn" width="330" />
 
 <br>
 
@@ -334,8 +163,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 <br>
 
 ## ❗️ 만들면서 힘들었던 점
-
-<br>
 
 ### 1. git
 
