@@ -7,16 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { follow, unFollow } from "../redux/UserSlice";
 import { dynamicSort } from "../utils/dynamicSort";
 
-const IconWrapper = styled.span`
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: 0.3s;
-  &:hover {
-    transform: scale(1.3);
-    transition: 0.3s;
-  }
-`;
-
 const DeleteOrAdd = ({ userInfo }) => {
   const isSearchPage = true;
   const dispatch = useDispatch();
@@ -49,23 +39,6 @@ const DeleteOrAdd = ({ userInfo }) => {
   );
 };
 
-const FriendListWrapper = styled.ul`
-  .friend-item {
-    display: flex;
-    align-items: center;
-    padding: 1em 0;
-  }
-  .profile__image {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-  }
-  .user__name {
-    flex: 1;
-    padding-left: 2em;
-  }
-`;
-
 const FriendList = () => {
   const user = useSelector((state) => state.user);
 
@@ -74,16 +47,16 @@ const FriendList = () => {
       {user && user.users.length > 0 ? (
         Object.values(user.users)
           .sort(dynamicSort("name"))
-          .map((friend) => (
-            <li className="friend-item">
+          .map((friend, i) => (
+            <FriendItem key={i}>
               {friend.profileImageUrl ? (
-                <img className="profile__image" src={friend.profileImageUrl} />
+                <ProfileImg src={friend.profileImageUrl} />
               ) : (
                 <FaUserCircle style={{ fontSize: "3rem" }} />
               )}
-              <span className="user__name">{friend.name}</span>
+              <Name>{friend.name}</Name>
               <DeleteOrAdd userInfo={friend} />
-            </li>
+            </FriendItem>
           ))
       ) : (
         <div>친구가 없습니다.</div>
@@ -92,3 +65,32 @@ const FriendList = () => {
   );
 };
 export default FriendList;
+
+const IconWrapper = styled.span`
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.3);
+    transition: 0.3s;
+  }
+`;
+
+const FriendListWrapper = styled.ul``;
+
+const FriendItem = styled.li`
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
+`;
+
+const ProfileImg = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+`;
+
+const Name = styled.span`
+  flex: 1;
+  padding-left: 2em;
+`;
