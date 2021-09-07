@@ -192,7 +192,7 @@ export const postSlice = createSlice({
     },
     [addPost.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.posts.push(payload.data);
+      state.posts = [payload.data, ...state.posts];
     },
     [addPost.rejected]: (state, action) => {
       state.loading = false;
