@@ -24,8 +24,8 @@ const SearchLists = styled.div`
     cursor: pointer;
   }
   img {
-    height: 130%;
-    min-height: 100%;
+    object-fit: cover;
+    width: 100%;
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
