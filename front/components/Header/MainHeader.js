@@ -9,31 +9,50 @@ import FilterMenu from "./FilterMenu";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 
+const MainHeader = memo(() => {
+  const router = useRouter();
+  const isMainSection = () => router.pathname === "/";
+  const [secondMenuY, setSecondMenuY] = useState(false);
+  const { postFilter } = useSelector((state) => state.post);
+
+  const onClickSlide = () => {
+    if (secondMenuY) setSecondMenuY(false);
+    else setSecondMenuY(true);
+  };
+
+  return (
+    <HeaderWrapper>
+      <HeaderMenu>
+        <Link href="/">
+          <OutLineHome />
+        </Link>
+        {isMainSection() && (
+          <Switch
+            className="filter__icon"
+            defaultChecked={false}
+            size="small"
+            onClick={onClickSlide}
+          />
+        )}
+        <Logo style={{ fontSize: "1.8em" }} />
+        <RightMenu />
+      </HeaderMenu>
+      {isMainSection() && (
+        <FilterMenu secondMenu={secondMenuY} postFilter={postFilter} />
+      )}
+      )
+    </HeaderWrapper>
+  );
+});
+export default MainHeader;
+
 const HeaderWrapper = styled.header`
   position: fixed;
   width: 100%;
   height: 60px;
   z-index: 100;
   top: 0;
-  .header__menu {
-    align-items: center;
-    border-bottom: 1px solid #e1e1e1;
-    padding: 0.8em 3em;
-    position: absolute;
-    top: 0;
-    text-align: center;
-    width: 100%;
-    background: #fff;
-    z-index: 99;
-  }
-  .home__icon {
-    font-size: 1.5rem;
-    color: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    left: 4%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+
   .ant-switch-checked {
     background-color: #aab2e3;
   }
@@ -49,41 +68,23 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-const MainHeader = memo(() => {
-  const router = useRouter();
-  const isMainSection = () => router.pathname === "/";
-  const [secondMenuY, setSecondMenuY] = useState(false);
-  const { postFilter } = useSelector((state) => state.post);
+const HeaderMenu = styled.div`
+  align-items: center;
+  border-bottom: 1px solid #e1e1e1;
+  padding: 0.8em 3em;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  background: #fff;
+  z-index: 99;
+`;
 
-  const onClickSlide = () => {
-    if (secondMenuY) setSecondMenuY(false);
-    else setSecondMenuY(true);
-  };
-
-  return (
-    <HeaderWrapper>
-      <div className="header__menu">
-        <Link href="/">
-          <a>
-            <AiOutlineHome className="home__icon" />
-          </a>
-        </Link>
-        {isMainSection() && (
-          <Switch
-            className="filter__icon"
-            defaultChecked={false}
-            size="small"
-            onClick={onClickSlide}
-          />
-        )}
-        <Logo style={{ fontSize: "1.8em" }} />
-        <RightMenu />
-      </div>
-      {isMainSection() && (
-        <FilterMenu secondMenu={secondMenuY} postFilter={postFilter} />
-      )}
-      )
-    </HeaderWrapper>
-  );
-});
-export default MainHeader;
+const OutLineHome = styled(AiOutlineHome)`
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+`;

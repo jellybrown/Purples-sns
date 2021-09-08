@@ -9,48 +9,6 @@ import UserMenu from "./UserMenu";
 import useMediaQuery from "../../utils/useMediaQuery";
 import styled from "styled-components";
 
-const PCMenuWrapper = styled.div`
-  display: flex;
-  font-size: 1.5rem;
-  position: absolute;
-  right: 6%;
-  top: 50%;
-  transform: translateY(-50%);
-
-  .icon__wrapper {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    margin: 0 5px;
-  }
-  .icon__wrapper.mobile {
-    height: 25px;
-  }
-  a {
-    color: rgba(0, 0, 0, 0.8);
-    &:hover {
-      color: rgba(0, 0, 0, 1);
-    }
-  }
-`;
-
-const MobileWrapper = styled.div`
-  display: flex;
-  font-size: 1.5rem;
-  position: absolute;
-  right: 4%;
-  top: 50%;
-  transform: translateY(-50%);
-
-  .right-menu__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-  }
-`;
-
 const RightMenu = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
@@ -59,23 +17,23 @@ const RightMenu = () => {
       {isDesktopOrLaptop && (
         <PCMenuWrapper>
           <Link href="/find">
-            <a className="icon__wrapper">
-              <BsFillPersonPlusFill style={{ fontSize: "23px" }} />
-            </a>
+            <IconWrapper>
+              <BsFillPersonPlusFill />
+            </IconWrapper>
           </Link>
           <Link href="/search">
-            <a className="icon__wrapper">
-              <BiSearch style={{ fontSize: "23px" }} />
-            </a>
+            <IconWrapper>
+              <BiSearch />
+            </IconWrapper>
           </Link>
           <Dropdown
             overlay={<UserMenu />}
             trigger="click"
             placement="bottomCenter"
           >
-            <a className="icon__wrapper">
-              <FaUserCircle style={{ fontSize: "23px" }} />
-            </a>
+            <IconWrapper>
+              <FaUserCircle />
+            </IconWrapper>
           </Dropdown>
         </PCMenuWrapper>
       )}
@@ -86,11 +44,9 @@ const RightMenu = () => {
             trigger="click"
             placement="bottomCenter"
           >
-            <a className="icon__wrapper mobile">
-              <HiOutlineMenu
-                style={{ fontSize: "23px", color: "rgba(0,0,0,0.8)" }}
-              />
-            </a>
+            <IconWrapper isMobile>
+              <HiOutlineMenu />
+            </IconWrapper>
           </Dropdown>
         </MobileWrapper>
       )}
@@ -99,3 +55,40 @@ const RightMenu = () => {
 };
 
 export default RightMenu;
+
+const PCMenuWrapper = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const IconWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin: 0 5px;
+  height: ${({ isMobile }) => (isMobile ? "25px" : "auto")};
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+
+  > svg {
+    font-size: 23px;
+  }
+
+  &:hover {
+    color: rgba(0, 0, 0, 1);
+  }
+`;
+
+const MobileWrapper = styled.div`
+  display: flex;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+`;

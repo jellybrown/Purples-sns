@@ -7,27 +7,6 @@ import { changePostFilter } from "../../redux/PostSlice";
 import useMediaQuery from "../../utils/useMediaQuery";
 import PropTypes from "prop-types";
 
-const PostfilterWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  z-index: 98;
-  bottom: 0;
-  background: #fff;
-  padding: 1em;
-  white-space: nowrap;
-  overflow-x: auto;
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  .ant-btn > span {
-    font-family: Yellowtail;
-    font-size: 1.2rem;
-  }
-`;
-
 const FilterMenu = ({ secondMenu, postFilter }) => {
   const filterPostMenu = useRef();
   const dispatch = useDispatch();
@@ -66,7 +45,6 @@ const FilterMenu = ({ secondMenu, postFilter }) => {
             type="link"
             style={{
               width: isDesktopOrLaptop ? "20%" : "30%",
-
               color: menu.active ? "black" : "gray",
               fontWeight: menu.active ? "bold" : "normal",
             }}
@@ -85,3 +63,24 @@ FilterMenu.propTypes = {
 };
 
 export default FilterMenu;
+
+const PostfilterWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  z-index: 98;
+  bottom: 0;
+  background: #fff;
+  padding: 1em;
+  white-space: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ant-btn > span {
+    font-family: Yellowtail;
+    font-size: 1.2rem;
+  }
+`;
