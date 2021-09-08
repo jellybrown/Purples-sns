@@ -2,27 +2,10 @@ import React, { useState } from "react";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useMediaQuery from "../../utils/useMediaQuery";
 import PropTypes from "prop-types";
 
-const Wrapper = styled.div`
-  overflow: hidden;
-  height: calc(54vh - 80px);
-  position: relative;
-
-  .image {
-    height: auto;
-    min-width: 100%;
-    width: auto;
-    max-width: 150%;
-    margin: 0 auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-`;
 const PostCardImg = ({ images }) => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -38,14 +21,7 @@ const PostCardImg = ({ images }) => {
     >
       {images.map((img) => (
         <Wrapper key={img}>
-          <img
-            style={{
-              maxHeight: isDesktopOrLaptop ? "480px" : "350px",
-              minHeight: isDesktopOrLaptop ? "400px" : "320px",
-            }}
-            src={img}
-            className="image"
-          />
+          <Image src={img} isDesktopOrLaptop={isDesktopOrLaptop} />
         </Wrapper>
       ))}
     </Slick>
@@ -57,3 +33,30 @@ PostCardImg.propTypes = {
 };
 
 export default PostCardImg;
+
+const Wrapper = styled.div`
+  overflow: hidden;
+  height: calc(54vh - 80px);
+  position: relative;
+`;
+
+const Image = styled.img`
+  height: auto;
+  width: auto;
+  overflow: hidden;
+  min-width: 100%;
+  max-width: 150%;
+  min-height: 400px;
+  max-height: 480px;
+  ${({ isDesktopOrLaptop }) =>
+    !isDesktopOrLaptop &&
+    css`
+      min-height: 320px;
+      max-height: 350px;
+    `};
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;

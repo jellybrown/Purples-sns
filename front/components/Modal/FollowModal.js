@@ -21,6 +21,9 @@ const ModalWrapper = styled.div`
   }
   .pub-date {
     line-height: 22px;
+    font-size: 0.7rem;
+    margin-left: 1em;
+    color: #a3a3a3;
   }
 `;
 
