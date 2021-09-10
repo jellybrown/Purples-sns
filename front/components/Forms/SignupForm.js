@@ -12,32 +12,6 @@ import Link from "next/link";
 import { StyledAtag } from "../../styles/aTag";
 import { message } from "antd";
 
-const SignupWrapper = styled.form`
-  padding-top: 4em;
-  margin: 0 auto;
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-
-  .input__wrapper {
-    position: relative;
-  }
-  .signup__icon {
-    font-size: 1.4rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 1em;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 0.8rem;
-  padding-left: 2em;
-  color: rgba(255, 255, 255, 0.8);
-`;
-
 const SignupForm = () => {
   const dispatch = useDispatch();
   const { successMsg, errorMsg } = useSelector((state) => state.auth);
@@ -62,8 +36,8 @@ const SignupForm = () => {
 
   return (
     <SignupWrapper onSubmit={handleSubmit(onSubmit)}>
-      <div className="input__wrapper">
-        <FiMail className="signup__icon" />
+      <InputWrapper>
+        <FiMail />
         <Input
           name="email"
           type="email"
@@ -74,7 +48,7 @@ const SignupForm = () => {
             maxLength: 30,
           })}
         />
-      </div>
+      </InputWrapper>
       {errors.email?.type === "required" && (
         <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
       )}
@@ -84,8 +58,8 @@ const SignupForm = () => {
       {errors.email?.type === "maxLength" && (
         <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
       )}
-      <div className="input__wrapper">
-        <BsFillPersonFill className="signup__icon" />
+      <InputWrapper>
+        <BsFillPersonFill />
         <Input
           name="name"
           placeholder="Name..."
@@ -94,30 +68,30 @@ const SignupForm = () => {
             minLength: 2,
           })}
         />
-      </div>
+      </InputWrapper>
       {errors.name?.type === "required" && (
         <ErrorMessage>닉네임을 입력해주세요.</ErrorMessage>
       )}
       {errors.name?.type === "minLength" && (
         <ErrorMessage>닉네임은 2자이상 입력해주세요.</ErrorMessage>
       )}
-      <div className="input__wrapper">
-        <HiLockClosed className="signup__icon" />
+      <InputWrapper>
+        <HiLockClosed />
         <Input
           name="password"
           type="password"
           placeholder="Password..."
           ref={register({ required: true, minLength: 6 })}
         />
-      </div>
+      </InputWrapper>
       {errors.password?.type === "required" && (
         <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
       )}
       {errors.password?.type === "minLength" && (
         <ErrorMessage>비밀번호는 6자이상 입력해주세요.</ErrorMessage>
       )}
-      <div className="input__wrapper">
-        <HiLockClosed className="signup__icon" />
+      <InputWrapper>
+        <HiLockClosed />
         <Input
           name="confirm_password"
           type="password"
@@ -128,7 +102,7 @@ const SignupForm = () => {
             validate: (value) => value === password.current,
           })}
         />
-      </div>
+      </InputWrapper>
       {errors.confirm_password?.type === "required" && (
         <ErrorMessage>비밀번호 확인이 필요합니다.</ErrorMessage>
       )}
@@ -153,3 +127,30 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
+
+const SignupWrapper = styled.form`
+  padding-top: 4em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+
+  > svg {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1em;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 0.8rem;
+  padding-left: 2em;
+  color: rgba(255, 255, 255, 0.8);
+`;

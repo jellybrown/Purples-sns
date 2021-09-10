@@ -5,26 +5,6 @@ import styled from "styled-components";
 import { addComment } from "../../redux/PostSlice";
 import PropTypes from "prop-types";
 
-const CommentInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  .card-comment__input {
-    position: absolute;
-    bottom: 15px;
-    padding-top: 10px;
-    margin-left: 5px;
-    border: none;
-    outline: none;
-    width: 90%;
-  }
-  .btn__wrapper {
-    position: absolute;
-    bottom: 10px;
-    right: -5px;
-  }
-`;
-
 const CommentForm = ({ post, scrollRef }) => {
   const [text, setText] = useState("");
   const { user } = useSelector((state) => state.auth);
@@ -55,17 +35,16 @@ const CommentForm = ({ post, scrollRef }) => {
 
   return (
     <CommentInputWrapper>
-      <input
+      <CommentInput
         onChange={onChange}
         value={text}
         placeholder="댓글 입력..."
-        className="card-comment__input"
       />
-      <div className="btn__wrapper">
+      <ButtonWrapper>
         <Button type="link" onClick={onAddComment}>
           입력
         </Button>
-      </div>
+      </ButtonWrapper>
     </CommentInputWrapper>
   );
 };
@@ -76,3 +55,24 @@ CommentForm.propTypes = {
 };
 
 export default CommentForm;
+
+const CommentInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const CommentInput = styled.input`
+  position: absolute;
+  bottom: 15px;
+  padding-top: 10px;
+  margin-left: 5px;
+  border: none;
+  outline: none;
+  width: 90%;
+`;
+
+const ButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: -5px;
+`;

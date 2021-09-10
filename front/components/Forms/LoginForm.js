@@ -9,32 +9,6 @@ import { StyledAtag } from "../../styles/aTag";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/AuthSlice";
 
-const LoginWrapper = styled.form`
-  padding-top: 4em;
-  margin: 0 auto;
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-
-  .input__wrapper {
-    position: relative;
-  }
-  .login__icon {
-    font-size: 1.4rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 1em;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 0.8rem;
-  padding-left: 2em;
-  color: rgba(255, 255, 255, 0.8);
-`;
-
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
@@ -47,8 +21,8 @@ const LoginForm = () => {
   return (
     <>
       <LoginWrapper onSubmit={handleSubmit(onSubmit)}>
-        <div className="input__wrapper">
-          <FiMail className="login__icon" />
+        <InputWrapper>
+          <FiMail />
           <Input
             name="email"
             type="email"
@@ -59,7 +33,7 @@ const LoginForm = () => {
               maxLength: 30,
             })}
           />
-        </div>
+        </InputWrapper>
         {errors.email?.type === "required" && (
           <ErrorMessage>이메일을 입력해주세요.</ErrorMessage>
         )}
@@ -70,15 +44,15 @@ const LoginForm = () => {
           <ErrorMessage>이메일을 확인해주세요.</ErrorMessage>
         )}
 
-        <div className="input__wrapper">
-          <HiLockClosed className="login__icon" />
+        <InputWrapper>
+          <HiLockClosed />
           <Input
             name="password"
             type="password"
             placeholder="Password..."
             ref={register({ required: true, minLength: 6 })}
           />
-        </div>
+        </InputWrapper>
         {errors.password?.type === "required" && (
           <ErrorMessage>비밀번호를 입력해주세요.</ErrorMessage>
         )}
@@ -101,3 +75,30 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
+const LoginWrapper = styled.form`
+  padding-top: 4em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+
+  > svg {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1em;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  font-size: 0.8rem;
+  padding-left: 2em;
+  color: rgba(255, 255, 255, 0.8);
+`;
