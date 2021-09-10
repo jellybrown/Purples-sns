@@ -6,45 +6,6 @@ import { message } from "antd";
 import { addPost } from "../../redux/PostSlice";
 import { BsPencil } from "react-icons/bs";
 
-const PostFormWrapper = styled.div`
-  .write-btn {
-    width: 3.8rem;
-    height: 3.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    background: #aab2e3;
-    border: none;
-    z-index: 5;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  border: 1px solid #e1e1e1;
-  border-radius: 20px;
-  margin: 0 10px;
-  padding: 0;
-`;
-
-const ImageStyle = styled.img`
-  padding: 0;
-  width: 110px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 const PostForm = () => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth.user);
@@ -134,9 +95,9 @@ const PostForm = () => {
 
   return (
     <PostFormWrapper>
-      <Button className="write-btn" onClick={showModal}>
-        <BsPencil style={{ fontSize: "2rem", color: "#fff" }} />
-      </Button>
+      <WriteButton onClick={showModal}>
+        <BsPencil />
+      </WriteButton>
       <Modal
         title="게시글 작성"
         visible={isModalVisible}
@@ -156,12 +117,7 @@ const PostForm = () => {
           onChange={onChangeText}
           style={{ marginBottom: "2rem" }}
         />
-        <Button
-          onClick={onPhotoUpload}
-          style={{ display: "block", marginBottom: "20px" }}
-        >
-          사진 선택
-        </Button>
+        <SelectButton onClick={onPhotoUpload}>사진 선택</SelectButton>
         <input
           style={{ display: "none" }}
           type="file"
@@ -169,10 +125,8 @@ const PostForm = () => {
           multiple={true}
           onChange={onChangePhoto}
         />
-        {previewImageUrl ? (
-          <p style={{ textAlign: "right" }}>미리보기</p>
-        ) : null}
-        <div style={{ position: "relative", padding: "20px 0" }}>
+        {previewImageUrl ? <Text>미리보기</Text> : null}
+        <Preview>
           {previewImageUrl
             ? previewImageUrl.map((imageUrl) => (
                 <Wrapper>
@@ -180,9 +134,71 @@ const PostForm = () => {
                 </Wrapper>
               ))
             : null}
-        </div>
+        </Preview>
       </Modal>
     </PostFormWrapper>
   );
 };
 export default PostForm;
+
+const PostFormWrapper = styled.div``;
+
+const Wrapper = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
+  margin: 0 10px;
+  padding: 0;
+`;
+
+const WriteButton = styled(Button)`
+  &&& {
+    width: 3.8rem;
+    height: 3.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    background: #aab2e3;
+    border: none;
+    z-index: 5;
+  }
+
+  > svg {
+    font-size: 2rem;
+    color: #fff;
+  }
+`;
+
+const SelectButton = styled(Button)`
+  &&& {
+    display: block;
+    margin-bottom: 20px;
+  }
+`;
+
+const ImageStyle = styled.img`
+  padding: 0;
+  width: 110px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Text = styled.p`
+  text-align: right;
+`;
+
+const Preview = styled.div`
+  position: relative;
+  padding: 20px 0;
+`;
