@@ -24,7 +24,9 @@ const MainHeader = memo(() => {
     <HeaderWrapper>
       <HeaderMenu>
         <Link href="/">
-          <OutLineHome />
+          <LinkItem>
+            <AiOutlineHome />
+          </LinkItem>
         </Link>
         {isMainSection() && (
           <Switch
@@ -80,7 +82,8 @@ const HeaderMenu = styled.div`
   z-index: 99;
 `;
 
-const OutLineHome = styled(AiOutlineHome)`
+const LinkItem = styled.a`
+  display: inline-flex;
   font-size: 1.5rem;
   color: rgba(0, 0, 0, 0.8);
   position: absolute;
