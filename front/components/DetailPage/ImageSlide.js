@@ -7,29 +7,6 @@ import { NextArrow, PrevArrow } from "../../styles/slickArrow";
 import useMediaQuery from "../../utils/useMediaQuery";
 import PropTypes from "prop-types";
 
-const SlideWrapper = styled.section`
-  width: 100%;
-  background: white;
-  overflow: hidden;
-  position: relative;
-  padding-top: 60px;
-
-  .image__wrapper {
-    overflow: hidden;
-    position: relative;
-    height: 500px;
-  }
-  .image {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 100%;
-    min-width: 100%;
-    max-width: 600px;
-  }
-`;
-
 const ImageSlide = memo(({ imageUrls }) => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -56,15 +33,9 @@ const ImageSlide = memo(({ imageUrls }) => {
         }
       >
         {imageUrls?.map((img) => (
-          <div className="image__wrapper" key={img}>
-            <img
-              className="image"
-              src={img}
-              style={{
-                maxHeight: isDesktopOrLaptop ? "600px" : "500px",
-              }}
-            />
-          </div>
+          <ImageWrapper key={img}>
+            <Image src={img} isDesktopOrLaptop={isDesktopOrLaptop} />
+          </ImageWrapper>
         ))}
       </Slick>
     </SlideWrapper>
@@ -76,3 +47,29 @@ ImageSlide.propTypes = {
 };
 
 export default ImageSlide;
+
+const SlideWrapper = styled.section`
+  width: 100%;
+  background: white;
+  overflow: hidden;
+  position: relative;
+  padding-top: 60px;
+`;
+
+const ImageWrapper = styled.div`
+  overflow: hidden;
+  position: relative;
+  height: 500px;
+`;
+
+const Image = styled.img`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 100%;
+  max-height: ${({ isDesktopOrLaptop }) =>
+    isDesktopOrLaptop ? "600px" : "500px"};
+  min-width: 100%;
+  max-width: 600px;
+`;

@@ -7,49 +7,6 @@ import PropTypes from "prop-types";
 import { FaUserCircle } from "react-icons/fa";
 import { changeDate } from "../../utils/changeDate";
 
-const CommentsWrapper = styled(List)`
-  .ant-list-items {
-    min-height: 150px;
-  }
-  .ant-list-item-meta-title {
-    margin-bottom: 0;
-  }
-  .ant-list-item-meta-avatar {
-    height: 32px;
-  }
-  .ant-list-item-meta {
-    align-items: center;
-    flex: none;
-  }
-  .ant-list-item-meta-content {
-    width: auto;
-  }
-  .ant-list-item {
-    border-bottom: none !important;
-  }
-  .comment-item {
-    flex: 1;
-    display: flex;
-  }
-  .comment-content {
-    color: #303030;
-    padding-left: 10px;
-    flex: 1;
-  }
-  .comment-date {
-    font-size: 0.8em;
-    color: #a3a3a3;
-    margin-left: 8px;
-  }
-  .comment-delete {
-    font-size: 0.8em;
-    margin-left: 0.6em;
-    color: #ccc;
-    border: none;
-    background: none;
-  }
-`;
-
 const CommentList = memo(({ thisPost, user }) => {
   const dispatch = useDispatch();
   const isMyComment = (commentId) => commentId === user._id;
@@ -76,20 +33,17 @@ const CommentList = memo(({ thisPost, user }) => {
               )
             }
           />
-          <div className="comment-item">
-            <div className="comment-content">
-              <span style={{ fontSize: "0.9em" }}>{item.contents}</span>
-              <span className="comment-date">{changeDate(item.date)}</span>
-            </div>
+          <CommentItem>
+            <Content>
+              <Text>{item.contents}</Text>
+              <Date>{changeDate(item.date)}</Date>
+            </Content>
             {isMyComment(item.writer._id) ? (
-              <button
-                className="comment-delete"
-                onClick={() => deleteComment(item._id)}
-              >
+              <DeleteButton onClick={() => deleteComment(item._id)}>
                 삭제
-              </button>
+              </DeleteButton>
             ) : null}
-          </div>
+          </CommentItem>
         </List.Item>
       )}
     ></CommentsWrapper>
@@ -102,3 +56,54 @@ CommentList.propTypes = {
 };
 
 export default CommentList;
+
+const CommentsWrapper = styled(List)`
+  .ant-list-items {
+    min-height: 150px;
+  }
+  .ant-list-item-meta-title {
+    margin-bottom: 0;
+  }
+  .ant-list-item-meta-avatar {
+    height: 32px;
+  }
+  .ant-list-item-meta {
+    align-items: center;
+    flex: none;
+  }
+  .ant-list-item-meta-content {
+    width: auto;
+  }
+  .ant-list-item {
+    border-bottom: none !important;
+  }
+`;
+
+const CommentItem = styled.div`
+  flex: 1;
+  display: flex;
+`;
+
+const Content = styled.div`
+  color: #303030;
+  padding-left: 10px;
+  flex: 1;
+`;
+
+const Text = styled.span`
+  font-size: 0.9em;
+`;
+
+const Date = styled.span`
+  font-size: 0.8em;
+  color: #a3a3a3;
+  margin-left: 8px;
+`;
+
+const DeleteButton = styled.button`
+  font-size: 0.8em;
+  margin-left: 0.6em;
+  color: #ccc;
+  border: none;
+  background: none;
+`;
