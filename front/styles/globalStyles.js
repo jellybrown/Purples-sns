@@ -82,6 +82,7 @@ const GlobalStyles = createGlobalStyle`
       height: 250px;
     }
   }
+  // <!-- 
   .custom__modal {
     width: 270px !important; 
     .anticon svg {
@@ -130,6 +131,7 @@ const GlobalStyles = createGlobalStyle`
       cursor: pointer;
     }
   }
+  // -->
   .custom__modal.follow {
     p, span {
       padding: 0;

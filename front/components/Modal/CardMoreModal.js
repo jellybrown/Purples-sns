@@ -8,14 +8,6 @@ import { removePost } from "../../redux/PostSlice";
 import PropTypes from "prop-types";
 import useModal from "../../hooks/useModal";
 
-const ModalWrapper = styled.div`
-  display: inline-block;
-  .more__icon {
-    margin-left: 0.5em;
-    cursor: pointer;
-  }
-`;
-
 const MoreModal = ({ isMine, writerName, postId }) => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -33,36 +25,23 @@ const MoreModal = ({ isMine, writerName, postId }) => {
 
   return (
     <ModalWrapper>
-      <span>
-        <FiMoreHorizontal className="more__icon" onClick={onOpenModal} />
-      </span>
-      <Modal
-        className="custom__modal"
-        footer={null}
-        visible={modalState}
-        onCancel={onCloseModal}
-      >
-        <p className="title">이 게시물을..</p>
-        <hr />
-
+      <More>
+        <FiMoreHorizontal onClick={onOpenModal} />
+      </More>
+      <CustomModal footer={null} visible={modalState} onCancel={onCloseModal}>
+        <Text>이 게시물을..</Text>
+        <Line />
         {isMine() ? (
-          <span className="delete" onClick={() => deletePost(postId)}>
-            삭제
-          </span>
+          <Delete onClick={() => deletePost(postId)}>삭제</Delete>
         ) : (
-          <span className="info">{writerName}님의 글</span>
+          <Info>{writerName}님의 글</Info>
         )}
-        <hr />
-        <span
-          className="go-detail"
-          onClick={() => router.push(`/post/${postId}`)}
-        >
+        <Line />
+        <DetailLink onClick={() => router.push(`/post/${postId}`)}>
           상세페이지로
-        </span>
-        <button className="more__close" onClick={onCloseModal}>
-          닫기
-        </button>
-      </Modal>
+        </DetailLink>
+        <CloseButton onClick={onCloseModal}>닫기</CloseButton>
+      </CustomModal>
     </ModalWrapper>
   );
 };
@@ -74,3 +53,73 @@ MoreModal.propTypes = {
 };
 
 export default MoreModal;
+
+const ModalWrapper = styled.div`
+  display: inline-block;
+`;
+
+const More = styled.div`
+  > svg {
+    margin-left: 0.5em;
+    cursor: pointer;
+  }
+`;
+
+const CustomModal = styled(Modal)`
+  width: 270px !important;
+
+  .anticon svg {
+    display: none;
+  }
+  .ant-modal-content {
+    width: 270px;
+    height: 300px;
+    text-align: center;
+  }
+  .ant-modal-content,
+  .ant-modal-header {
+    border-radius: 20px;
+  }
+`;
+
+const Text = styled.p`
+  padding: 1em 0 1.5em 0;
+  margin: 0;
+`;
+
+const Delete = styled.button`
+  color: #a9a9a9;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 1.5em 0;
+`;
+
+const Line = styled.hr`
+  border: none;
+  border-bottom: 1px solid #dfdfdf;
+  width: 80%;
+  margin: 0 auto;
+`;
+
+const Info = styled.span`
+  color: #a9a9a9;
+  display: block;
+  margin: 1.5em 0;
+`;
+
+const DetailLink = styled.a`
+  margin: 1.5em 0;
+  display: block;
+  color: #000;
+`;
+
+const CloseButton = styled.button`
+  margin-top: 1em;
+  background-color: #f4f4f4;
+  width: 87%;
+  padding: 1em 0;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+`;
