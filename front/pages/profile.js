@@ -10,52 +10,6 @@ import { wrapper } from "../redux/store";
 import { FaUserCircle } from "react-icons/fa";
 import ProfileChangeModal from "../components/Modal/ProfileChangeModal";
 
-const Title = styled.h1`
-  text-align: center;
-  font-family: Yellowtail;
-  font-size: 2rem;
-  padding: 2.5rem 0 1rem;
-`;
-const ProfileForm = styled.form`
-  padding-top: 2em;
-  margin: 0 auto;
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-
-  .item__wrapper {
-    position: relative;
-    padding: 7px 0;
-    margin: 7px 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .profile__image {
-    margin: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-  }
-  .change__letter {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-  }
-  .title__lable {
-    min-width: 100px;
-    flex: 1 1 auto;
-    font-size: 1.3em;
-  }
-  .user__email {
-    font-size: 1.1em;
-    padding: 0 10px;
-    width: 100%;
-  }
-`;
-
 const Profile = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -131,16 +85,9 @@ const Profile = () => {
     <Layout>
       <Title>My Profile</Title>
       <ProfileForm onSubmit={handleSubmit(onSubmit)}>
-        <div className="item__wrapper">
-          <Avatar
-            className="profile__image"
-            size={220}
-            src={loadImage()}
-            onClick={handleSelectImage}
-          />
-          <span className="change__letter" onClick={handleSelectImage}>
-            사진 변경
-          </span>
+        <ItemWrapper>
+          <Image size={220} src={loadImage()} onClick={handleSelectImage} />
+          <ChangeButton onClick={handleSelectImage}>사진 변경</ChangeButton>
           <input
             style={{ display: "none" }}
             type="file"
@@ -148,19 +95,14 @@ const Profile = () => {
             onChange={onChangeImage}
             accept="image/jpeg, image/png"
           />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            margin: "0 0 80px",
-          }}
-        ></div>
-        <div className="item__wrapper">
-          <label className="title__lable">아이디</label>
-          <label className="user__email">{email}</label>
-        </div>
-        <div className="item__wrapper">
-          <label className="title__lable">이름</label>
+        </ItemWrapper>
+
+        <ItemWrapper>
+          <Label>아이디</Label>
+          <Email>{email}</Email>
+        </ItemWrapper>
+        <ItemWrapper>
+          <Label>이름</Label>
           <AntInput
             name="name"
             id="name"
@@ -170,7 +112,7 @@ const Profile = () => {
             value={form.name}
             onChange={onChangeForm}
           />
-        </div>
+        </ItemWrapper>
         <ProfileChangeModal />
       </ProfileForm>
     </Layout>
@@ -189,3 +131,58 @@ export const getServerSideProps = wrapper.getServerSideProps(
   }
 );
 export default Profile;
+
+const Title = styled.h1`
+  text-align: center;
+  font-family: Yellowtail;
+  font-size: 2rem;
+  padding: 2.5rem 0 1rem;
+`;
+
+const ItemWrapper = styled.div`
+  position: relative;
+  padding: 7px 0;
+  margin: 7px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &:first-child {
+    margin-bottom: 90px;
+  }
+`;
+
+const Image = styled(Avatar)`
+  margin: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+`;
+
+const ChangeButton = styled.button`
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+`;
+
+const Label = styled.label`
+  min-width: 100px;
+  flex: 1 1 auto;
+  font-size: 1.2em;
+`;
+
+const Email = styled.label`
+  font-size: 1.1em;
+  padding: 0 10px;
+  width: 100%;
+`;
+
+const ProfileForm = styled.form`
+  padding-top: 2em;
+  margin: 0 auto;
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+`;
