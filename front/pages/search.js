@@ -10,29 +10,6 @@ import Router from "next/router";
 import { wrapper } from "../redux/store";
 import { getCookie, userLoading } from "../redux/AuthSlice";
 
-const SearchLists = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  align-items: center;
-
-  .image__wrapper {
-    position: relative;
-    overflow: hidden;
-    height: 300px;
-    border: 1px solid #cfcfcf;
-    cursor: pointer;
-  }
-  img {
-    object-fit: cover;
-    width: 100%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-  }
-`;
-
 const Search = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth.user);
@@ -52,11 +29,11 @@ const Search = () => {
   return (
     <LightColorBg>
       <MainHeader />
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ width: "95%" }}>
+      <SearchLayout>
+        <div>
           <SearchBar placeholder="게시글 검색..." setKeyword={setKeyword} />
         </div>
-      </div>
+      </SearchLayout>
       <SearchLists>
         <List
           size="large"
@@ -72,12 +49,9 @@ const Search = () => {
           dataSource={searchedPost}
           renderItem={(post) => (
             <List.Item style={{ marginBottom: "50px" }}>
-              <Card
-                className="image__wrapper"
-                onClick={() => onClickPost(post._id)}
-              >
+              <CardImage onClick={() => onClickPost(post._id)}>
                 <img src={post.imageUrls[0]} />
-              </Card>
+              </CardImage>
             </List.Item>
           )}
         ></List>
@@ -100,3 +74,36 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
+
+const SearchLayout = styled.div`
+  display: flex;
+  justify-content: center;
+
+  > div {
+    width: 95%;
+  }
+`;
+
+const SearchLists = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+`;
+
+const CardImage = styled(Card)`
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+  border: 1px solid #cfcfcf;
+  cursor: pointer;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+`;
