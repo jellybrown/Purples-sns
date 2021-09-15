@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Head from "next/head";
-import GlobalStyles from "../styles/globalStyles";
+import GlobalStyles from "styles/globalStyles";
 import "antd/dist/antd.css";
-import { wrapper } from "../redux/store";
+import { wrapper } from "redux/store";
 /*
  * Application Container. 공통의 레이아웃을 작성.
  * client에서 띄우길 바라는 전체 컴포넌트의 레이아웃.

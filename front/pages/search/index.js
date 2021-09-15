@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import MainHeader from "../components/Header/MainHeader";
-import SearchBar from "../components/SearchBar";
-import { LightColorBg } from "../styles/bg";
+import MainHeader from "components/Header/MainHeader";
+import SearchBar from "components/SearchBar";
+import { LightColorBg } from "styles/bg";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, List } from "antd";
-import { searchPost } from "../redux/PostSlice";
+import { searchPost } from "redux/PostSlice";
 import styled from "styled-components";
 import Router from "next/router";
-import { wrapper } from "../redux/store";
-import { getCookie, userLoading } from "../redux/AuthSlice";
+import { wrapper } from "redux/store";
+import { getCookie, userLoading } from "redux/AuthSlice";
 
 const Search = () => {
   const dispatch = useDispatch();

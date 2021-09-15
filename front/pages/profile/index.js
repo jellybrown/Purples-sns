@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import Layout from "../styles/layout";
+import Layout from "styles/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import Router from "next/router";
 import { Input as AntInput, Avatar } from "antd";
-import { getCookie, updateUser, userLoading } from "../redux/AuthSlice";
-import { wrapper } from "../redux/store";
+import { getCookie, updateUser, userLoading } from "redux/AuthSlice";
+import { wrapper } from "redux/store";
 import { FaUserCircle } from "react-icons/fa";
-import ProfileChangeModal from "../components/Modal/ProfileChangeModal";
+import ProfileChangeModal from "components/Modal/ProfileChangeModal";
 
 const Profile = () => {
   const dispatch = useDispatch();
