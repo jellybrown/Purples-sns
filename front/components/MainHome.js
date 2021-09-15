@@ -30,6 +30,29 @@ const MainHomeWrapper = styled.div`
   }
 `;
 
+const PCScreen = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-left: calc(10% + 320px);
+  padding-left: 10%;
+`;
+
+const MobileScreen = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-left: 0px;
+  padding-left: 0px;
+`;
+
+const UserProfile = styled.div`
+  position: fixed;
+  left: 10%;
+  top: 7rem;
+`;
+
 const MainHome = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
@@ -39,21 +62,21 @@ const MainHome = () => {
       <MainHomeWrapper>
         {isDesktopOrLaptop && (
           <>
-            <div className="pc__wrapper">
+            <PCScreen>
               <PostForm />
               <PostCards />
-            </div>
-            <div className="user__profile">
+            </PCScreen>
+            <UserProfile>
               <MainProfile />
-            </div>
+            </UserProfile>
           </>
         )}
         {isTabletOrMobileDevice && (
           <>
-            <div className="mobile__wrapper">
+            <MobileScreen>
               <PostForm />
               <PostCards />
-            </div>
+            </MobileScreen>
           </>
         )}
       </MainHomeWrapper>
