@@ -21,14 +21,12 @@ const Find = () => {
   return (
     <LightColorBg>
       <MainHeader />
-      <div style={{ width: "100%" }}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ width: "95%" }}>
-            <SearchBar placeholder="사용자 검색..." setKeyword={setKeyword} />
-          </div>
+      <SearchLayout>
+        <div>
+          <SearchBar placeholder="사용자 검색..." setKeyword={setKeyword} />
         </div>
-        <FriendsBox isFindPage />
-      </div>
+      </SearchLayout>
+      <FriendsBox isFindPage />
     </LightColorBg>
   );
 };
@@ -47,3 +45,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 export default Find;
+
+const SearchLayout = styled.div`
+  display: flex;
+  justify-content: center;
+
+  > div {
+    width: 95%;
+  }
+`;
