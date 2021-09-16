@@ -7,6 +7,7 @@ import { LightColorBg } from "styles/bg";
 import { searchUser } from "redux/UserSlice";
 import { wrapper } from "redux/store";
 import { getCookie, userLoading } from "redux/AuthSlice";
+import { SearchLayout } from "./index.style";
 
 const Find = () => {
   const dispatch = useDispatch();
@@ -45,12 +46,3 @@ export const getServerSideProps = wrapper.getServerSideProps(
 );
 
 export default Find;
-
-const SearchLayout = styled.div`
-  display: flex;
-  justify-content: center;
-
-  > div {
-    width: 95%;
-  }
-`;

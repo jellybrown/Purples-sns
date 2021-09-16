@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Col, Row, Button } from "antd";
-import styled from "styled-components";
 import MainHeader from "components/Header/MainHeader";
 import { LightColorBg } from "styles/bg";
 import useMediaQuery from "utils/useMediaQuery";
@@ -15,78 +14,17 @@ import DetailMoreModal from "components/Modal/DetailMoreModal";
 import ImageSlide from "components/DetailPage/ImageSlide";
 import CommentList from "components/DetailPage/CommentList";
 import { useRouter } from "next/router";
-
-const DetailPage = styled.section`
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  padding-top: 60px;
-
-  .ant-list-item-meta-avatar {
-    margin-right: 10px;
-  }
-
-  .contents__wrapper {
-    height: 500px;
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera*/
-    }
-  }
-  .content {
-    border-bottom: 1px solid #f0f0f0;
-    padding: 2em;
-  }
-  .slick-dots {
-    color: rgba(0, 0, 0, 0.3);
-    li.slick-active {
-      color: rgba(0, 0, 0, 0.5);
-    }
-  }
-  .ant-btn {
-    padding: 0;
-  }
-  .content {
-    position: relative;
-  }
-  .writer {
-    text-align: right;
-    font-weight: 500;
-  }
-  .icon__wrapper {
-    z-index: 2;
-    position: absolute;
-    right: 1em;
-    bottom: 0.5em;
-    font-size: 1.4rem;
-  }
-  .icon-item {
-    margin-left: 0.5em;
-    cursor: pointer;
-  }
-  .comments {
-    padding: 1em;
-    p {
-      text-align: right;
-      color: #a3a3a3;
-    }
-  }
-  .input__wrapper {
-    display: flex;
-    align-items: center;
-  }
-  .comment__input {
-    padding-top: 10px;
-    margin-left: 5px;
-    border: none;
-    outline: none;
-    flex: 1;
-  }
-`;
+import {
+  DetailWrapper,
+  ContentsWrapper,
+  Content,
+  AuthorName,
+  IconWrapper,
+  IconItem,
+  Comments,
+  InputWrapper,
+  Input,
+} from "./index.style";
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -142,39 +80,33 @@ const Post = () => {
   return (
     <LightColorBg>
       <MainHeader />
-      <DetailPage>
+      <DetailWrapper>
         <Row>
           <Col xs={24} md={11} xxl={10} ref={sliderRef}>
             <ImageSlide imageUrls={thisPost.imageUrls} />
           </Col>
           <Col xs={24} md={13} xxl={14} style={{ background: "white" }}>
-            <section className="contents__wrapper">
-              <article
-                className="content"
-                style={{
-                  height: isDesktopOrLaptop ? "300px" : "250px",
-                }}
-              >
-                <p className="writer">{thisPost.writer?.name}</p>
+            <ContentsWrapper>
+              <Content isDesktopOrLaptop={isDesktopOrLaptop}>
+                <AuthorName>{thisPost.writer?.name}</AuthorName>
                 <p>{thisPost.contents}</p>
-                <div className="icon__wrapper">
+                <IconWrapper>
                   {thisPost && isMyPost() ? <DetailMoreModal /> : null}
-                  <span className="icon-item">
+                  <IconItem>
                     {liked ? (
                       <FaHeart onClick={onToggleLike} />
                     ) : (
                       <FiHeart onClick={onToggleLike} />
                     )}
-                  </span>
-                </div>
-              </article>
-              <article className="comments" ref={boxRef}>
+                  </IconItem>
+                </IconWrapper>
+              </Content>
+              <Comments ref={boxRef}>
                 <p>{thisPost.comments?.length || 0}개의 댓글이 있습니다.</p>
                 <div>
                   <CommentList thisPost={thisPost} user={user} />
-                  <div className="input__wrapper">
-                    <input
-                      className="comment__input"
+                  <InputWrapper>
+                    <Input
                       onChange={onChange}
                       value={text}
                       placeholder="댓글 입력..."
@@ -184,13 +116,13 @@ const Post = () => {
                         입력
                       </Button>
                     </div>
-                  </div>
+                  </InputWrapper>
                 </div>
-              </article>
-            </section>
+              </Comments>
+            </ContentsWrapper>
           </Col>
         </Row>
-      </DetailPage>
+      </DetailWrapper>
     </LightColorBg>
   );
 };

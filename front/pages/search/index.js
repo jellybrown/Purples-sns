@@ -3,12 +3,12 @@ import MainHeader from "components/Header/MainHeader";
 import SearchBar from "components/SearchBar";
 import { LightColorBg } from "styles/bg";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, List } from "antd";
+import { List } from "antd";
 import { searchPost } from "redux/PostSlice";
-import styled from "styled-components";
 import Router from "next/router";
 import { wrapper } from "redux/store";
 import { getCookie, userLoading } from "redux/AuthSlice";
+import { SearchLayout, SearchLists, CardImage } from "./index.style";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -74,36 +74,3 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
-
-const SearchLayout = styled.div`
-  display: flex;
-  justify-content: center;
-
-  > div {
-    width: 95%;
-  }
-`;
-
-const SearchLists = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  align-items: center;
-`;
-
-const CardImage = styled(Card)`
-  position: relative;
-  overflow: hidden;
-  height: 300px;
-  border: 1px solid #cfcfcf;
-  cursor: pointer;
-
-  img {
-    object-fit: cover;
-    width: 100%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-  }
-`;
