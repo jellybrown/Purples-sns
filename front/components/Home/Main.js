@@ -1,33 +1,12 @@
 import MainProfile from "./MainProfile";
-import useMediaQuery from "../utils/useMediaQuery";
-import Layout from "../styles/layout";
-import PostForm from "./Forms/PostForm";
+import useMediaQuery from "../../utils/useMediaQuery";
+import Layout from "../../styles/layout";
+import PostForm from "../Forms/PostForm";
 import styled from "styled-components";
-import PostCards from "./PostCard/PostCards";
+import PostCards from "../PostCard/PostCards";
 
 const MainHomeWrapper = styled.div`
   position: relative;
-
-  .pc__wrapper {
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-left: calc(10% + 320px);
-    padding-left: 10%;
-  }
-  .user__profile {
-    position: fixed;
-    left: 10%;
-    top: 7rem;
-  }
-  .mobile__wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    margin-left: 0px;
-    padding-left: 0px;
-  }
 `;
 
 const PCScreen = styled.div`
@@ -53,7 +32,7 @@ const UserProfile = styled.div`
   top: 7rem;
 `;
 
-const MainHome = () => {
+const Main = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
   const isTabletOrMobileDevice = useMediaQuery("(max-device-width: 1224px)");
 
@@ -84,4 +63,4 @@ const MainHome = () => {
   );
 };
 
-export default MainHome;
+export default Main;

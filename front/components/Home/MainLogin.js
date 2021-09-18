@@ -1,9 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { StyledAtag } from "../styles/aTag";
-import { GradientBg } from "../styles/bg";
-import Button from "../styles/button";
-import Logo from "./Logo";
+import { StyledAtag } from "styles/aTag";
+import { GradientBg } from "styles/bg";
+import Button from "styles/button";
+import Logo from "components/Logo";
 
 const LoginWrapper = styled.div`
   width: 40%;

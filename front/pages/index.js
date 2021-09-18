@@ -1,20 +1,11 @@
 import React from "react";
-import MainHome from "components/MainHome";
-import MainLogin from "components/MainLogin";
 import { getCookie, userLoading } from "redux/AuthSlice";
 import { wrapper } from "redux/store";
 import { connect } from "react-redux";
+import Home from "components/Home";
 
-const Main = ({ isAuthenticated }) => {
-  return (
-    <div>
-      {isAuthenticated !== null && isAuthenticated ? (
-        <MainHome />
-      ) : (
-        <MainLogin />
-      )}
-    </div>
-  );
+const Index = ({ isAuthenticated }) => {
+  return <Home isAuthenticated={isAuthenticated} />;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -29,5 +20,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
-export default connect((state) => state)(Main);
-//export default Main;
+export default connect((state) => state)(Index);
