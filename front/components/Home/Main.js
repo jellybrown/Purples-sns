@@ -2,35 +2,13 @@ import MainProfile from "./MainProfile";
 import useMediaQuery from "../../utils/useMediaQuery";
 import Layout from "../../styles/layout";
 import PostForm from "../Forms/PostForm";
-import styled from "styled-components";
 import PostCards from "../PostCard/PostCards";
-
-const MainHomeWrapper = styled.div`
-  position: relative;
-`;
-
-const PCScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  margin-left: calc(10% + 320px);
-  padding-left: 10%;
-`;
-
-const MobileScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  margin-left: 0px;
-  padding-left: 0px;
-`;
-
-const UserProfile = styled.div`
-  position: fixed;
-  left: 10%;
-  top: 7rem;
-`;
+import {
+  MainHomeWrapper,
+  PCScreen,
+  MobileScreen,
+  UserProfile,
+} from "./index.style";
 
 const Main = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");

@@ -1,24 +1,9 @@
 import Link from "next/link";
-import styled from "styled-components";
 import { StyledAtag } from "styles/aTag";
 import { GradientBg } from "styles/bg";
 import Button from "styles/button";
 import Logo from "components/Logo";
-
-const LoginWrapper = styled.div`
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-  margin: 0 auto;
-
-  .logo__wrapper {
-    text-align: center;
-    padding-top: 8em;
-  }
-  .login-btns {
-    padding-top: 4em;
-  }
-`;
+import { LoginButtons, LogoWrapper, LoginWrapper } from "./index.style";
 
 const MainLogin = () => {
   const alertMessage = () => {
@@ -27,10 +12,10 @@ const MainLogin = () => {
   return (
     <GradientBg>
       <LoginWrapper>
-        <div className="logo__wrapper">
+        <LogoWrapper>
           <Logo isForm />
-        </div>
-        <div className="login-btns">
+        </LogoWrapper>
+        <LoginButtons>
           <Link href="/login">
             <a>
               <Button transparent>로그인</Button>
@@ -41,7 +26,7 @@ const MainLogin = () => {
           </Link>
           <Button onClick={alertMessage}>kakao로 로그인</Button>
           <Button onClick={alertMessage}>google로 로그인</Button>
-        </div>
+        </LoginButtons>
       </LoginWrapper>
     </GradientBg>
   );

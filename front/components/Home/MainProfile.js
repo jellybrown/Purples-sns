@@ -1,7 +1,15 @@
 import { useSelector } from "react-redux";
 import { FaUserCircle } from "react-icons/fa";
 import { Card } from "antd";
-import styled from "styled-components";
+import {
+  UserInfoWrapper,
+  UserImg,
+  UserName,
+  ProfileInfo,
+  FollowBox,
+  Title,
+  Count,
+} from "./index.style";
 
 const UserInfo = () => {
   const { name, profileImageUrl } = useSelector((state) => state.auth.user);
@@ -45,47 +53,3 @@ const MainProfile = () => {
 };
 
 export default MainProfile;
-
-const UserInfoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 1em;
-`;
-
-const UserImg = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-`;
-
-const UserName = styled.div`
-  margin-left: 20px;
-  span {
-    font-size: 1rem;
-  }
-  p {
-    font-size: 0.8rem;
-    font-weight: 300;
-  }
-`;
-
-const ProfileInfo = styled.div`
-  display: flex;
-  text-align: center;
-  padding: 20px 0;
-`;
-
-const FollowBox = styled.div`
-  flex-basis: 50%;
-`;
-
-const Title = styled.p`
-  font-family: "Yellowtail";
-  font-size: 1.3rem;
-  margin: 0;
-`;
-
-const Count = styled.span`
-  font-family: "Yellowtail";
-  font-size: 3rem;
-`;
