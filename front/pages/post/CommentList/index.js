@@ -1,11 +1,18 @@
 import { List, Avatar } from "antd";
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { removeComment } from "../../redux/PostSlice";
+import { removeComment } from "redux/PostSlice";
 import PropTypes from "prop-types";
 import { FaUserCircle } from "react-icons/fa";
-import { changeDate } from "../../utils/changeDate";
+import { changeDate } from "utils/changeDate";
+import {
+  CommentsWrapper,
+  CommentItem,
+  Content,
+  Text,
+  Date,
+  DeleteButton,
+} from "./index.style";
 
 const CommentList = memo(({ thisPost, user }) => {
   const dispatch = useDispatch();
@@ -56,54 +63,3 @@ CommentList.propTypes = {
 };
 
 export default CommentList;
-
-const CommentsWrapper = styled(List)`
-  .ant-list-items {
-    min-height: 150px;
-  }
-  .ant-list-item-meta-title {
-    margin-bottom: 0;
-  }
-  .ant-list-item-meta-avatar {
-    height: 32px;
-  }
-  .ant-list-item-meta {
-    align-items: center;
-    flex: none;
-  }
-  .ant-list-item-meta-content {
-    width: auto;
-  }
-  .ant-list-item {
-    border-bottom: none !important;
-  }
-`;
-
-const CommentItem = styled.div`
-  flex: 1;
-  display: flex;
-`;
-
-const Content = styled.div`
-  color: #303030;
-  padding-left: 10px;
-  flex: 1;
-`;
-
-const Text = styled.span`
-  font-size: 0.9em;
-`;
-
-const Date = styled.span`
-  font-size: 0.8em;
-  color: #a3a3a3;
-  margin-left: 8px;
-`;
-
-const DeleteButton = styled.button`
-  font-size: 0.8em;
-  margin-left: 0.6em;
-  color: #ccc;
-  border: none;
-  background: none;
-`;

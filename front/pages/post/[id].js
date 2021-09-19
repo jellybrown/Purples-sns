@@ -11,8 +11,6 @@ import { getPost } from "redux/PostSlice";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import DetailMoreModal from "components/Modal/DetailMoreModal";
-import ImageSlide from "components/DetailPage/ImageSlide";
-import CommentList from "components/DetailPage/CommentList";
 import { useRouter } from "next/router";
 import {
   DetailWrapper,
@@ -25,6 +23,8 @@ import {
   InputWrapper,
   Input,
 } from "./index.style";
+import ImageSlide from "./ImageSlide";
+import CommentList from "./CommentList";
 
 const Post = () => {
   const dispatch = useDispatch();

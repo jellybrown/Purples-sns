@@ -2,9 +2,9 @@ import React, { memo, useState } from "react";
 import Slick from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled from "styled-components";
-import { NextArrow, PrevArrow } from "../../styles/slickArrow";
-import useMediaQuery from "../../utils/useMediaQuery";
+import { NextArrow, PrevArrow } from "styles/slickArrow";
+import useMediaQuery from "utils/useMediaQuery";
+import { SlideWrapper, ImageWrapper, Image } from "./index.style";
 import PropTypes from "prop-types";
 
 const ImageSlide = memo(({ imageUrls }) => {
@@ -47,29 +47,3 @@ ImageSlide.propTypes = {
 };
 
 export default ImageSlide;
-
-const SlideWrapper = styled.section`
-  width: 100%;
-  background: white;
-  overflow: hidden;
-  position: relative;
-  padding-top: 60px;
-`;
-
-const ImageWrapper = styled.div`
-  overflow: hidden;
-  position: relative;
-  height: 500px;
-`;
-
-const Image = styled.img`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  min-height: 100%;
-  max-height: ${({ isDesktopOrLaptop }) =>
-    isDesktopOrLaptop ? "600px" : "500px"};
-  min-width: 100%;
-  max-width: 600px;
-`;
