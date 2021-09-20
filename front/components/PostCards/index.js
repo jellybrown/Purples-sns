@@ -1,14 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import "antd/dist/antd.css";
-import { Alert, Card } from "antd";
 import CardContent from "./CardContent";
-import PostCardImg from "./PostCardImg";
+import CardImage from "./CardImage";
 import { useDispatch, useSelector } from "react-redux";
 import { Spin } from "antd";
 import { loadPost } from "../../redux/PostSlice";
 import { LoadingOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import useMediaQuery from "../../utils/useMediaQuery";
+import {
+  CardWrapper,
+  CustomCard,
+  SpinnerWrapper,
+  AlertWrapper,
+  CustomAlert,
+} from "./index.style";
 
 const PostCards = () => {
   const { posts, loading, postCount, postFilter } = useSelector(
@@ -92,37 +97,23 @@ const PostCards = () => {
   return (
     <CardWrapper>
       {posts.map((post) => (
-        <Card
-          className="post-card"
-          style={{ margin: !isDesktopOrLaptop && "0 auto 50px" }}
+        <CustomCard
+          isDesktopOrLaptop={isDesktopOrLaptop}
           key={post._id}
-          cover={<PostCardImg images={post.imageUrls} />}
+          cover={<CardImage images={post.imageUrls} />}
         >
           <CardContent post={post} />
-        </Card>
+        </CustomCard>
       ))}
-      <div
-        ref={lastPostElementRef}
-        style={{ textAlign: "center", maxWidth: "500px", padding: "50px 0" }}
-      >
+      <SpinnerWrapper ref={lastPostElementRef}>
         {<Spin indicator={antIcon} />}
-      </div>
+      </SpinnerWrapper>
       {loading ? (
         ""
       ) : endMsg ? (
-        <div>
-          <Alert
-            message="마지막 포스트입니다."
-            type="info"
-            style={{
-              maxWidth: "500px",
-              minWidth: "140px",
-              width: "93%",
-              fontFamily: "Noto Sans KR",
-              fontSize: "12px",
-            }}
-          />
-        </div>
+        <AlertWrapper>
+          <CustomAlert message="마지막 포스트입니다." type="info" />
+        </AlertWrapper>
       ) : (
         ""
       )}
@@ -131,20 +122,3 @@ const PostCards = () => {
 };
 
 export default PostCards;
-
-const CardWrapper = styled.div`
-  width: 100%;
-
-  .post-card {
-    max-width: 500px;
-    width: 93%;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.05);
-    margin-bottom: 70px;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-  }
-`;

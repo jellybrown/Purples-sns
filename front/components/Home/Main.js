@@ -2,7 +2,7 @@ import MainProfile from "./MainProfile";
 import useMediaQuery from "../../utils/useMediaQuery";
 import Layout from "../../styles/layout";
 import PostForm from "../Forms/PostForm";
-import PostCards from "../PostCard/PostCards";
+import PostCards from "../PostCards";
 import {
   MainHomeWrapper,
   PCScreen,

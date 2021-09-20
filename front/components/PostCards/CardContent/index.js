@@ -2,14 +2,19 @@ import React, { useRef } from "react";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
-import CardComment from "./CardComment";
+import CardComment from "../CardComment";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import { useRouter } from "next/router";
-import CardMoreModal from "../Modal/CardMoreModal";
-import FollowModal from "../Modal/FollowModal";
+import CardMoreModal from "../../Modal/CardMoreModal";
+import FollowModal from "../../Modal/FollowModal";
 import PropTypes from "prop-types";
-import useToggle from "../../hooks/useToggle";
+import useToggle from "hooks/useToggle";
+import {
+  ContentWrapper,
+  IconWrapper,
+  IconItem,
+  ContentText,
+} from "./index.style";
 
 const CardContent = ({ post }) => {
   const {
@@ -68,9 +73,9 @@ const CardContent = ({ post }) => {
             writeDate={date}
             isFollowing={isFollowing()}
           />
-          <Text onClick={() => router.push(`/post/${post._id}`)}>
+          <ContentText onClick={() => router.push(`/post/${post._id}`)}>
             {contents}
-          </Text>
+          </ContentText>
         </>
       )}
     </ContentWrapper>
@@ -82,31 +87,3 @@ CardContent.propTypes = {
 };
 
 export default CardContent;
-
-const ContentWrapper = styled.div`
-  position: relative;
-  min-height: 200px;
-  height: 50%;
-  max-height: 800px;
-  overflow: hidden;
-`;
-
-const IconWrapper = styled.div`
-  z-index: 2;
-  position: absolute;
-  right: 0;
-  font-size: 1.4rem;
-`;
-
-const IconItem = styled.span`
-  margin-left: 0.5em;
-  cursor: pointer;
-`;
-
-const Text = styled.div`
-  font-size: 0.85rem;
-  padding-top: 1.3em;
-  padding-left: 1em;
-  cursor: pointer;
-  font-family: "Noto Sans KR", sans-serif;
-`;
