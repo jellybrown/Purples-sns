@@ -2,12 +2,12 @@ import React from "react";
 import { FiMail } from "react-icons/fi";
 import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
-import Input from "../../styles/input";
-import styled from "styled-components";
+import Input from "styles/input";
 import Link from "next/link";
-import { StyledAtag } from "../../styles/aTag";
+import { StyledAtag } from "styles/aTag";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../redux/AuthSlice";
+import { loginUser } from "redux/AuthSlice";
+import { LoginWrapper, InputWrapper, ErrorMessage } from "./index.style";
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -75,30 +75,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-const LoginWrapper = styled.form`
-  padding-top: 4em;
-  margin: 0 auto;
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-
-  > svg {
-    font-size: 1.4rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 1em;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 0.8rem;
-  padding-left: 2em;
-  color: rgba(255, 255, 255, 0.8);
-`;
