@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from "react";
 import { Avatar } from "antd";
-import CommentForm from "../../Forms/CommentForm";
 import { useRouter } from "next/router";
 import useMediaQuery from "utils/useMediaQuery";
 import PropTypes from "prop-types";
@@ -15,6 +14,7 @@ import {
   UserCircle,
   CommentMeta,
 } from "./index.style";
+import CommentForm from "../CommentForm";
 
 const CardComment = ({ post }) => {
   const { comments } = post;

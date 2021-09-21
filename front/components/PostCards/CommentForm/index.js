@@ -1,9 +1,13 @@
 import { Button } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { addComment } from "../../redux/PostSlice";
+import { addComment } from "redux/PostSlice";
 import PropTypes from "prop-types";
+import {
+  CommentInputWrapper,
+  CommentInput,
+  ButtonWrapper,
+} from "./index.style";
 
 const CommentForm = ({ post, scrollRef }) => {
   const [text, setText] = useState("");
@@ -55,24 +59,3 @@ CommentForm.propTypes = {
 };
 
 export default CommentForm;
-
-const CommentInputWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CommentInput = styled.input`
-  position: absolute;
-  bottom: 15px;
-  padding-top: 10px;
-  margin-left: 5px;
-  border: none;
-  outline: none;
-  width: 90%;
-`;
-
-const ButtonWrapper = styled.div`
-  position: absolute;
-  bottom: 10px;
-  right: -5px;
-`;
