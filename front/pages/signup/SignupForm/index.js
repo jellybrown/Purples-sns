@@ -4,13 +4,13 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import Input from "../../styles/input";
-import styled from "styled-components";
+import Input from "styles/input";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/AuthSlice";
+import { registerUser } from "redux/AuthSlice";
 import Link from "next/link";
-import { StyledAtag } from "../../styles/aTag";
+import { StyledAtag } from "styles/aTag";
 import { message } from "antd";
+import { SignupWrapper, InputWrapper, ErrorMessage } from "./index.style";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -127,30 +127,3 @@ const SignupForm = () => {
 };
 
 export default SignupForm;
-
-const SignupWrapper = styled.form`
-  padding-top: 4em;
-  margin: 0 auto;
-  width: 40%;
-  min-width: 300px;
-  max-width: 400px;
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-
-  > svg {
-    font-size: 1.4rem;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 1em;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 0.8rem;
-  padding-left: 2em;
-  color: rgba(255, 255, 255, 0.8);
-`;
