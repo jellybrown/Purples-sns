@@ -1,10 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Input, Modal } from "antd";
-import styled from "styled-components";
+import { Input, Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
-import { addPost } from "../../redux/PostSlice";
+import { addPost } from "redux/PostSlice";
 import { BsPencil } from "react-icons/bs";
+import {
+  PostFormWrapper,
+  ImageWrapper,
+  WriteButton,
+  SelectButton,
+  FileUpload,
+  PreviewText,
+  PreviewImages,
+  ImageStyle,
+} from "./index.style";
 
 const PostForm = () => {
   const dispatch = useDispatch();
@@ -125,80 +134,18 @@ const PostForm = () => {
           multiple={true}
           onChange={onChangePhoto}
         />
-        {previewImageUrl ? <Text>미리보기</Text> : null}
-        <Preview>
+        {previewImageUrl ? <PreviewText>미리보기</PreviewText> : null}
+        <PreviewImages>
           {previewImageUrl
             ? previewImageUrl.map((imageUrl) => (
-                <Wrapper>
+                <ImageWrapper>
                   <ImageStyle src={imageUrl} />
-                </Wrapper>
+                </ImageWrapper>
               ))
             : null}
-        </Preview>
+        </PreviewImages>
       </Modal>
     </PostFormWrapper>
   );
 };
 export default PostForm;
-
-const PostFormWrapper = styled.div``;
-
-const Wrapper = styled.div`
-  display: inline-block;
-  position: relative;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  border: 1px solid #e1e1e1;
-  border-radius: 20px;
-  margin: 0 10px;
-  padding: 0;
-`;
-
-const WriteButton = styled(Button)`
-  &&& {
-    width: 3.8rem;
-    height: 3.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    background: #aab2e3;
-    border: none;
-    z-index: 5;
-  }
-
-  > svg {
-    font-size: 2rem;
-    color: #fff;
-  }
-`;
-
-const SelectButton = styled(Button)`
-  &&& {
-    display: block;
-    margin-bottom: 20px;
-  }
-`;
-
-const ImageStyle = styled.img`
-  padding: 0;
-  width: 110px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const Text = styled.p`
-  text-align: right;
-`;
-
-const Preview = styled.div`
-  position: relative;
-  padding: 20px 0;
-`;

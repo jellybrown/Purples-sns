@@ -1,7 +1,6 @@
 import MainProfile from "./MainProfile";
-import useMediaQuery from "../../utils/useMediaQuery";
-import Layout from "../../styles/layout";
-import PostForm from "../Forms/PostForm";
+import useMediaQuery from "utils/useMediaQuery";
+import Layout from "styles/layout";
 import PostCards from "../PostCards";
 import {
   MainHomeWrapper,
@@ -9,6 +8,7 @@ import {
   MobileScreen,
   UserProfile,
 } from "./index.style";
+import PostForm from "./PostForm";
 
 const Main = () => {
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
