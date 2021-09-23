@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import styled from "styled-components";
 import { Button } from "antd";
-import { changePostFilter } from "../../redux/PostSlice";
-import useMediaQuery from "../../utils/useMediaQuery";
+import { changePostFilter } from "redux/PostSlice";
+import useMediaQuery from "utils/useMediaQuery";
 import PropTypes from "prop-types";
+import { PostfilterWrapper } from "./index.style";
 
 const FilterMenu = ({ secondMenu, postFilter }) => {
   const filterPostMenu = useRef();
@@ -63,24 +63,3 @@ FilterMenu.propTypes = {
 };
 
 export default FilterMenu;
-
-const PostfilterWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  z-index: 98;
-  bottom: 0;
-  background: #fff;
-  padding: 1em;
-  white-space: nowrap;
-  overflow-x: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .ant-btn > span {
-    font-family: Yellowtail;
-    font-size: 1.2rem;
-  }
-`;

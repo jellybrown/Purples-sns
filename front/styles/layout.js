@@ -1,10 +1,10 @@
-import MainHeader from "../components/Header/MainHeader";
+import Header from "components/Header";
 import { LightColorBg } from "../styles/bg";
 
 const Layout = ({ children }) => {
   return (
     <>
-      <MainHeader />
+      <Header />
       <LightColorBg>{children}</LightColorBg>
     </>
   );
