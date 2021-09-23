@@ -12,9 +12,8 @@ export const CustomCard = styled(Card)`
     border-radius: 30px;
     overflow: hidden;
     box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.05);
-    margin-bottom: 70px;
     margin: ${({ isDesktopOrLaptop }) =>
-      isDesktopOrLaptop ? "auto" : "0 auto 50px"};
+      isDesktopOrLaptop ? "0 auto 70px" : "0 auto 50px"};
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -webkit-transform: translate3d(0, 0, 0);
