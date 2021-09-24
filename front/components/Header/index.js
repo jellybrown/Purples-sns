@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
-import Logo from "../Logo";
+import Logo from "styles/logo";
 import Link from "next/link";
 import RightMenu from "./RightMenu";
 import FilterMenu from "./FilterMenu";

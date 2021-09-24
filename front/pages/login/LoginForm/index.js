@@ -4,10 +4,10 @@ import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
 import Input from "styles/input";
 import Link from "next/link";
-import { StyledAtag } from "styles/aTag";
 import { useDispatch } from "react-redux";
 import { loginUser } from "redux/AuthSlice";
 import { LoginWrapper, InputWrapper, ErrorMessage } from "./index.style";
+import { AuthLink } from "styles/common";
 
 const LoginForm = () => {
   const { register, handleSubmit, errors } = useForm();
@@ -67,7 +67,7 @@ const LoginForm = () => {
           style={{ marginTop: "3em" }}
         />
         <Link href="/signup">
-          <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
+          <AuthLink>아직 회원이 아니신가요?</AuthLink>
         </Link>
       </LoginWrapper>
     </>

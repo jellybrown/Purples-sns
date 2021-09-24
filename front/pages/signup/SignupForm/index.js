@@ -8,9 +8,9 @@ import Input from "styles/input";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "redux/AuthSlice";
 import Link from "next/link";
-import { StyledAtag } from "styles/aTag";
 import { message } from "antd";
 import { SignupWrapper, InputWrapper, ErrorMessage } from "./index.style";
+import { AuthLink } from "styles/common";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -120,7 +120,7 @@ const SignupForm = () => {
         style={{ marginTop: "2.5em" }}
       />
       <Link href="/login">
-        <StyledAtag>이미 회원입니다.</StyledAtag>
+        <AuthLink>이미 회원입니다.</AuthLink>
       </Link>
     </SignupWrapper>
   );

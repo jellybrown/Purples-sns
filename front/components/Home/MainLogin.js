@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { StyledAtag } from "styles/aTag";
-import { GradientBg } from "styles/bg";
+import { AuthLink, GradientBg } from "styles/common";
 import Button from "styles/button";
-import Logo from "components/Logo";
+import Logo from "styles/logo";
 import { LoginButtons, LogoWrapper, LoginWrapper } from "./index.style";
 
 const MainLogin = () => {
@@ -22,7 +21,7 @@ const MainLogin = () => {
             </a>
           </Link>
           <Link href="/signup">
-            <StyledAtag>아직 회원이 아니신가요?</StyledAtag>
+            <AuthLink>아직 회원이 아니신가요?</AuthLink>
           </Link>
           <Button onClick={alertMessage}>kakao로 로그인</Button>
           <Button onClick={alertMessage}>google로 로그인</Button>
