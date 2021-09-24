@@ -5,6 +5,14 @@ import styled from "styled-components";
 // 상세 페이지용 slick arrow
 // page > post > [id].js 에서 사용
 
+export const NextArrow = ({ onClick }) => {
+  return <StyledNext onClick={onClick} />;
+};
+
+export const PrevArrow = ({ onClick }) => {
+  return <StyledPrev onClick={onClick} />;
+};
+
 const StyledNext = styled(GrFormNext)`
   display: block;
   opacity: 0.3;
@@ -28,11 +36,3 @@ const StyledPrev = styled(GrFormPrevious)`
   cursor: pointer;
   z-index: 2;
 `;
-
-export const NextArrow = ({ onClick }) => {
-  return <StyledNext onClick={onClick} className="slick__next" />;
-};
-
-export const PrevArrow = ({ onClick }) => {
-  return <StyledPrev onClick={onClick} className="slick__prev" />;
-};

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import MainHeader from "components/Header/MainHeader";
-import SearchBar from "components/SearchBar";
-import { LightColorBg } from "styles/bg";
+import MainHeader from "components/Header";
+import SearchBar from "styles/searchBar";
+import { LightColorBg } from "styles/common";
 import { useDispatch, useSelector } from "react-redux";
 import { List } from "antd";
 import { searchPost } from "redux/PostSlice";

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FriendsBox from "components/FriendsBox";
-import MainHeader from "components/Header/MainHeader";
-import SearchBar from "components/SearchBar";
-import { LightColorBg } from "styles/bg";
+import MainHeader from "components/Header";
+import SearchBar from "styles/searchBar";
+import { LightColorBg } from "styles/common";
 import { searchUser } from "redux/UserSlice";
 import { wrapper } from "redux/store";
 import { getCookie, userLoading } from "redux/AuthSlice";

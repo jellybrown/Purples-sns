@@ -1,6 +1,29 @@
 import { BiSearch } from "react-icons/bi";
 import styled from "styled-components";
 
+const SearchBar = ({ setKeyword, ...props }) => {
+  const onChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  return (
+    <SearchBarWrapper>
+      <SearchInput onChange={onChange} {...props} />
+      <IconWrapper>
+        <SearchIcon />
+      </IconWrapper>
+    </SearchBarWrapper>
+  );
+};
+
+export default SearchBar;
+
+const SearchBarWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+`;
+
 const SearchInput = styled.input`
   color: #8c8c8c;
   border-radius: 3rem;
@@ -11,11 +34,13 @@ const SearchInput = styled.input`
   outline: none;
   font-size: 0.9rem;
   background: #fff;
+
   &::placeholder {
     color: #c7c7c7;
   }
   -webkit-appearance: none;
 `;
+
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -32,24 +57,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const SearchBar = ({ setKeyword, ...props }) => {
-  const onChange = (e) => {
-    setKeyword(e.target.value);
-  };
-
-  return (
-    <div style={{ position: "relative", width: "100%", marginTop: "20px" }}>
-      <SearchInput onChange={onChange} {...props} />
-      <IconWrapper>
-        <BiSearch
-          style={{
-            fontSize: "1.1rem",
-            color: "#333",
-          }}
-        />
-      </IconWrapper>
-    </div>
-  );
-};
-
-export default SearchBar;
+const SearchIcon = styled(BiSearch)`
+  font-size: 1.1rem;
+  color: #333;
+`;

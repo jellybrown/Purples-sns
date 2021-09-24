@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Col, Row, Button } from "antd";
-import MainHeader from "components/Header/MainHeader";
-import { LightColorBg } from "styles/bg";
+import MainHeader from "components/Header";
+import { LightColorBg } from "styles/common";
 import useMediaQuery from "utils/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment } from "redux/PostSlice";
