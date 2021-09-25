@@ -10,7 +10,6 @@ export const PCScreen = styled.div`
   flex-direction: column;
   margin-top: 50px;
   margin-left: calc(10% + 320px);
-  padding-left: 10%;
 `;
 
 export const MobileScreen = styled.div`
