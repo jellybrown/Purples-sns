@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import ROUTES from "constants/routesPath";
 import Layout from "styles/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -23,7 +24,7 @@ const Profile = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    !isAuthenticated && Router.push("/login");
+    !isAuthenticated && Router.push(ROUTES.LOGIN);
   }, []);
 
   const { _id, name, token, profileImageUrl, email } =

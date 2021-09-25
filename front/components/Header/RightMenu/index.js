@@ -1,4 +1,5 @@
 import React from "react";
+import ROUTES from "constants/routesPath";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import { HiOutlineMenu } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
@@ -16,12 +17,12 @@ const RightMenu = () => {
     <>
       {isDesktopOrLaptop && (
         <PCMenuWrapper>
-          <Link href="/find">
+          <Link href={ROUTES.FIND}>
             <IconWrapper>
               <BsFillPersonPlusFill />
             </IconWrapper>
           </Link>
-          <Link href="/search">
+          <Link href={ROUTES.SEARCH}>
             <IconWrapper>
               <BiSearch />
             </IconWrapper>

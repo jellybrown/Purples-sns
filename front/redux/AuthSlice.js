@@ -1,4 +1,5 @@
 import cookie from "js-cookie";
+import ROUTES from "constants/routesPath";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import Router from "next/router";
@@ -113,7 +114,7 @@ export const authSlice = createSlice({
     [registerUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
       setCookie("token", payload.data.token);
-      Router.push("/login");
+      Router.push(ROUTES.LOGIN);
       state.isAuthenticated = true;
       state.userId = payload.data.user.id;
       state.userRole = payload.data.user.role;
@@ -131,7 +132,7 @@ export const authSlice = createSlice({
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
       setCookie("token", payload.data.token);
-      Router.push("/");
+      Router.push(ROUTES.HOME);
       state.isAuthenticated = true;
       state.userId = payload.data.user.id;
       state.userRole = payload.data.user.role;
@@ -208,9 +209,6 @@ export const getCookieFromServer = (key, req) => {
   return rawCookie.split("=")[1];
 };
 
-export const {
-  logout,
-  decreaseFollowCount,
-  increaseFollowCount,
-} = authSlice.actions;
+export const { logout, decreaseFollowCount, increaseFollowCount } =
+  authSlice.actions;
 export default authSlice.reducer;

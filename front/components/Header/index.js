@@ -1,4 +1,5 @@
 import React, { memo, useState } from "react";
+import ROUTES from "constants/routesPath";
 import { AiOutlineHome } from "react-icons/ai";
 import Logo from "styles/logo";
 import Link from "next/link";
@@ -27,7 +28,7 @@ const Header = memo(() => {
   return (
     <HeaderWrapper>
       <HeaderMenu>
-        <Link href="/">
+        <Link href={ROUTES.HOME}>
           <LinkItem>
             <AiOutlineHome />
           </LinkItem>

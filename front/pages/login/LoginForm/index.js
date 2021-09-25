@@ -1,4 +1,5 @@
 import React from "react";
+import ROUTES from "constants/routesPath";
 import { FiMail } from "react-icons/fi";
 import { HiLockClosed } from "react-icons/hi";
 import { useForm } from "react-hook-form";
@@ -66,7 +67,7 @@ const LoginForm = () => {
           type="submit"
           style={{ marginTop: "3em" }}
         />
-        <Link href="/signup">
+        <Link href={ROUTES.SIGNUP}>
           <AuthLink>아직 회원이 아니신가요?</AuthLink>
         </Link>
       </LoginWrapper>

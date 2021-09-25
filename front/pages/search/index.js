@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ROUTES from "constants/routesPath";
 import MainHeader from "components/Header";
 import SearchBar from "styles/searchBar";
 import { LightColorBg } from "styles/common";
@@ -23,7 +24,7 @@ const Search = () => {
   }, [dispatch, keyword]);
 
   const onClickPost = (postId) => {
-    Router.push(`/post/${postId}`);
+    Router.push(`${ROUTES.POST}/${postId}`);
   };
 
   return (

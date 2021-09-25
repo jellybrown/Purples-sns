@@ -1,6 +1,7 @@
+import React from "react";
+import ROUTES from "constants/routesPath";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import React from "react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -37,7 +38,7 @@ const MoreModal = ({ isMine, writerName, postId }) => {
           <Info>{writerName}님의 글</Info>
         )}
         <Line />
-        <DetailLink onClick={() => router.push(`/post/${postId}`)}>
+        <DetailLink onClick={() => router.push(`${ROUTES.POST}/${postId}`)}>
           상세페이지로
         </DetailLink>
         <CloseButton onClick={onCloseModal}>닫기</CloseButton>

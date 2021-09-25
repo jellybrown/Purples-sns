@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ROUTES from "constants/routesPath";
 import { AuthLink, GradientBg } from "styles/common";
 import Button from "styles/button";
 import Logo from "styles/logo";
@@ -15,12 +16,12 @@ const MainLogin = () => {
           <Logo isForm />
         </LogoWrapper>
         <LoginButtons>
-          <Link href="/login">
+          <Link href={ROUTES.LOGIN}>
             <a>
               <Button transparent>로그인</Button>
             </a>
           </Link>
-          <Link href="/signup">
+          <Link href={ROUTES.SIGNUP}>
             <AuthLink>아직 회원이 아니신가요?</AuthLink>
           </Link>
           <Button onClick={alertMessage}>kakao로 로그인</Button>

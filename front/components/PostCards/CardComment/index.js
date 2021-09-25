@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from "react";
+import ROUTES from "constants/routesPath";
 import { Avatar } from "antd";
 import { useRouter } from "next/router";
 import useMediaQuery from "utils/useMediaQuery";
@@ -41,7 +42,7 @@ const CardComment = ({ post }) => {
   return (
     <CommentsWrapper>
       <CommentsCount>{comments.length}개의 댓글이 있습니다.</CommentsCount>
-      <CommentList onClick={() => router.push(`/post/${post._id}`)}>
+      <CommentList onClick={() => router.push(`${ROUTES.POST}/${post._id}`)}>
         {comments &&
           comments.map((comment) => {
             return (

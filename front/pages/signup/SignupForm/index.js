@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ROUTES from "constants/routesPath";
 import { FiMail } from "react-icons/fi";
 import { BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
@@ -119,7 +120,7 @@ const SignupForm = () => {
         type="submit"
         style={{ marginTop: "2.5em" }}
       />
-      <Link href="/login">
+      <Link href={ROUTES.LOGIN}>
         <AuthLink>이미 회원입니다.</AuthLink>
       </Link>
     </SignupWrapper>

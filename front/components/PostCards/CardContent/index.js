@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import ROUTES from "constants/routesPath";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { RiChat2Line, RiChat2Fill } from "react-icons/ri";
@@ -73,7 +74,9 @@ const CardContent = ({ post }) => {
             writeDate={date}
             isFollowing={isFollowing()}
           />
-          <ContentText onClick={() => router.push(`/post/${post._id}`)}>
+          <ContentText
+            onClick={() => router.push(`${ROUTES.POST}/${post._id}`)}
+          >
             {contents}
           </ContentText>
         </>

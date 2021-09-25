@@ -1,4 +1,5 @@
 import React from "react";
+import ROUTES from "constants/routesPath";
 import { FaUserCircle } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 import { BsFillPersonPlusFill } from "react-icons/bs";
@@ -31,7 +32,7 @@ const DropdownUser = () => {
             <span>로그아웃</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link href="/profile">
+            <Link href={ROUTES.PROFILE}>
               <DroppedLink>
                 <span>프로필</span>
                 <FaUserCircle />
@@ -50,7 +51,7 @@ const DropdownUser = () => {
             <span>로그아웃</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Link href="/profile">
+            <Link href={ROUTES.PROFILE}>
               <DroppedLink>
                 <span>프로필</span>
                 <FaUserCircle />
@@ -58,7 +59,7 @@ const DropdownUser = () => {
             </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Link href="/find">
+            <Link href={ROUTES.FIND}>
               <DroppedLink>
                 <span>친구 찾기</span>
                 <BsFillPersonPlusFill />
@@ -66,7 +67,7 @@ const DropdownUser = () => {
             </Link>
           </Menu.Item>
           <Menu.Item key="4">
-            <Link href="/search">
+            <Link href={ROUTES.SEARCH}>
               <DroppedLink>
                 <span>게시글 검색</span>
                 <BiSearch />
