@@ -16,7 +16,7 @@ import {
 
 const Header = memo(() => {
   const router = useRouter();
-  const isMainSection = () => router.pathname === "/";
+  const isMainSection = () => router.pathname === ROUTES.HOME;
   const [secondMenuY, setSecondMenuY] = useState(false);
   const { postFilter } = useSelector((state) => state.post);
 
