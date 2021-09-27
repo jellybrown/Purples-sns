@@ -24,19 +24,12 @@ const CardComment = ({ post }) => {
 
   const isDesktopOrLaptop = useMediaQuery("(min-device-width: 1224px)");
 
-  const changeMobileComment = useCallback((content) => {
-    if (content.length < 15) return content;
-    return content.slice(0, 14) + " ...";
-  }, []);
-
-  const changePcComment = useCallback((content) => {
-    if (content.length < 19) return content;
-    return content.slice(0, 18) + " ...";
-  }, []);
+  const PC_COMMENT_MAX_LENGTH = 19;
+  const M_COMMENT_MAX_LENGTH = 15;
 
   const checkOverLength = (content) => {
-    if (isDesktopOrLaptop) return changePcComment(content);
-    else return changeMobileComment(content);
+    if (isDesktopOrLaptop) return sliceComment(content, PC_COMMENT_MAX_LENGTH);
+    else return sliceComment(content, M_COMMENT_MAX_LENGTH);
   };
 
   return (
