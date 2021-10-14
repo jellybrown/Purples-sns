@@ -1,7 +1,8 @@
 import React from "react";
-import { getCookie, userLoading } from "redux/AuthSlice";
+import { userLoading } from "redux/AuthSlice";
 import { wrapper } from "redux/store";
 import { connect } from "react-redux";
+import { getCookie } from "utils/cookie";
 import Home from "components/Home";
 
 const Index = ({ isAuthenticated }) => {

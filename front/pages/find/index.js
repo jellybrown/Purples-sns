@@ -6,8 +6,9 @@ import SearchBar from "styles/searchBar";
 import { LightColorBg } from "styles/common";
 import { searchUser } from "redux/UserSlice";
 import { wrapper } from "redux/store";
-import { getCookie, userLoading } from "redux/AuthSlice";
+import { userLoading } from "redux/AuthSlice";
 import { SearchLayout } from "./index.style";
+import { getCookie } from "utils/cookie";
 
 const Find = () => {
   const dispatch = useDispatch();

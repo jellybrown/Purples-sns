@@ -4,7 +4,7 @@ import Layout from "styles/layout";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Router from "next/router";
-import { getCookie, updateUser, userLoading } from "redux/AuthSlice";
+import { updateUser, userLoading } from "redux/AuthSlice";
 import { wrapper } from "redux/store";
 import { FaUserCircle } from "react-icons/fa";
 import ProfileChangeModal from "components/Modal/ProfileChangeModal";
@@ -18,6 +18,7 @@ import {
   ProfileForm,
   AntNameInput,
 } from "./index.style";
+import { getCookie } from "utils/cookie";
 
 const Profile = () => {
   const dispatch = useDispatch();

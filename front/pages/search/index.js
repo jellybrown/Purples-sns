@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ROUTES from "constants/routesPath";
-import MainHeader from "components/Header";
 import SearchBar from "styles/searchBar";
 import { LightColorBg } from "styles/common";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,8 +7,10 @@ import { List } from "antd";
 import { searchPost } from "redux/PostSlice";
 import Router from "next/router";
 import { wrapper } from "redux/store";
-import { getCookie, userLoading } from "redux/AuthSlice";
+import { userLoading } from "redux/AuthSlice";
 import { SearchLayout, SearchLists, CardImage } from "./index.style";
+import MainHeader from "components/Header";
+import { getCookie } from "utils/cookie";
 
 const Search = () => {
   const dispatch = useDispatch();

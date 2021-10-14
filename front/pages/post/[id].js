@@ -6,7 +6,7 @@ import useMediaQuery from "utils/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment } from "redux/PostSlice";
 import { wrapper } from "redux/store";
-import { getCookie, userLoading } from "redux/AuthSlice";
+import { userLoading } from "redux/AuthSlice";
 import { getPost } from "redux/PostSlice";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
@@ -25,6 +25,7 @@ import {
 } from "./index.style";
 import ImageSlide from "./ImageSlide";
 import CommentList from "./CommentList";
+import { getCookie } from "utils/cookie";
 
 const Post = () => {
   const dispatch = useDispatch();
