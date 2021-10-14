@@ -15,6 +15,7 @@ import {
   UserCircle,
   CommentMeta,
 } from "./index.style";
+import { sliceComment } from "utils/sliceComment";
 import CommentForm from "../CommentForm";
 
 const CardComment = ({ post }) => {
