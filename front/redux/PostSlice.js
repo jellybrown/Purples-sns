@@ -51,16 +51,12 @@ export const getAllPost = createAsyncThunk("post/getAllPost", async () => {
 export const searchPost = createAsyncThunk(
   "post/searchPost",
   async (payload) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (payload.token) config.headers["x-auth-token"] = payload.token;
+    const headers = {};
+    if (payload.token) headers["x-auth-token"] = payload.token;
 
     return axios.get(
       `/api/post/search/${encodeURIComponent(payload.keyword)}`,
-      config
+      { headers }
     );
   }
 );
@@ -92,15 +88,10 @@ export const addPost = createAsyncThunk("post/addPost", async (payload) => {
 export const removePost = createAsyncThunk(
   "post/removePost",
   async (payload) => {
-    let config = {};
-    if (payload.token) {
-      config = {
-        headers: {
-          "x-auth-token": payload.token,
-        },
-      };
-    }
-    return axios.delete(`/api/post/${payload.id}`, config);
+    const headers = {};
+    if (payload.token) headers["x-auth-token"] = payload.token;
+
+    return axios.delete(`/api/post/${payload.id}`, { headers });
   }
 );
 
@@ -116,18 +107,12 @@ export const addComment = createAsyncThunk(
 export const removeComment = createAsyncThunk(
   "post/removeComment",
   async (payload) => {
-    let config = {};
-    if (payload.token) {
-      config = {
-        headers: {
-          "x-auth-token": payload.token,
-        },
-      };
-    }
-    return axios.delete(
-      `/api/post/${payload.post}/comments/${payload.id}`,
-      config
-    );
+    const headers = {};
+    if (payload.token) headers["x-auth-token"] = payload.token;
+
+    return axios.delete(`/api/post/${payload.post}/comments/${payload.id}`, {
+      headers,
+    });
   }
 );
 

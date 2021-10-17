@@ -20,14 +20,9 @@ const initialState = {
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
   async (payload) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (payload.token) {
-      config.headers["x-auth-token"] = payload.token;
-    }
+    const headers = {};
+    if (payload.token) headers["x-auth-token"] = payload.token;
+
     let form = new FormData();
     form.append("image", payload.profileImage);
     form.append("prevUserName", payload.prevUserName);
@@ -35,11 +30,9 @@ export const updateUser = createAsyncThunk(
     form.append("userId", payload.userId);
     form.append("token", payload.token);
 
-    return axios.post(
-      `/api/user/${payload.prevUserName}/profile`,
-      form,
-      config
-    );
+    return axios.post(`/api/user/${payload.prevUserName}/profile`, form, {
+      headers,
+    });
   }
 );
 
@@ -53,27 +46,17 @@ export const registerUser = createAsyncThunk(
 
 // login user
 export const loginUser = createAsyncThunk("auth/loginUser", async (payload) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  return axios.post("api/auth", payload, config);
+  return axios.post("api/auth", payload);
 });
 
 // user loading
 export const userLoading = createAsyncThunk(
   "auth/userLoading",
   async (token) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (token) {
-      config.headers["x-auth-token"] = token;
-    }
-    return axios.get("api/auth/user", config);
+    const headers = {};
+    if (token) headers["x-auth-token"] = token;
+
+    return axios.get("api/auth/user", { headers });
   }
 );
 
@@ -131,6 +114,7 @@ export const authSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
+      console.log("-->", payload.data.token);
       setCookie("token", payload.data.token);
       Router.push(ROUTES.HOME);
       state.isAuthenticated = true;

@@ -10,43 +10,27 @@ const initialState = {
 export const searchUser = createAsyncThunk(
   "user/searchUser",
   async (payload) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (payload.token) {
-      config.headers["x-auth-token"] = payload.token;
-    }
-    return axios.get(
-      `/api/search/${encodeURIComponent(payload.keyword)}`,
-      config
-    );
+    const headers = {};
+    if (payload.token) headers["x-auth-token"] = payload.token;
+
+    return axios.get(`/api/search/${encodeURIComponent(payload.keyword)}`, {
+      headers,
+    });
   }
 );
 
 export const follow = createAsyncThunk("user/follow", async (payload) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  if (payload.token) {
-    config.headers["x-auth-token"] = payload.token;
-  }
-  return axios.post("/api/follow/addFollow", payload, config);
+  const headers = {};
+  if (payload.token) headers["x-auth-token"] = payload.token;
+
+  return axios.post("/api/follow/addFollow", payload, { headers });
 });
 
 export const unFollow = createAsyncThunk("user/unfollow", async (payload) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  if (payload.token) {
-    config.headers["x-auth-token"] = payload.token;
-  }
-  return axios.post("/api/follow/removeFollow", payload, config);
+  const headers = {};
+  if (payload.token) headers["x-auth-token"] = payload.token;
+
+  return axios.post("/api/follow/removeFollow", payload, { headers });
 });
 
 export const userSlice = createSlice({
